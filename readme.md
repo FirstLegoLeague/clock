@@ -12,6 +12,8 @@ The following keys can be used to control the clock:
 - `s` starts or stops the clock
 - `<space>` starts or stops the clock
 - `x` stops the clock
+- `[` reduces clock font size
+- `]` increases clock font size
 
 Usage with socketio
 -----

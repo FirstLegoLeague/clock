@@ -178,7 +178,7 @@ function initialize() {
         x: 0,
         y: 0
     };
-    var size = 200;
+    var size = 340;
     function nudge(direction,amount) {
         position[direction] += amount||10;
         out.style.left = position.x+'px';
@@ -218,7 +218,6 @@ function initialize() {
 
     document.addEventListener('keydown',function(e) {
         var key = e.which;
-        console.log(key);
         switch(key) {
             case 65:    //a
                 c.arm();
@@ -229,6 +228,12 @@ function initialize() {
             case 83:    //s
             case 32:    //space
                 c.running?c.stop():c.start();
+                break;
+            case 219:   //[
+                sizeClock(-1);
+                break;
+            case 221:   //]
+                sizeClock(1);
                 break;
         }
     });
