@@ -6,6 +6,7 @@ body {
     padding: 50px;
     padding-top: 100px;
     background-color: #000000;
+    color: white;
 }
 .clock {
     font-size: 340px;
@@ -13,6 +14,7 @@ body {
     text-shadow: 0.05em 0.05em 0em black;
     padding: 0.1em;
     position: relative;
+    text-align: center;
 }
 .stopped{
     color: red;

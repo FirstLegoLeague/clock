@@ -1,8 +1,13 @@
 <script src="http://io.example.com:1390/socket.io/socket.io.js"></script>
 <script src="js/audio5.js"></script>
 <link rel="stylesheet" href="css/Clock.css">
-
-<p id="out1" class="clock"></p>
-
 <script src="js/angular.min.js"></script>
 <script src="js/ClockCtrl.js"></script>
+
+<body ng-app="Clock" ng-controller="ClockCtrl" ng-style="bodyStyle()">
+    <p class="clock" ng-class="state" ng-style="clockStyle()">
+        {{time|time:hundreds}}
+    </p>
+    <p ng-show="state=='edit'"><input ng-model="armTime"></p>
+</body>
+
