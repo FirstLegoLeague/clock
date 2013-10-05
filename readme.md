@@ -6,7 +6,9 @@ Web based application showing the clock. Works in the latest versions of chrome,
 Usage
 -----
 
-Open [clock.html](clock.html), set to full screen. Use keys or the control window on another screen (press `c`)
+[Download the repository](https://github.com/FirstLegoLeague/clock/archive/master.zip) (See `Download ZIP` on the right) or clone it using GIT.
+
+Open [clock.html](clock.html), set to full screen (press `F11`). Use keys or the control window on another screen (press `c`)
 
 Usage with key control
 -----
