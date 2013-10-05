@@ -12,7 +12,6 @@ angular.module('Clock',[])
     .controller('ClockControlsCtrl',[
         '$scope','$timeout','$opener',
         function($scope,$timeout,$opener) {
-            console.log($opener);
 
             $scope.seconds = $opener.armTime;
 
@@ -20,7 +19,6 @@ angular.module('Clock',[])
 
             actions.forEach(function(action) {
                 $scope[action] = function() {
-                    console.log(action);
                     $opener[action].apply(this,arguments);
                     $opener.$apply();
                 };

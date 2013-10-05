@@ -47,7 +47,6 @@ angular.module('Clock',[])
         '$scope','$timeout','$audio','$window',
         function($scope,$timeout,$audio,$window) {
             //initial values
-            console.log($audio);
             $audio.init('mp3/lossetrack-A +6.mp3').then(function(track) {
                 $scope.runTrack = track;
             });
