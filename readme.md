@@ -18,6 +18,7 @@ The following keys can be used to control the clock:
 - `<up>,<down>,<left>,<right>` repositions the clock
 - `m` edit clock countdown
 - `<enter>` leaves edit mode
+- `c` shows controls
 
 Usage with socketio
 -----

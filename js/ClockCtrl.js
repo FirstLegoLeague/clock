@@ -19,7 +19,7 @@ angular.module('Clock',[])
             return str;
         };
     })
-    .service('$audio',[
+    .factory('$audio',[
         '$q',
         function($q) {
             function init(file) {
@@ -44,8 +44,8 @@ angular.module('Clock',[])
         }
     ])
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio',
-        function($scope,$timeout,$audio) {
+        '$scope','$timeout','$audio','$window',
+        function($scope,$timeout,$audio,$window) {
             //initial values
             console.log($audio);
             $audio.init('mp3/lossetrack-A +6.mp3').then(function(track) {
@@ -65,7 +65,8 @@ angular.module('Clock',[])
                 y: 0
             };
 
-            $scope.arm = function() {
+            $scope.arm = function(time) {
+                $scope.armTime = time||$scope.armTime;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
             };
@@ -173,6 +174,9 @@ angular.module('Clock',[])
                         if ($scope.state == 'edit') {
                             $scope.arm();
                         }
+                        break;
+                    case 67:    //c
+                        $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
                         break;
                 }
                 $scope.$apply();
