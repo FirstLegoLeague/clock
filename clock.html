@@ -5,9 +5,9 @@
 <script src="js/ClockCtrl.js"></script>
 
 <body ng-app="Clock" ng-controller="ClockCtrl" ng-style="bodyStyle()">
-    <p class="clock" ng-class="state" ng-style="clockStyle()">
-        {{time|time:hundreds}}
-    </p>
     <p ng-show="state=='edit'"><input ng-model="armTime"></p>
+    <p class="clock" ng-class="state" ng-style="clockStyle()">
+        {{time|time:tenths}}
+    </p>
 </body>
 
