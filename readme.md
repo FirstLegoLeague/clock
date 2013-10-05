@@ -14,6 +14,10 @@ The following keys can be used to control the clock:
 - `x` stops the clock
 - `[` reduces clock font size
 - `]` increases clock font size
+- `t` switches display of tenths
+- `<up>,<down>,<left>,<right>` repositions the clock
+- `m` edit clock countdown
+- `<enter>` leaves edit mode
 
 Usage with socketio
 -----
