@@ -1,7 +1,12 @@
 Clock
 =====
 
-Web based application showing the clock.
+Web based application showing the clock. Works in the latest versions of chrome, firefox and internet explorer
+
+Usage
+-----
+
+Open [clock.html](clock.html), set to full screen. Use keys or the control window on another screen (press `c`)
 
 Usage with key control
 -----
@@ -33,5 +38,3 @@ The clock listens to the following socketio messages
 - `{cmd:'stop'}` stops the clock
 - `{cmd:'nudge',direction:'x',amount:10}` moves the clock in x or y direction by the given number of pixels
 - `{cmd:'size',amount:2}` increases the font size by the given number of pixels
-
-Open [clock.html](clock.html) on a system with google chrome web browser, set to full screen.
