@@ -43,3 +43,14 @@ The clock listens to the following socketio messages
 - `{cmd:'stop'}` stops the clock
 - `{cmd:'nudge',direction:'x',amount:10}` moves the clock in x or y direction by the given number of pixels
 - `{cmd:'size',amount:2}` increases the font size by the given number of pixels
+
+Compatibility
+-------------
+
+The clock has been verified to work correctly on the following systems:
+
+- windows 7
+  - Chrome 30.0.1
+  - Firefox 23.0.1
+  - IE 10
+  - IE 9
