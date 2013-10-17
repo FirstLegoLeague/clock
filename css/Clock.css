@@ -8,6 +8,9 @@ body {
     background-color: #000000;
     color: white;
 }
+p {
+    margin: 0;
+}
 .clock {
     font-size: 340px;
     font-family: lcdbold;
