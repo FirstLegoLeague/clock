@@ -54,3 +54,4 @@ The clock has been verified to work correctly on the following systems:
   - Firefox 23.0.1
   - IE 10
   - IE 9
+  - IE 8

@@ -20,10 +20,8 @@ angular.module('Clock',[])
         };
     })
     .factory('$audio',[
-        '$q',
-        function($q) {
-            function init(file) {
-                var def = $q.defer();
+        function() {
+            function init(file,cb) {
                 new Audio5js({
                     swf_path: 'swf/audio5js.swf',
                     ready: function () {
@@ -32,10 +30,9 @@ angular.module('Clock',[])
                             this.pause();
                             this.load(file);
                         };
-                        def.resolve(this);
+                        cb(this);
                     }
                 });
-                return def.promise;
             }
 
             return {
@@ -47,10 +44,10 @@ angular.module('Clock',[])
         '$scope','$timeout','$audio','$window',
         function($scope,$timeout,$audio,$window) {
             //initial values
-            $audio.init('mp3/lossetrack-A +6.mp3').then(function(track) {
+            $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
             });
-            $audio.init('mp3/lossetrack-B.mp3').then(function(track) {
+            $audio.init('mp3/lossetrack-B.mp3',function(track) {
                 $scope.stopTrack = track;
             });
             $scope.bgColor = 'black';
@@ -132,8 +129,8 @@ angular.module('Clock',[])
             };
 
             //TODO: simplify these two
-            angular.element(document).bind('keydown',function(e) {
-                var key = e.which;
+            angular.element(document.body).bind('keydown',function(e) {
+                var key = e.which||e.keyCode;
                 switch(key) {
                     case 65:    //a
                         $scope.arm();
