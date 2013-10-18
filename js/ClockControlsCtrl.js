@@ -15,7 +15,7 @@ angular.module('Clock',[])
 
             $scope.seconds = $opener.armTime;
 
-            var actions = ['arm','start','stop','mode'];
+            var actions = ['arm','start','stop','mode','playPause'];
 
             actions.forEach(function(action) {
                 $scope[action] = function() {

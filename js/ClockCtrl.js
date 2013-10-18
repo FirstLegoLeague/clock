@@ -61,14 +61,33 @@ angular.module('Clock',[])
                 y: 0
             };
 
-            $scope.arm = function(time) {
-                $scope.armTime = time||$scope.armTime;
+            $scope.arm = function(countdown) {
+                $scope.armTime = countdown||$scope.armTime;
+                $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
+                $scope.runTrack.reset();
             };
 
-            $scope.start = function() {
-                $scope.startTime = +(new Date());
+            $scope.playPause = function(pauseStamp) {
+                pauseStamp = pauseStamp||(+new Date());
+                if ($scope.state === 'started') {
+                    var startTime = ($scope.pauseTime||$scope.armTime);
+                    var t = (startTime*1000) - (pauseStamp - ($scope.startStamp||pauseStamp));
+                    $scope.time = t;
+                    $scope.state = 'paused';
+                    $scope.runTrack.pause();
+                    $scope.pauseTime = t/1000;
+                } else {
+                    $scope.start(pauseStamp);
+                }
+            };
+
+            $scope.start = function(startStamp,countdown) {
+                if (countdown) {
+                    $scope.arm(countdown);
+                }
+                $scope.startStamp = startStamp||(+(new Date()));
                 $scope.state = 'started';
                 $scope.runTrack.play();
                 $scope.tick();
@@ -79,6 +98,7 @@ angular.module('Clock',[])
 
             $scope.stop = function() {
                 $scope.state = 'stopped';
+                $scope.pauseTime = false;
                 $scope.runTrack.reset();
             };
 
@@ -103,7 +123,8 @@ angular.module('Clock',[])
             $scope.tick = function() {
                 if ($scope.state === 'started') {
                     var now = +(new Date());
-                    $scope.time = ($scope.armTime*1000) - (now - $scope.startTime);
+                    var startTime = ($scope.pauseTime||$scope.armTime);
+                    $scope.time = (startTime*1000) - (now - $scope.startStamp);
                     $timeout($scope.tick,10);
                 }
             };
@@ -139,8 +160,11 @@ angular.module('Clock',[])
                         $scope.stop();
                         break;
                     case 83:    //s
-                    case 32:    //space
                         $scope.toggle();
+                        break;
+                    case 32:    //space
+                    case 80:    //p
+                        $scope.playPause();
                         break;
                     case 219:   //[
                         $scope.size -= 2;
@@ -190,10 +214,13 @@ angular.module('Clock',[])
                             $scope.arm(data.countdown);
                             break;
                         case 'start':
-                            $scope.start(null,data.countdown);
+                            $scope.start(data.stamp,data.countdown);
                             break;
                         case 'stop':
                             $scope.stop();
+                            break;
+                        case 'pause':
+                            $scope.playPause(data.stamp);
                             break;
                         case 'nudge':
                             $scope.pos[data.direction] += data.amount;

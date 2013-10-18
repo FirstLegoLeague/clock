@@ -1,4 +1,14 @@
 @import url('../fonts/lcd-bold.css');
+
+@keyframes blink {  
+    0% { opacity: 1; }
+    100% { opacity: 0.1; }
+}
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.1; }
+}
+
 html,body {
     overflow: hidden;
 }
@@ -22,8 +32,18 @@ p {
 .stopped{
     color: red;
 }
+.paused,
 .armed {
     color: yellow;
+}
+
+/* blinking */
+.paused {
+    -webkit-animation: blink 0.5s ease infinite alternate;
+    -moz-animation: blink 0.5s ease infinite alternate;
+    -ms-animation: blink 0.5s ease infinite alternate;
+    -o-animation: blink 0.5s ease infinite alternate;
+    animation: blink 0.5s ease infinite alternate;
 }
 .started {
     color: lime;
