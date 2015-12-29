@@ -31,12 +31,36 @@ The following keys can be used to control the clock:
 - `c` shows controls (does not work on local file system)
 - `<F11>` toggle fullscreen
 
-Usage with socketio
+Usage with Mhub
 -----
 
-Adjust the source to listen to a socketio stream
+1. Open config.js to configure the mhub server (default is localserver at port 13900)
+2. In config.js also configure the node to connect to (default is 'overlay', so it works with the DisplaySystem)
 
-The clock listens to the following socketio messages
+Optional:
+It is recommended to run from a webserver rather then open the file locally. A config for a sample node server is included, to install:
+3. Install the package (if not present): 
+`npm install connect`
+`npm install serve-static`
+4. Run the webserver:
+`node localserver.js`
+5. Open a browser to 
+`localhost:8080`
+The port can be changed in localserver.js
+
+Clock Mhub protocol
+-----
+
+The clock listens to the following mhub messages (by default on the 'overlay' node)
+
+- `arm` 
+- `start
+- `stop
+
+
+Command line example (windows command prompt):
+- `mclient -n overlay -t start -d """cmd:'arm',countdown:30"""`
+
 
 - `{cmd:'color',color:'#FF0000'}` sets the background color (for color keying purposes)
 - `{cmd:'arm',countdown:30}` arms the clock (in this case 30 seconds, defaults to 2.5 min (150sec))
@@ -45,6 +69,10 @@ The clock listens to the following socketio messages
 - `{cmd:'stop'}` stops the clock
 - `{cmd:'nudge',direction:'x',amount:10}` moves the clock in x or y direction by the given number of pixels
 - `{cmd:'size',amount:2}` increases the font size by the given number of pixels
+
+The clock sends the following messages:
+
+
 
 Compatibility
 -------------

@@ -1,4 +1,4 @@
-angular.module('Clock',[])
+angular.module('Clock',['Clock.config'])
     .filter('time',function() {
         function pad(str) {
             str = ''+str;
@@ -40,9 +40,10 @@ angular.module('Clock',[])
             };
         }
     ])
+
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window',
-        function($scope,$timeout,$audio,$window) {
+        '$scope','$timeout','$audio','$window','wsHost','mserverNode',
+        function($scope,$timeout,$audio,$window,wsHost,mserverNode) {
             //initial values
             $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
@@ -50,7 +51,8 @@ angular.module('Clock',[])
             $audio.init('mp3/lossetrack-B.mp3',function(track) {
                 $scope.stopTrack = track;
             });
-            $scope.bgColor = 'black';
+            var handlers = {};
+			$scope.bgColor = 'black';
             $scope.state = 'stopped';
             $scope.time = 150000;
             $scope.armTime = 150;
@@ -60,15 +62,73 @@ angular.module('Clock',[])
                 x: 0,
                 y: 0
             };
+			
+			$scope.initWebsocket = function() {
+				ws = new WebSocket(wsHost);
+				ws.onopen = function() {
+					if (mserverNode) {
+						ws.send(JSON.stringify({
+							type: "subscribe",
+							node: mserverNode
+						}));
+					}
+				};
+				ws.onerror = function(e){
+					console.log("error", e);
+				};
+				ws.onclose = function() {
+					console.log("close");
+				};
+				ws.onmessage = function(msg) {
+					var data = JSON.parse(msg.data);
+					console.log(data);
+					$scope.handleMessage(data);
+				};
+			};
+			$scope.initWebsocket();	
+			
+			
+			$scope.handleMessage = function(msg){
+				if (msg && msg.topic) {
+					var topic = msg.topic.toLowerCase();
+					var data = msg.data;
+					
+					switch (topic) {
+						case 'color':
+                            $scope.bgColor = msg.data.color;
+                            break;
+                        case 'arm':
+                            $scope.arm(msg.data.countdown);
+                            break;
+                        case 'start':
+                            $scope.start(msg.data.countdown);
+                            break;
+                        case 'stop':
+                            $scope.stop();
+                            break;
+                        case 'pause':
+                            $scope.playPause(msg.data.stamp);
+                            break;
+                        case 'nudge':
+                            $scope.pos[msg.data.direction] += msg.amount;
+                            break;
+                        case 'size':
+                            $scope.size += msg.data.amount;
+                            break;		
+					}
+				}
+			};
 
             $scope.arm = function(countdown) {
-                $scope.armTime = countdown||$scope.armTime;
+                console.log($scope.armTime);
+				$scope.armTime = countdown||$scope.armTime;
+				
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
                 $scope.runTrack.reset();
             };
-
+			
             $scope.playPause = function(pauseStamp) {
                 pauseStamp = pauseStamp||(+new Date());
                 if ($scope.state === 'started') {
@@ -198,39 +258,11 @@ angular.module('Clock',[])
                     case 67:    //c
                         $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
                         break;
-                }
-                $scope.$apply();
+                };
+				
+				
+				
             });
 
-            if (window.io) {
-                var socket = io.connect('http://io.example.com:1390/');
-                socket.on('clock', function (data) {
-                    var bd = data.cmd||null;
-                    switch (bd) {
-                        case 'color':
-                            $scope.bgColor = data.color;
-                            break;
-                        case 'arm':
-                            $scope.arm(data.countdown);
-                            break;
-                        case 'start':
-                            $scope.start(data.stamp,data.countdown);
-                            break;
-                        case 'stop':
-                            $scope.stop();
-                            break;
-                        case 'pause':
-                            $scope.playPause(data.stamp);
-                            break;
-                        case 'nudge':
-                            $scope.pos[data.direction] += data.amount;
-                            break;
-                        case 'size':
-                            $scope.size += data.amount;
-                            break;
-                    }
-                    $scope.$apply();
-                });
-            }
         }
     ]);
