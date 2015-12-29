@@ -34,6 +34,8 @@ The following keys can be used to control the clock:
 Usage with Mhub
 -----
 
+* Note: currently the control panel (when pressing 'c') does not send commands. I.e. the clock in combination with mhub only listens. Using the controls will only affect the local instance of the clock (no other browser windows or running clocks).
+
 1. Open config.js to configure the mhub server (default is localserver at port 13900)
 2. In config.js also configure the node to connect to (default is 'overlay', so it works with the DisplaySystem)
 

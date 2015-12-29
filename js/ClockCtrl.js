@@ -58,7 +58,8 @@ angular.module('Clock',['Clock.config'])
             $scope.armTime = 150;
             $scope.tenths = false;
             $scope.size = 340;
-            $scope.pos = {
+            
+			$scope.pos = {
                 x: 0,
                 y: 0
             };
@@ -107,7 +108,7 @@ angular.module('Clock',['Clock.config'])
                             $scope.stop();
                             break;
                         case 'pause':
-                            $scope.playPause(msg.data.stamp);
+                            $scope.playPause();
                             break;
                         case 'nudge':
                             $scope.pos[msg.data.direction] += msg.amount;
@@ -122,11 +123,11 @@ angular.module('Clock',['Clock.config'])
             $scope.arm = function(countdown) {
                 console.log($scope.armTime);
 				$scope.armTime = countdown||$scope.armTime;
-				
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
                 $scope.runTrack.reset();
+				$scope.$apply();
             };
 			
             $scope.playPause = function(pauseStamp) {
@@ -143,11 +144,11 @@ angular.module('Clock',['Clock.config'])
                 }
             };
 
-            $scope.start = function(startStamp,countdown) {
+            $scope.start = function(countdown) {
                 if (countdown) {
                     $scope.arm(countdown);
                 }
-                $scope.startStamp = startStamp||(+(new Date()));
+                $scope.startStamp = $scope.startStamp||(+(new Date()));
                 $scope.state = 'started';
                 $scope.runTrack.play();
                 $scope.tick();
@@ -260,7 +261,7 @@ angular.module('Clock',['Clock.config'])
                         break;
                 };
 				
-				
+				$scope.$apply();
 				
             });
 
