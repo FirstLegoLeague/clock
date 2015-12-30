@@ -65,15 +65,16 @@ The clock listens to the following mhub messages (by default on the 'overlay' no
 | `clock:start` | `"countdown":tt`   | tt is seconds to countdown from, without data uses previous set arm time |
 | `clock:stop` |    | stops the clock, and leave it at the countdown time  | 
 | `clock:pause` |    | pauses the clock when running, and resumes it when paused (toggle) | 
-| `clock:nudge` | `"direction":"xy","amount":"px""    | moves the clock in x or y direction by the given number of pixels | 
+| `clock:nudge` | `"direction":"xy","amount":"px""`    | moves the clock in x or y direction by the given number of pixels | 
 | `clock:size` | `"amount":px`   | increases the font size by the given number of pixels |
 
 
 Make sure you use the right quotes, see [mbhub documentation](https://github.com/poelstra/mhub)
 The following is a command line example on the windows command prompt, which will start the countdown from 40 seconds. (note that strings are double quoted)
 - `mclient -n overlay -t clock:start -d "{ ""countdown"": "40" }"`
+
 This one will move the clock 10 px in the horizontal direction (to the right)
-- `mclient -n overlay -t clock:nudge -d "{ ""direction"": ""x"",""amount"":"10" }"
+- `mclient -n overlay -t clock:nudge -d "{ ""direction"": ""x"",""amount"":"10" }"`
 
 ### Sending commands
 Not yet implemented
