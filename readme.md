@@ -12,7 +12,7 @@ Usage
 
 Open [clock.html](http://firstlegoleague.github.io/clock/clock.html), set to full screen (press `F11`). Use keys or the control window on another screen (press `c`)
 
-Usage with key control
+Usage with key control (local)
 -----
 
 The following keys can be used to control the clock:
@@ -33,8 +33,7 @@ The following keys can be used to control the clock:
 
 Usage with Mhub
 -----
-
-* Note: currently the control panel (when pressing 'c') does not send commands. I.e. the clock in combination with mhub only listens. Using the controls will only affect the local instance of the clock (no other browser windows or running clocks).
+Make sure you have a working (and accessible) mhub instance running on your server; see [mbhub documentation](https://github.com/poelstra/mhub) 
 
 1. Open config.js to configure the mhub server (default is localserver at port 13900)
 2. In config.js also configure the node to connect to (default is 'overlay', so it works with the DisplaySystem)
@@ -52,22 +51,31 @@ It is recommended to run from a webserver rather then open the file locally. A c
 
 The port can be changed in localserver.js
 
+**Note:** currently the control panel (when pressing 'c') does not send commands. I.e. the clock in combination with mhub only listens. Using the controls will only affect the local instance of the clock (no other browser windows or running clocks).
+
 Clock Mhub protocol
 -----
 
+### Receiving commands
 The clock listens to the following mhub messages (by default on the 'overlay' node)
 
-- `arm` 
-- `start
-- `stop
+| Topic | Data (optional)    | Comments | 
+| ----- |:------------------:| --------:|
+| `arm` | `"countdown":tt`   | arms (resets) the clock |
+| `start` | `"countdown":tt`   | tt is seconds to countdown from |
+| `stop` |    | stops the clock, and leave it at the countdown time  | 
+| `pause` |    | pauses the clock when running, and resumes it when paused (toggle) | 
+| `nudge` | `"direction":"x|y","amount":"px""    | moves the clock in x or y direction by the given number of pixels | 
+| `size` | `"amount":px`   | increases the font size by the given number of pixels |
 
+Make sure you use the right quotes, see [mbhub documentation](https://github.com/poelstra/mhub)
+The following is a command line example on the windows command prompt, which will start the countdown from 40 seconds. (note that strings are double quoted)
+- `mclient -n overlay -t start -d "{ ""countdown"": "40" }"`
+This one will move the clock 10 px in the horizontal direction (to the right)
+- `mclient -n overlay -t start -d "{ ""direction"": ""x"",""amount"":"10" }"
 
-Command line example (windows command prompt):
-- `mclient -n overlay -t start -d """cmd:'arm',countdown:30"""`
-
-The clock sends the following messages:
-
-
+### Sending commands
+Not yet implemented
 
 Compatibility
 -------------

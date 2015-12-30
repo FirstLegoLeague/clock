@@ -82,8 +82,8 @@ angular.module('Clock',['Clock.config'])
 				};
 				ws.onmessage = function(msg) {
 					var data = JSON.parse(msg.data);
-					console.log(data);
 					$scope.handleMessage(data);
+					
 				};
 			};
 			$scope.initWebsocket();	
@@ -92,36 +92,40 @@ angular.module('Clock',['Clock.config'])
 			$scope.handleMessage = function(msg){
 				if (msg && msg.topic) {
 					var topic = msg.topic.toLowerCase();
-					var data = msg.data;
+				
+					//Check if data object was received, if not use set default values in object
+					if (typeof msg.data == "undefined") {
+						msg['data'] = {};
+						msg.data['countdown'] = $scope.armTime;
+					}
 					
 					switch (topic) {
 						case 'color':
                             $scope.bgColor = msg.data.color;
                             break;
                         case 'arm':
-                            $scope.arm(msg.data.countdown);
+							$scope.arm(msg.data.countdown);
                             break;
                         case 'start':
-                            $scope.start(msg.data.countdown);
+                            $scope.start(msg.data.stamp,msg.data.countdown);
                             break;
                         case 'stop':
                             $scope.stop();
                             break;
                         case 'pause':
-                            $scope.playPause();
+                            $scope.playPause(msg.data.stamp);
                             break;
                         case 'nudge':
-                            $scope.pos[msg.data.direction] += msg.amount;
+                            $scope.pos[msg.data.direction] += msg.data.amount;
                             break;
                         case 'size':
                             $scope.size += msg.data.amount;
-                            break;		
+							break;		
 					}
 				}
 			};
 
             $scope.arm = function(countdown) {
-                console.log($scope.armTime);
 				$scope.armTime = countdown||$scope.armTime;
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
@@ -144,11 +148,11 @@ angular.module('Clock',['Clock.config'])
                 }
             };
 
-            $scope.start = function(countdown) {
+			$scope.start = function(startStamp,countdown) {
                 if (countdown) {
                     $scope.arm(countdown);
                 }
-                $scope.startStamp = $scope.startStamp||(+(new Date()));
+                $scope.startStamp = startStamp||(+(new Date()));
                 $scope.state = 'started';
                 $scope.runTrack.play();
                 $scope.tick();
