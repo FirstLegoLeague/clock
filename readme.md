@@ -61,11 +61,11 @@ The clock listens to the following mhub messages (by default on the 'overlay' no
 
 | Topic | Data (optional)    | Comments | 
 | ----- |:------------------:| --------:|
-| `arm` | `"countdown":tt`   | arms (resets) the clock |
-| `start` | `"countdown":tt`   | tt is seconds to countdown from |
+| `arm` | `"countdown":tt`   | arms (resets) the clock, without data uses previous set arm time |
+| `start` | `"countdown":tt`   | tt is seconds to countdown from, without data uses previous set arm time |
 | `stop` |    | stops the clock, and leave it at the countdown time  | 
 | `pause` |    | pauses the clock when running, and resumes it when paused (toggle) | 
-| `nudge` | `"direction":"x|y","amount":"px""    | moves the clock in x or y direction by the given number of pixels | 
+| `nudge` | `"direction":"xy","amount":"px""    | moves the clock in x or y direction by the given number of pixels | 
 | `size` | `"amount":px`   | increases the font size by the given number of pixels |
 
 Make sure you use the right quotes, see [mbhub documentation](https://github.com/poelstra/mhub)
