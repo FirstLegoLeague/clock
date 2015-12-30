@@ -72,7 +72,7 @@ Make sure you use the right quotes, see [mbhub documentation](https://github.com
 The following is a command line example on the windows command prompt, which will start the countdown from 40 seconds. (note that strings are double quoted)
 - `mclient -n overlay -t start -d "{ ""countdown"": "40" }"`
 This one will move the clock 10 px in the horizontal direction (to the right)
-- `mclient -n overlay -t start -d "{ ""direction"": ""x"",""amount"":"10" }"
+- `mclient -n overlay -t start -d "{ ""direction"": ""x"",""amount"":"10" }"`
 
 ### Sending commands
 Not yet implemented
