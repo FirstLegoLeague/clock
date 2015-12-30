@@ -100,25 +100,25 @@ angular.module('Clock',['Clock.config'])
 					}
 					
 					switch (topic) {
-						case 'color':
+						case 'clock:color':
                             $scope.bgColor = msg.data.color;
                             break;
-                        case 'arm':
+                        case 'clock:arm':
 							$scope.arm(msg.data.countdown);
                             break;
-                        case 'start':
+                        case 'clock:start':
                             $scope.start(msg.data.stamp,msg.data.countdown);
                             break;
-                        case 'stop':
+                        case 'clock:stop':
                             $scope.stop();
                             break;
-                        case 'pause':
+                        case 'clock:pause':
                             $scope.playPause(msg.data.stamp);
                             break;
-                        case 'nudge':
+                        case 'clock:nudge':
                             $scope.pos[msg.data.direction] += msg.data.amount;
                             break;
-                        case 'size':
+                        case 'clock:size':
                             $scope.size += msg.data.amount;
 							break;		
 					}
