@@ -202,9 +202,9 @@ angular.module('Clock',['Clock.config'])
 
             $scope.clockStyle = function() {
                 return {
-                    fontSize: $scope.size,
-                    left: $scope.pos.x,
-                    top: $scope.pos.y
+                    fontSize: $scope.size +'px',
+                    left: $scope.pos.x + 'px',
+                    top: $scope.pos.y + 'px'
                 };
             };
 
