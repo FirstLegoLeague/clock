@@ -42,8 +42,7 @@ Optional:
 It is recommended to run from a webserver rather then open the file locally. A config for a sample node server is included, to install:
 
 3. Install the package (if not present): 
-`npm install connect`
-`npm install serve-static`
+`npm install`
 4. Run the webserver:
 `node localserver.js`
 5. Open a browser to 
