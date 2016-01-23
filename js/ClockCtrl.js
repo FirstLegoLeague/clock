@@ -1,4 +1,4 @@
-angular.module('Clock',['Clock.config'])
+angular.module('Clock',['ngStorage'])
     .filter('time',function() {
         function pad(str) {
             str = ''+str;
@@ -42,8 +42,8 @@ angular.module('Clock',['Clock.config'])
     ])
 
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window','wsConfig',
-        function($scope,$timeout,$audio,$window,wsConfig) {
+        '$scope','$timeout','$audio','$window','$localStorage',
+        function($scope,$timeout,$audio,$window,$localStorage) {
             //initial values
             $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
@@ -63,6 +63,14 @@ angular.module('Clock',['Clock.config'])
                 x: 0,
                 y: 0
             };
+
+            //initialize config with the angular configuration
+            $scope.$storage = $localStorage.$default({
+                config: {
+                    host: 'ws://localhost:13900/',
+                    node: 'clock'
+                }
+            });
 
             $scope.connected = false;
             var backoff = 100;
@@ -112,11 +120,15 @@ angular.module('Clock',['Clock.config'])
             }
 
             $scope.connect = function() {
-                $scope.ws = initWebsocket(wsConfig);
+                $scope.ws = initWebsocket($scope.$storage.config);
             };
 
             $scope.connect();
 
+            $scope.updateConfig = function(config) {
+                //reinitialize socket connection
+                $scope.ws.close();
+            };
 
             $scope.handleMessage = function(msg){
                 var topic = msg.topic.toLowerCase();

@@ -33,19 +33,19 @@ The following keys can be used to control the clock:
 
 Usage with Mhub
 -----
-Make sure you have a working (and accessible) mhub instance running on your server; see [mbhub documentation](https://github.com/poelstra/mhub) 
+Make sure you have a working (and accessible) mhub instance running on your server; see [mbhub documentation](https://github.com/poelstra/mhub)
 
-1. Open config.js to configure the mhub server (default is localserver at port 13900)
-2. In config.js also configure the node to connect to (default is 'overlay', so it works with the DisplaySystem)
+1. Open the control panel (press 'c' to configure the mhub server (default is localserver at port 13900)
+2. Also configure the node to connect to (default is 'clock', so it works with the DisplaySystem)
 
 Optional:
 It is recommended to run from a webserver rather then open the file locally. A config for a sample node server is included, to install:
 
-3. Install the package (if not present): 
+3. Install the package (if not present):
 `npm install`
 4. Run the webserver:
 `node localserver.js`
-5. Open a browser to 
+5. Open a browser to
 `localhost:8080`
 
 The port can be changed in localserver.js
@@ -56,24 +56,24 @@ Clock Mhub protocol
 -----
 
 ### Receiving commands
-The clock listens to the following mhub messages (by default on the 'overlay' node)
+The clock listens to the following mhub messages (by default on the 'clock' node)
 
-| Topic | Data (optional)    | Comments | 
+| Topic | Data (optional)    | Comments |
 | ----- |:------------------:| --------:|
 | `clock:arm` | `"countdown":tt`   | arms (resets) the clock, without data uses previous set arm time |
 | `clock:start` | `"countdown":tt`   | tt is seconds to countdown from, without data uses previous set arm time |
-| `clock:stop` |    | stops the clock, and leave it at the countdown time  | 
-| `clock:pause` |    | pauses the clock when running, and resumes it when paused (toggle) | 
-| `clock:nudge` | `"direction":"xy","amount":"px""`    | moves the clock in x or y direction by the given number of pixels | 
+| `clock:stop` |    | stops the clock, and leave it at the countdown time  |
+| `clock:pause` |    | pauses the clock when running, and resumes it when paused (toggle) |
+| `clock:nudge` | `"direction":"xy","amount":"px""`    | moves the clock in x or y direction by the given number of pixels |
 | `clock:size` | `"amount":px`   | increases the font size by the given number of pixels |
 
 
 Make sure you use the right quotes, see [mbhub documentation](https://github.com/poelstra/mhub)
 The following is a command line example on the windows command prompt, which will start the countdown from 40 seconds. (note that strings are double quoted)
-- `mclient -n overlay -t clock:start -d "{ ""countdown"": "40" }"`
+- `mclient -n clock -t clock:start -d "{ ""countdown"": "40" }"`
 
 This one will move the clock 10 px in the horizontal direction (to the right)
-- `mclient -n overlay -t clock:nudge -d "{ ""direction"": ""x"",""amount"":"10" }"`
+- `mclient -n clock -t clock:nudge -d "{ ""direction"": ""x"",""amount"":"10" }"`
 
 ### Sending commands
 Not yet implemented

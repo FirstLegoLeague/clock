@@ -1,4 +1,4 @@
-angular.module('Clock',[])
+angular.module('Clock',['ngStorage'])
     .factory('$opener',[
         '$window',
         function($window) {
@@ -10,10 +10,11 @@ angular.module('Clock',[])
         }
     ])
     .controller('ClockControlsCtrl',[
-        '$scope','$timeout','$opener',
-        function($scope,$timeout,$opener) {
+        '$scope','$timeout','$opener','$localStorage',
+        function($scope,$timeout,$opener,$localStorage) {
 
             $scope.seconds = $opener.armTime;
+            $scope.config = $localStorage.config;
 
             var actions = ['arm','start','stop','mode','playPause'];
 
@@ -23,5 +24,9 @@ angular.module('Clock',[])
                     $opener.$apply();
                 };
             });
+
+            $scope.update = function(config) {
+                $opener.updateConfig(config);
+            }
         }
     ]);
