@@ -11,6 +11,8 @@
 
 html,body {
     overflow: hidden;
+    font-family: verdana, sans-serif;
+    font-size: 12px;
 }
 body {
     padding: 50px;

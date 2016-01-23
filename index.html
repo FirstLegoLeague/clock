@@ -1,9 +1,14 @@
 <!doctype html>
-<script src="http://io.example.com:1390/socket.io/socket.io.js"></script>
-<script src="js/audio5.js"></script>
-<link rel="stylesheet" href="css/Clock.css">
-<script src="js/angular.min.js"></script>
-<script src="js/ClockCtrl.js"></script>
+<head>
+    <meta charset="UTF-8">
+	<script src="js/audio5.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/ngStorage.min.js"></script>
+	<script src="js/ClockCtrl.js"></script>
+	<link rel="stylesheet" href="css/Clock.css">
+
+    <title>Clock</title>
+</head>
 
 <body ng-app="Clock" ng-controller="ClockCtrl" ng-style="bodyStyle()">
     <p ng-show="state=='edit'"><input ng-model="armTime"></p>
@@ -11,4 +16,3 @@
         {{time|time:tenths}}
     </p>
 </body>
-
