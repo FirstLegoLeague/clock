@@ -6,11 +6,11 @@ Web based application showing the clock. Works in the latest versions of chrome,
 Usage
 -----
 
-[Use the online version](http://firstlegoleague.github.io/clock/clock.html)
+[Use the online version](http://firstlegoleague.github.io/clock/)
 
 [Download the repository](https://github.com/FirstLegoLeague/clock/archive/master.zip) (See `Download ZIP` on the right) or clone it using GIT. **Note**: Control window does not work when served via the file system, you'll need to run a local server. If that does not make sense to you: control window will not work.
 
-Open [clock.html](http://firstlegoleague.github.io/clock/clock.html), set to full screen (press `F11`). Use keys or the control window on another screen (press `c`)
+Open [index.html](http://firstlegoleague.github.io/clock/), set to full screen (press `F11`). Use keys or the control window on another screen (press `c`)
 
 Usage with key control
 -----
