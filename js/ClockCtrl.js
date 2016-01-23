@@ -42,8 +42,8 @@ angular.module('Clock',['Clock.config'])
     ])
 
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window','wsHost','mserverNode',
-        function($scope,$timeout,$audio,$window,wsHost,mserverNode) {
+        '$scope','$timeout','$audio','$window','wsConfig',
+        function($scope,$timeout,$audio,$window,wsConfig) {
             //initial values
             $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
@@ -58,71 +58,98 @@ angular.module('Clock',['Clock.config'])
             $scope.armTime = 150;
             $scope.tenths = false;
             $scope.size = 340;
-            
+
             $scope.pos = {
                 x: 0,
                 y: 0
             };
-            
-            $scope.initWebsocket = function() {
-                ws = new WebSocket(wsHost);
-                ws.onopen = function() {
-                    if (mserverNode) {
-                        ws.send(JSON.stringify({
-                            type: "subscribe",
-                            node: mserverNode
-                        }));
+
+            $scope.connected = false;
+            var backoff = 100;
+            var maxBackoff = 5000;
+            var pendingConnection;
+
+            function initWebsocket(config) {
+                var ws;
+                if (config.host) {
+                    if (pendingConnection) {
+                        $timeout.cancel(pendingConnection);
                     }
-                };
-                ws.onerror = function(e){
-                    console.log("error", e);
-                };
-                ws.onclose = function() {
-                    console.log("close");
-                };
-                ws.onmessage = function(msg) {
-                    var data = JSON.parse(msg.data);
-                    $scope.handleMessage(data);
-                    
-                };
-            };
-            $scope.initWebsocket(); 
-            
-            
-            $scope.handleMessage = function(msg){
-                if (msg && msg.topic) {
-                    var topic = msg.topic.toLowerCase();
-                
-                    //Check if data object was received, if not use set default values in object
-                    if (typeof msg.data == "undefined") {
-                        msg.data = {
-                            countdown: $scope.armTime;
+                    ws = new WebSocket(config.host);
+
+                    ws.onopen = function() {
+                        if (config.node) {
+                            ws.send(JSON.stringify({
+                                type: "subscribe",
+                                node: config.node
+                            }));
+                            $scope.connected = true;
+                            backoff = 100;
                         }
+                        $scope.$digest();
+                    };
+                    ws.onerror = function(e){
+                        console.log("error");
+                        ws.close();
+                    };
+                    ws.onclose = function() {
+                        console.log("close reconnecting in",backoff,'ms');
+                        $scope.connected = false;
+                        $scope.$digest();
+                        pendingConnection = $timeout($scope.connect,backoff);
+                        backoff = Math.min(maxBackoff,backoff * 2);
+                    };
+                    ws.onmessage = function(msg) {
+                        var data = JSON.parse(msg.data);
+                        if (data.topic) {
+                            $scope.handleMessage(data);
+                        }
+                        $scope.$digest();
+                    };
+                }
+
+                return ws;
+            }
+
+            $scope.connect = function() {
+                $scope.ws = initWebsocket(wsConfig);
+            };
+
+            $scope.connect();
+
+
+            $scope.handleMessage = function(msg){
+                var topic = msg.topic.toLowerCase();
+
+                //Check if data object was received, if not use set default values in object
+                if (typeof msg.data == "undefined") {
+                    msg.data = {
+                        countdown: $scope.armTime
                     }
-                    
-                    switch (topic) {
-                        case 'clock:color':
-                            $scope.bgColor = msg.data.color;
-                            break;
-                        case 'clock:arm':
-                            $scope.arm(msg.data.countdown);
-                            break;
-                        case 'clock:start':
-                            $scope.start(msg.data.stamp,msg.data.countdown);
-                            break;
-                        case 'clock:stop':
-                            $scope.stop();
-                            break;
-                        case 'clock:pause':
-                            $scope.playPause(msg.data.stamp);
-                            break;
-                        case 'clock:nudge':
-                            $scope.pos[msg.data.direction] += msg.data.amount;
-                            break;
-                        case 'clock:size':
-                            $scope.size += msg.data.amount;
-                            break;      
-                    }
+                }
+
+                switch (topic) {
+                    case 'clock:color':
+                        $scope.bgColor = msg.data.color;
+                        break;
+                    case 'clock:arm':
+                        $scope.arm(msg.data.countdown);
+                        break;
+                    case 'clock:start':
+                        $scope.start(msg.data.stamp,msg.data.countdown);
+                        break;
+                    case 'clock:stop':
+                        $scope.stop();
+                        break;
+                    case 'clock:pause':
+                        $scope.playPause(msg.data.stamp);
+                        break;
+                    case 'clock:nudge':
+                        $scope.pos[msg.data.direction] += msg.data.amount;
+                        break;
+                    case 'clock:size':
+                        $scope.size += msg.data.amount;
+                        break;
                 }
             };
 
@@ -134,7 +161,7 @@ angular.module('Clock',['Clock.config'])
                 $scope.runTrack.reset();
                 $scope.$apply();
             };
-            
+
             $scope.playPause = function(pauseStamp) {
                 pauseStamp = pauseStamp||(+new Date());
                 if ($scope.state === 'started') {
@@ -265,9 +292,9 @@ angular.module('Clock',['Clock.config'])
                         $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
                         break;
                 };
-                
+
                 $scope.$apply();
-                
+
             });
 
         }

@@ -1,4 +1,6 @@
 var config_module = angular.module('Clock.config', [])
-    .constant('wsHost','ws://localhost:13900/')
-    .constant('mserverNode','clock')
+    .constant('wsConfig',{
+        host: 'ws://localhost:13900/',
+        node: 'clock'
+    });
 ;
