@@ -52,59 +52,59 @@ angular.module('Clock',['Clock.config'])
                 $scope.stopTrack = track;
             });
             var handlers = {};
-			$scope.bgColor = 'black';
+            $scope.bgColor = 'black';
             $scope.state = 'stopped';
             $scope.time = 150000;
             $scope.armTime = 150;
             $scope.tenths = false;
             $scope.size = 340;
             
-			$scope.pos = {
+            $scope.pos = {
                 x: 0,
                 y: 0
             };
-			
-			$scope.initWebsocket = function() {
-				ws = new WebSocket(wsHost);
-				ws.onopen = function() {
-					if (mserverNode) {
-						ws.send(JSON.stringify({
-							type: "subscribe",
-							node: mserverNode
-						}));
-					}
-				};
-				ws.onerror = function(e){
-					console.log("error", e);
-				};
-				ws.onclose = function() {
-					console.log("close");
-				};
-				ws.onmessage = function(msg) {
-					var data = JSON.parse(msg.data);
-					$scope.handleMessage(data);
-					
-				};
-			};
-			$scope.initWebsocket();	
-			
-			
-			$scope.handleMessage = function(msg){
-				if (msg && msg.topic) {
-					var topic = msg.topic.toLowerCase();
-				
-					//Check if data object was received, if not use set default values in object
-					if (typeof msg.data == "undefined") {
-						msg['data'] = {};
-						msg.data['countdown'] = $scope.armTime;
-					}
-					
-					switch (topic) {
-						case 'clock:color':
+            
+            $scope.initWebsocket = function() {
+                ws = new WebSocket(wsHost);
+                ws.onopen = function() {
+                    if (mserverNode) {
+                        ws.send(JSON.stringify({
+                            type: "subscribe",
+                            node: mserverNode
+                        }));
+                    }
+                };
+                ws.onerror = function(e){
+                    console.log("error", e);
+                };
+                ws.onclose = function() {
+                    console.log("close");
+                };
+                ws.onmessage = function(msg) {
+                    var data = JSON.parse(msg.data);
+                    $scope.handleMessage(data);
+                    
+                };
+            };
+            $scope.initWebsocket(); 
+            
+            
+            $scope.handleMessage = function(msg){
+                if (msg && msg.topic) {
+                    var topic = msg.topic.toLowerCase();
+                
+                    //Check if data object was received, if not use set default values in object
+                    if (typeof msg.data == "undefined") {
+                        msg['data'] = {};
+                        msg.data['countdown'] = $scope.armTime;
+                    }
+                    
+                    switch (topic) {
+                        case 'clock:color':
                             $scope.bgColor = msg.data.color;
                             break;
                         case 'clock:arm':
-							$scope.arm(msg.data.countdown);
+                            $scope.arm(msg.data.countdown);
                             break;
                         case 'clock:start':
                             $scope.start(msg.data.stamp,msg.data.countdown);
@@ -120,20 +120,20 @@ angular.module('Clock',['Clock.config'])
                             break;
                         case 'clock:size':
                             $scope.size += msg.data.amount;
-							break;		
-					}
-				}
-			};
+                            break;      
+                    }
+                }
+            };
 
             $scope.arm = function(countdown) {
-				$scope.armTime = countdown||$scope.armTime;
+                $scope.armTime = countdown||$scope.armTime;
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
                 $scope.runTrack.reset();
-				$scope.$apply();
+                $scope.$apply();
             };
-			
+            
             $scope.playPause = function(pauseStamp) {
                 pauseStamp = pauseStamp||(+new Date());
                 if ($scope.state === 'started') {
@@ -148,7 +148,7 @@ angular.module('Clock',['Clock.config'])
                 }
             };
 
-			$scope.start = function(startStamp,countdown) {
+            $scope.start = function(startStamp,countdown) {
                 if (countdown) {
                     $scope.arm(countdown);
                 }
@@ -264,9 +264,9 @@ angular.module('Clock',['Clock.config'])
                         $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
                         break;
                 };
-				
-				$scope.$apply();
-				
+                
+                $scope.$apply();
+                
             });
 
         }
