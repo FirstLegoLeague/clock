@@ -57,3 +57,8 @@ The clock has been verified to work correctly on the following systems:
   - IE 10
   - IE 9
   - IE 8
+
+Development
+----------
+
+Development is done directly on the gh-pages branch, in order to keep a github hosted version online.
