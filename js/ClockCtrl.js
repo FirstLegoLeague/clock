@@ -95,8 +95,9 @@ angular.module('Clock',['Clock.config'])
                 
                     //Check if data object was received, if not use set default values in object
                     if (typeof msg.data == "undefined") {
-                        msg['data'] = {};
-                        msg.data['countdown'] = $scope.armTime;
+                        msg.data = {
+                            countdown: $scope.armTime;
+                        }
                     }
                     
                     switch (topic) {
