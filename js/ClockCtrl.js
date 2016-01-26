@@ -66,10 +66,7 @@ angular.module('Clock',['ngStorage'])
 
             //initialize config with the angular configuration
             $scope.$storage = $localStorage.$default({
-                config: {
-                    host: 'ws://localhost:13900/',
-                    node: 'clock'
-                }
+                config: clockConfig
             });
 
             $scope.connected = false;
