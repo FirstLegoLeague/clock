@@ -44,9 +44,9 @@ It is recommended to run from a webserver rather then open the file locally. A c
 3. Install the package (if not present):
 `npm install`
 4. Run the webserver:
-`node localserver.js`
+`npm start`
 5. Open a browser to
-`localhost:8080`
+`localhost:1392`
 
 The port can be changed in localserver.js
 
