@@ -15,12 +15,16 @@ angular.module('Clock',['ngStorage'])
 
             $scope.config = $localStorage.config;
 
-            var actions = ['arm','start','stop','mode','playPause'];
+            var actions = ['arm','start','stop','mode','pause'];
 
             actions.forEach(function(action) {
-                $scope[action] = function() {
-                    $opener[action].apply(this,arguments);
-                    $opener.$apply();
+                $scope[action] = function(arg) {
+                    if ($opener.connected) {
+                        $opener.send('clock:'+action,arg);
+                    } else {
+                        $opener[action].apply(this,arguments);
+                        $opener.$apply();
+                    }
                 };
             });
 

@@ -138,6 +138,17 @@ angular.module('Clock',['ngStorage'])
                 $scope.ws = initWebsocket($scope.$storage.config);
             };
 
+            $scope.send = function(topic, data) {
+                if ($scope.ws) {
+                    $scope.ws.send(JSON.stringify({
+                        type: 'publish',
+                        node: $scope.$storage.config.node,
+                        data: data,
+                        topic: topic
+                    }))
+                }
+            }
+
             $scope.connect();
 
             $scope.updateConfig = function(config) {
@@ -176,7 +187,7 @@ angular.module('Clock',['ngStorage'])
                         $scope.stop();
                         break;
                     case 'clock:pause':
-                        $scope.playPause(msg.data.stamp);
+                        $scope.pause(msg.data.stamp);
                         break;
                     case 'clock:nudge':
                         $scope.pos[msg.data.direction] += msg.data.amount;
@@ -196,7 +207,7 @@ angular.module('Clock',['ngStorage'])
                 $scope.$apply();
             };
 
-            $scope.playPause = function(pauseStamp) {
+            $scope.pause = function(pauseStamp) {
                 pauseStamp = pauseStamp||(+new Date());
                 if ($scope.state === 'started') {
                     var startTime = ($scope.pauseTime||$scope.armTime);
@@ -289,7 +300,7 @@ angular.module('Clock',['ngStorage'])
                         break;
                     case 32:    //space
                     case 80:    //p
-                        $scope.playPause();
+                        $scope.pause();
                         break;
                     case 219:   //[
                         $scope.size -= 2;
