@@ -188,7 +188,6 @@ angular.module('Clock',['ngStorage'])
             };
 
             $scope.arm = function(countdown) {
-                console.log(countdown);
                 $scope.armTime = countdown||$scope.armTime;
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
