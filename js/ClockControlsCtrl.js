@@ -13,7 +13,6 @@ angular.module('Clock',['ngStorage'])
         '$scope','$timeout','$opener','$localStorage',
         function($scope,$timeout,$opener,$localStorage) {
 
-            $scope.seconds = $opener.armTime;
             $scope.config = $localStorage.config;
 
             var actions = ['arm','start','stop','mode','playPause'];
@@ -31,6 +30,9 @@ angular.module('Clock',['ngStorage'])
 
             //TODO: simplify these two
             angular.element(document.body).bind('keydown',function(e) {
+                if (e.target.nodeName === 'INPUT') {
+                    return;
+                }
                 var key = e.which||e.keyCode;
                 $opener.handleKey(key);
                 $scope.$apply();

@@ -1,3 +1,12 @@
+function params() {
+    var str = window.location.search.split('?')[1];
+    return str.split('&').reduce(function(map,pair) {
+        var parts = pair.split('=');
+        map[parts[0]] = decodeURIComponent(parts[1]);
+        return map;
+    }, {});
+}
+
 angular.module('Clock',['ngStorage'])
     .filter('time',function() {
         function pad(str) {
@@ -51,11 +60,24 @@ angular.module('Clock',['ngStorage'])
             $audio.init('mp3/lossetrack-B.mp3',function(track) {
                 $scope.stopTrack = track;
             });
+            //initialize config with the angular configuration
+            var urlConfig
+            try {
+                // console.log(params().state);
+                urlConfig = JSON.parse(params().state);
+            } catch(e) {
+                //no url Config
+            }
+
+            //config from localStorage, then url, then defaults from config
+            $scope.$storage = $localStorage.$default({
+                config: urlConfig || clockConfig
+            });
             var handlers = {};
             $scope.bgColor = 'black';
             $scope.state = 'stopped';
-            $scope.time = 150000;
-            $scope.armTime = 150;
+            $scope.time = $scope.$storage.config.seconds * 1000;
+            $scope.armTime = $scope.$storage.config.seconds * 1;
             $scope.tenths = false;
             $scope.size = 340;
 
@@ -64,10 +86,6 @@ angular.module('Clock',['ngStorage'])
                 y: 0
             };
 
-            //initialize config with the angular configuration
-            $scope.$storage = $localStorage.$default({
-                config: clockConfig
-            });
 
             $scope.connected = false;
             var backoff = 100;
@@ -124,7 +142,14 @@ angular.module('Clock',['ngStorage'])
 
             $scope.updateConfig = function(config) {
                 //reinitialize socket connection
-                $scope.ws.close();
+                if ($scope.ws) {
+                    $scope.ws.close();
+                }
+                $scope.conect();
+                $scope.armTime = config.seconds * 1;
+                //save to the url
+                console.log(config);
+                $window.history.pushState(config,'','/?state='+JSON.stringify(config));
             };
 
             $scope.handleMessage = function(msg){
@@ -163,6 +188,7 @@ angular.module('Clock',['ngStorage'])
             };
 
             $scope.arm = function(countdown) {
+                console.log(countdown);
                 $scope.armTime = countdown||$scope.armTime;
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
