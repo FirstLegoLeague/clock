@@ -28,5 +28,12 @@ angular.module('Clock',['ngStorage'])
             $scope.update = function(config) {
                 $opener.updateConfig(config);
             }
+
+            //TODO: simplify these two
+            angular.element(document.body).bind('keydown',function(e) {
+                var key = e.which||e.keyCode;
+                $opener.handleKey(key);
+                $scope.$apply();
+            });
         }
     ]);

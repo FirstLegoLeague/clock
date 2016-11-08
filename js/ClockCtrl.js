@@ -251,9 +251,7 @@ angular.module('Clock',['ngStorage'])
                 };
             };
 
-            //TODO: simplify these two
-            angular.element(document.body).bind('keydown',function(e) {
-                var key = e.which||e.keyCode;
+            $scope.handleKey = function(key) {
                 switch(key) {
                     case 65:    //a
                         $scope.arm();
@@ -301,9 +299,13 @@ angular.module('Clock',['ngStorage'])
                         $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
                         break;
                 };
+            }
 
+            //TODO: simplify these two
+            angular.element(document.body).bind('keydown',function(e) {
+                var key = e.which||e.keyCode;
+                $scope.handleKey(key);
                 $scope.$apply();
-
             });
 
         }

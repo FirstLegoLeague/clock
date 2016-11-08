@@ -5,26 +5,33 @@
 <script src="js/ngStorage.min.js"></script>
 <script src="js/ClockControlsCtrl.js"></script>
 
-<body ng-app="Clock" ng-controller="ClockControlsCtrl">
+<body ng-app="Clock" ng-controller="ClockControlsCtrl" class="controls">
     <fieldset>
         <legend>Clock control</legend>
         <p>
-            <input type="text" ng-model="seconds">
-            <button ng-click="arm(seconds)">Arm</button>
-            <button ng-click="start()">Start</button>
-            <button ng-click="stop()">Stop</button>
-            <button ng-click="playPause()">Pause</button>
-            <button ng-click="mode()">Toggle tenths</button>
+            <label>Seconds:</label>
+            <input type="text" ng-model="config.seconds">
+        </p>
+        <p>
+            <button class="arm" ng-click="arm(seconds)">Arm (a)</button>
+            <button class="start" ng-click="start()">Start (s)</button>
+            <button class="stop" ng-click="stop()">Stop (x)</button>
+            <button ng-click="playPause()">Pause (space)</button>
+            <button ng-click="mode()">Toggle tenths (t)</button>
         </p>
     </fieldset>
     <fieldset>
         <legend>MHub Config</legend>
         <p>
-            Host <input ng-model="config.host">
+            <label>Host</label>
+            <input ng-model="config.host">
         </p>
         <p>
-            Node <input ng-model="config.node">
+            <label>Node</label>
+            <input ng-model="config.node">
         </p>
-        <p><button ng-click="update(config)">Update config</button></p>
+        <p>
+            <button ng-click="update(config)">Update config</button>
+        </p>
     </fieldset>
 </body>

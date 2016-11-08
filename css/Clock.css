@@ -50,3 +50,45 @@ p {
 .started {
     color: lime;
 }
+body.controls {
+    padding: 8px;
+}
+fieldset {
+    border: 1px solid gray;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 2px;
+}
+fieldset p {
+    margin: 8px 0;
+}
+fieldset label {
+    display: inline-block;
+    width: 75px;
+}
+button {
+    background-color: #333;
+    padding: 8px;
+    border: 1px outset silver;
+    color: #EEE;
+    border-radius: 2px;
+}
+input {
+    padding: 4px;
+    border: 1px inset gray;
+    background-color: #333;
+    color: #EEE;
+    border-radius: 2px;
+}
+.arm, .start, .stop {
+    color: #333;
+}
+.arm {
+    background-color: orange;
+}
+.start {
+    background-color: lime;
+}
+.stop {
+    background-color: crimson;
+}
