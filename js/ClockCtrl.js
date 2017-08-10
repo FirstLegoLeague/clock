@@ -51,14 +51,18 @@ angular.module('Clock',['ngStorage'])
     ])
 
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window','$localStorage',
-        function($scope,$timeout,$audio,$window,$localStorage) {
-            //initial values
-            $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
-                $scope.runTrack = track;
-            });
-            $audio.init('mp3/lossetrack-B.mp3',function(track) {
-                $scope.stopTrack = track;
+        '$scope','$timeout','$audio','$window','$localStorage','$http',
+        function($scope,$timeout,$audio,$window,$localStorage,$http) {
+            $http.get('/mp3').then(function(res) {
+                $scope.tracks = [];
+                res.data.forEach(function(filename) {
+                    var timeMatch = filename.match(/\d+\./);
+                    if(timeMatch === null)   return;
+                    var time = parseInt(timeMatch[0]);
+                    $audio.init(`/mp3/${filename}`, function(track) {
+                        $scope.tracks[time] = track;
+                    });
+                });
             });
             //initialize config with the angular configuration
             var urlConfig
@@ -203,7 +207,7 @@ angular.module('Clock',['ngStorage'])
                 $scope.pauseTime = false;
                 $scope.time = $scope.armTime*1000;
                 $scope.state = 'armed';
-                $scope.runTrack.reset();
+                $scope.tracks.forEach((track) => track.reset());
                 $scope.$apply();
             };
 
@@ -214,7 +218,7 @@ angular.module('Clock',['ngStorage'])
                     var t = (startTime*1000) - (pauseStamp - ($scope.startStamp||pauseStamp));
                     $scope.time = t;
                     $scope.state = 'paused';
-                    $scope.runTrack.pause();
+                    $scope.tracks.forEach((track) => track.reset());
                     $scope.pauseTime = t/1000;
                 } else {
                     $scope.start(pauseStamp);
@@ -227,23 +231,13 @@ angular.module('Clock',['ngStorage'])
                 }
                 $scope.startStamp = startStamp||(+(new Date()));
                 $scope.state = 'started';
-                $scope.runTrack.play();
                 $scope.tick();
-                $timeout(function() {
-                    $scope.stopTrack.reset();
-                },500);
             };
 
             $scope.stop = function() {
                 $scope.state = 'stopped';
                 $scope.pauseTime = false;
-                $scope.runTrack.reset();
-            };
-
-            $scope.zero = function() {
-                $scope.time = 0;
-                $scope.stopTrack.play();
-                $scope.stop();
+                $scope.tracks.forEach((track) => track.reset());
             };
 
             $scope.toggle = function() {
@@ -258,20 +252,28 @@ angular.module('Clock',['ngStorage'])
                 $scope.tenths = !$scope.tenths;
             };
 
+            function runTracks(time) {
+                let track = $scope.tracks[Math.floor(time / 1000)];
+                if(track) {
+                    console.log("playing track " + time);
+                    track.play();
+                }
+            }
+
             $scope.tick = function() {
                 if ($scope.state === 'started') {
                     var now = +(new Date());
                     var startTime = ($scope.pauseTime||$scope.armTime);
                     $scope.time = (startTime*1000) - (now - $scope.startStamp);
-                    $timeout($scope.tick,10);
+                    runTracks($scope.time);
+                    if($scope.time > 0) {
+                        $timeout($scope.tick,10);
+                    } else {
+                        $scope.time = 0;
+                        $scope.stop();
+                    }
                 }
             };
-
-            $scope.$watch('time',function(newVal) {
-                if ($scope.time <= 0) {
-                    $scope.zero();
-                }
-            });
 
             $scope.clockStyle = function() {
                 return {
