@@ -79,13 +79,13 @@ This one will move the clock 10 px in the horizontal direction (to the right)
 In order to get to chose your own background sounds to play during the clock's run,
 you may add any files you want to the `/mp3` folder, and the system will pick them automatically,
 using the following naming conventions:
-  - files that do not end in a number, i.e. "track.mp3" will be ignored (disabled).
-  - files that end with a number, i.e. "track_30.mp3", will start running when the clock hits that number of seconds.
-  - A few examples:
-   - "exapmle_150.mp3" will start when the clock starts a 2.5 minutes run.
-   - "track_0.mp3" will start when then clock finishes running.
-   - "another_example_some_other_words100.mp3" will start when the clock hits 1:40
-   - "last_example.mp3" - will never start
+- files that do not end in a number, i.e. "track.mp3" will be ignored (disabled).
+- files that end with a number, i.e. "track_30.mp3", will start running when the clock hits that number of seconds.
+- A few examples:
+	- "exapmle_150.mp3" will start when the clock starts a 2.5 minutes run.
+	- "track_0.mp3" will start when then clock finishes running.
+	- "another_example_some_other_words100.mp3" will start when the clock hits 1:40
+	- "last_example.mp3" - will never start
 
 ### Sending commands
 Not yet implemented
