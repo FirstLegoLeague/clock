@@ -1,4 +1,4 @@
-.service('$tracks', ['$config','$audio', function($config, $audio) {
+angular.module('Clock').service('$tracks', ['$config','$audio', function($config, $audio) {
     var listeners = [];
 
     function trigger(event, time) {
