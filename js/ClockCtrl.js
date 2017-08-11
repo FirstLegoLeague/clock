@@ -186,7 +186,7 @@ angular.module('Clock').controller('ClockCtrl',[
                 var now = +(new Date());
                 var startTime = ($scope.pauseTime||$scope.armTime);
                 $scope.time = (startTime*1000) - (now - $scope.startStamp);
-                $tracks.trigger(Math.floor($scope.time / 1000), Math.floor($scope.time / 1000));
+                $tracks.trigger(Math.floor($scope.time / 1000), $scope.time);
                 if ($scope.time <= 0) {
                     $scope.time = 0;
                     $scope.stop();

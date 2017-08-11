@@ -11,6 +11,7 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
             if(listener && listener.event === event) {
                 if(listener.action === 'set') {
                     set(listener, time);
+                    return;
                 }
                 ACTIONS[listener.action](listener, time);
             }
@@ -30,7 +31,7 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
     };
 
     function set(listener, time) {
-        let event = time - listener.timeAfter;
+        let event = Math.floor(time / 1000) - listener.timeAfterEvent;
         listeners.push({
             event: event,
             track: listener.track,
@@ -50,8 +51,8 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
             let direction = 1; // Counting forward
             let startCountingAt = config.seconds;
             if(match[3]) {
-                let direction = (match[4] === 'before') ? -1 : 1;
-                let startCountingAt = resolveTimeEvent(match[5], config);
+                direction = (match[4] === 'before') ? -1 : 1;
+                startCountingAt = resolveTimeEvent(match[5], config);
             }
             let time;
             if(unit.match(/^ ?s/))
@@ -62,7 +63,7 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
             if(isFinite(startCountingAt)) {
                 return String(Number(startCountingAt) - direction * quantity);
             } else {
-                if(startCountingAt.startsWith(/after|before/)) {
+                if(startCountingAt.match(/^(after|before)/)) {
                     console.error(`Illegal trigger: ${str}`);
                     return undefined;
                 }
