@@ -97,6 +97,7 @@ angular.module('Clock',['ngStorage'])
                 $scope.config = config;
                 $scope.time = config.seconds * 1000;
                 $scope.armTime = config.seconds * 1;
+                $scope.$apply();
                 $scope.connect();
             });
             
