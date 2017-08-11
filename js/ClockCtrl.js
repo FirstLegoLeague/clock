@@ -1,12 +1,3 @@
-function params() {
-    var str = window.location.search.split('?')[1];
-    return str.split('&').reduce(function(map,pair) {
-        var parts = pair.split('=');
-        map[parts[0]] = decodeURIComponent(parts[1]);
-        return map;
-    }, {});
-}
-
 angular.module('Clock',['ngStorage'])
     .filter('time',function() {
         function pad(str) {
@@ -50,9 +41,50 @@ angular.module('Clock',['ngStorage'])
         }
     ])
 
+    .service('$config',['$localStorage',function($localStorage) {
+        var _promise;
+
+        function params() {
+            var str = window.location.search.split('?')[1];
+            return str.split('&').reduce(function(map,pair) {
+                var parts = pair.split('=');
+                map[parts[0]] = decodeURIComponent(parts[1]);
+                return map;
+            }, {});
+        }
+
+        return {
+
+            load: function() {
+                _promise = _promise || new Promise(function(resolve) {
+                    //initialize config with the angular configuration
+                    var urlConfig
+                    try {
+                        // console.log(params().state);
+                        urlConfig = JSON.parse(params().state);
+                    } catch(e) {
+                        //no url Config
+                    }
+
+                    //config from localStorage, then url, then defaults from config
+                    var $storage = $localStorage.$default({
+                        config: urlConfig || clockConfig
+                    });
+
+                    resolve($storage.config);
+                });
+                return _promise;
+            },
+            setToUrl: function(config) {
+                console.log(config);
+                $window.history.pushState(config,'','/?state='+JSON.stringify(config));
+            }
+        };
+    }])
+
     .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window','$localStorage',
-        function($scope,$timeout,$audio,$window,$localStorage) {
+        '$scope','$timeout','$audio','$window','$config',
+        function($scope,$timeout,$audio,$window,$config) {
             //initial values
             $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
@@ -60,24 +92,17 @@ angular.module('Clock',['ngStorage'])
             $audio.init('mp3/lossetrack-B.mp3',function(track) {
                 $scope.stopTrack = track;
             });
-            //initialize config with the angular configuration
-            var urlConfig
-            try {
-                // console.log(params().state);
-                urlConfig = JSON.parse(params().state);
-            } catch(e) {
-                //no url Config
-            }
 
-            //config from localStorage, then url, then defaults from config
-            $scope.$storage = $localStorage.$default({
-                config: urlConfig || clockConfig
+            $config.load().then(function(config) {
+                $scope.config = config;
+                $scope.time = config.seconds * 1000;
+                $scope.armTime = config.seconds * 1;
+                $scope.connect();
             });
+            
             var handlers = {};
             $scope.bgColor = 'black';
             $scope.state = 'stopped';
-            $scope.time = $scope.$storage.config.seconds * 1000;
-            $scope.armTime = $scope.$storage.config.seconds * 1;
             $scope.tenths = false;
             $scope.size = 340;
 
@@ -85,7 +110,6 @@ angular.module('Clock',['ngStorage'])
                 x: 0,
                 y: 0
             };
-
 
             $scope.connected = false;
             var backoff = 100;
@@ -135,21 +159,19 @@ angular.module('Clock',['ngStorage'])
             }
 
             $scope.connect = function() {
-                $scope.ws = initWebsocket($scope.$storage.config);
+                $scope.ws = initWebsocket($scope.config);
             };
 
             $scope.send = function(topic, data) {
                 if ($scope.ws) {
                     $scope.ws.send(JSON.stringify({
                         type: 'publish',
-                        node: $scope.$storage.config.node,
+                        node: $scope.config.node,
                         data: data,
                         topic: topic
                     }))
                 }
             }
-
-            $scope.connect();
 
             $scope.updateConfig = function(config) {
                 //reinitialize socket connection
@@ -159,8 +181,7 @@ angular.module('Clock',['ngStorage'])
                 $scope.conect();
                 $scope.armTime = config.seconds * 1;
                 //save to the url
-                console.log(config);
-                $window.history.pushState(config,'','/?state='+JSON.stringify(config));
+                $config.setToUrl(config);
             };
 
             $scope.handleMessage = function(msg){
