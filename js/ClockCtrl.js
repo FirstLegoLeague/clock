@@ -89,7 +89,7 @@ angular.module('Clock').controller('ClockCtrl',[
             if ($scope.ws) {
                 $scope.ws.close();
             }
-            $scope.conect();
+            $scope.connect();
             $scope.armTime = config.seconds * 1;
             //save to the url
             $config.setToUrl(config);
@@ -149,6 +149,7 @@ angular.module('Clock').controller('ClockCtrl',[
                 $tracks.pause();
                 $scope.pauseTime = t/1000;
             } else {
+                $tracks.unpause();                
                 $scope.start(pauseStamp);
             }
         };

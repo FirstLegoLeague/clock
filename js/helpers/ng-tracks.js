@@ -7,6 +7,10 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
             return;
         }
 
+        if(typeof event !== 'string') {
+            event = String(event);
+        }
+
         listeners.forEach(listener => {
             if(listener && listener.event === event) {
                 if(listener.action === 'set') {
@@ -21,13 +25,24 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
     const ACTIONS = {
         start: (listener,time) => {
             listener.track.play();
+            listener.playing = true;
             if(listener.name) {
                 trigger(listener.name, time);
             }
         },
-        stop: listener => listener.track.stop(),
-        reset: listener => listener.track.reset(),
-        pause: listener => listener.track.pause()
+        stop: listener => {
+            listener.track.stop();
+            listener.playing = false;
+        },
+        reset: listener => {
+            listener.track.reset();
+            listener.playing = false;
+            listener.paused = false;
+        },
+        pause: listener => {
+            listener.track.pause();
+            listener.paused = true;
+        }
     };
 
     function set(listener, time) {
@@ -148,7 +163,20 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
         },
         trigger: trigger,
         pause: function() {
-            listeners.forEach(listener => listener.track.pause());
+            listeners.forEach(listener => {
+                if(listener.playing) {
+                    listener.track.pause();
+                    listener.paused = true;
+                }
+            });
+        },
+        unpause: function() {
+            listeners.forEach(listener => { 
+                if(listener.paused) {
+                    listener.track.play();
+                    delete listener.paused;
+                }
+            });
         },
         reset: function() {
             listeners.forEach(listener => listener.track.reset());
