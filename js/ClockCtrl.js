@@ -255,7 +255,7 @@ angular.module('Clock').controller('ClockCtrl',[
                     }
                     break;
                 case 67:    //c
-                    $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=300');
+                    $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=800');
                     break;
             };
         }
