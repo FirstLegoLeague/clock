@@ -31,6 +31,29 @@ The following keys can be used to control the clock:
 - `c` shows controls (does not work on local file system)
 - `<F11>` toggle fullscreen
 
+Audio soundtracks
+-----
+The soundtracks are saved in the mp3 folder inside the clock. If you want, you can add as many files in there as you want, and you can use them at different times of the clock, or after events in the timeline.
+To chose which files to use, you simply configure the tracks area in the config.js file.
+The following options are avalable:
+`tracks: [{
+	//This track will start when the clock starts.
+	source: 'audio_source_file.mp3',
+	start: 'on start'
+},{
+	//This track will start when the clock ends. If you prefer yuo can use 'one stop' instead.
+	source: 'audio_source_file.mp3',
+	start: 'on start'
+},{
+	//This track will start 30 seconds after the clock starts.
+	source: 'audio_source_file.mp3',
+	start: '30 seconds after start'
+},{
+	//This track will start 30 seconds before the clock ends.
+	source: 'audio_source_file.mp3',
+	start: '30 seconds before stop'
+}]`
+
 Usage with Mhub
 -----
 Make sure you have a working (and accessible) mhub instance running on your server; see [mbhub documentation](https://github.com/poelstra/mhub)
