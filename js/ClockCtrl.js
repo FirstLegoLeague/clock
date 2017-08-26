@@ -1,13 +1,10 @@
 angular.module('Clock').controller('ClockCtrl',[
     '$scope','$timeout','$window','$config','$tracks',
     function($scope,$timeout,$window,$config,$tracks) {
-        $config.init().then(function(config) {
-            $scope.config = config;
-            $scope.time = config.seconds * 1000;
-            $scope.armTime = config.seconds * 1;
-            $scope.$apply();
-            $scope.connect();
-        });
+        $scope.config = $sconfig.get();
+        $scope.time = $scope.config.seconds * 1000;
+        $scope.armTime = $scope.config.seconds * 1;
+        $scope.connect();
 
         $tracks.init();
         

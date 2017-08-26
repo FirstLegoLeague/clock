@@ -1,5 +1,5 @@
-angular.module('Clock').service('$config',['$localStorage',function($localStorage) {
-	var _promise;
+angular.module('Clock').service('$config',['$localStorage' ,'$q' ,function($localStorage, $q) {
+	var _config;
 
 	function params() {
 	    var str = window.location.search.split('?')[1];
@@ -12,9 +12,9 @@ angular.module('Clock').service('$config',['$localStorage',function($localStorag
 
 	return {
 
-	    init: function() {
-	        _promise = _promise || new Promise(function(resolve) {
-	            //initialize config with the angular configuration
+	    get: function() {
+	    	if(!_config) {
+	    		//initialize config with the angular configuration
 	            var urlConfig
 	            try {
 	                // console.log(params().state);
@@ -28,9 +28,9 @@ angular.module('Clock').service('$config',['$localStorage',function($localStorag
 	                config: urlConfig || clockConfig
 	            });
 
-	            resolve($storage.config);
-	        });
-	        return _promise;
+	            _config = $storage.config;
+	    	}
+	    	return _config;
 	    },
 	    setToUrl: function(config) {
 	        console.log(config);

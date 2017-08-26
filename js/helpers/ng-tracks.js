@@ -8,7 +8,7 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
         }
 
         if(typeof event !== 'string') {
-            event = String(event);
+            event = event.toString();
         }
 
         listeners.forEach(listener => {
@@ -61,22 +61,26 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
         // Where xxx is the original number-unit trigger, and the yyy is a 
         // reference to another trigger
         if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after|before) (.+))?$/)) {
-            let quantity = Number(match[1]);
+            let quantity = parseInt(match[1]);
             let unit = match[2];
             let direction = 1; // Counting forward
-            let startCountingAt = config.seconds;
-            if(match[3]) {
+            let startCountingAt = config.seconds; // Start from the beginning
+            if(match[3]) { // Start at a specific time
                 direction = (match[4] === 'before') ? -1 : 1;
                 startCountingAt = resolveTimeEvent(match[5], config);
             }
             let time;
-            if(unit.match(/^ ?s/))
+            if(unit.match(/^ ?s/)) {
                 time = quantity;
-            if(unit.match(/^(%| p)/))
+            }
+            if(unit.match(/^(%| p)/)) {
                 time = Math.floor(config.seconds * quantity / 100);
+            }
 
             if(isFinite(startCountingAt)) {
-                return String(Number(startCountingAt) - direction * quantity);
+                startCountingAt = parseInt(startCountingAt);
+                let time = startCountingAt - direction * quantity;
+                return time.toString();
             } else {
                 if(startCountingAt.match(/^(after|before)/)) {
                     console.error(`Illegal trigger: ${str}`);
@@ -90,14 +94,11 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
 
         // The mm:ss case
         } else if(match = str.match(/^(\d+):(\d+)$/)) {
-            let minutes = Number(match[1]);
-            let seconds = Number(match[2]);
-            return String(minutes * 60 + seconds);
-        
+            let minutes = parseInt(match[1]);
+            let seconds = parseInt(match[2]);
+            let time = minutes * 60 + seconds
+            return time.toString();
         // The generic word case
-        } else if(str === 'set') {
-            console.error(`Illegal trigger: ${str}`);
-            return undefined;
         } else {
             //Remove all ignorable trigger words
             str = str.replace(/^(on |with )/, '');
@@ -153,7 +154,9 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
     return {
         init: function() {
             return $config.init().then(function(config) {
-                if(!config.tracks)  return;
+                if(!config.tracks) {
+                    return;
+                }
                 config.tracks.forEach(function(trackConfig) {
                     $audio.init(trackConfig.source,function(track) {
                         listeners = listeners.concat(resolveListeners(trackConfig, track, config));
