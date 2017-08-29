@@ -1,4 +1,4 @@
-angular.module('Clock').service('$tracks', ['$config','$audio', function($config, $audio) {
+    angular.module('Clock').service('$tracks', ['$config','$audio', function($config, $audio) {
     var listeners = [];
 
     function trigger(event, time) {
@@ -153,14 +153,15 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
 
     return {
         init: function() {
-            return $config.init().then(function(config) {
-                if(!config.tracks) {
-                    return;
-                }
-                config.tracks.forEach(function(trackConfig) {
-                    $audio.init(trackConfig.source,function(track) {
-                        listeners = listeners.concat(resolveListeners(trackConfig, track, config));
-                    });
+            var config = $config.get();
+            
+            if(!config.tracks) {
+                return;
+            }
+            
+            config.tracks.forEach(function(trackConfig) {
+                $audio.init(trackConfig.source,function(track) {
+                    listeners = listeners.concat(resolveListeners(trackConfig, track, config));
                 });
             });
         },

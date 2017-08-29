@@ -34,8 +34,20 @@ The following keys can be used to control the clock:
 Audio soundtracks
 -----
 The soundtracks are saved in the mp3 folder inside the clock. If you want, you can add as many files in there as you want, and you can use them at different times of the clock, or after events in the timeline.
-To chose which files to use, you simply configure the tracks area in the config.js file.
+To choose which files to use, you simply configure the tracks area in the config.js file.
 The following options are avalable:
+- on [event]
+Runs when [event] is triggered. [event] can be 'start' and 'stop' (or 'end', which is equivalent), 'pause'.
+- xxxs after/before [event]
+Runs xxx seconds after/before [event] is triggered.
+Can also be written as:
+  - xxx secs after/before [event]
+  - xxx seconds after/before [event]
+ - xxx% after/before [event]
+Runs xxx percents of the clock full duration after/before [event] is triggered.
+Can also be written as:
+  - xxx percents after/before [event] 
+Examples tracks:
 `tracks: [{
 	//This track will start when the clock starts.
 	source: 'audio_source_file.mp3',
@@ -52,6 +64,10 @@ The following options are avalable:
 	//This track will start 30 seconds before the clock ends.
 	source: 'audio_source_file.mp3',
 	start: '30 seconds before stop'
+},{
+	//This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
+	source: 'audio_source_file.mp3',
+	start: '30% before stop'
 }]`
 
 Usage with Mhub

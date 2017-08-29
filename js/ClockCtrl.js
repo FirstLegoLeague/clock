@@ -1,12 +1,9 @@
 angular.module('Clock').controller('ClockCtrl',[
     '$scope','$timeout','$window','$config','$tracks',
     function($scope,$timeout,$window,$config,$tracks) {
-        $scope.config = $sconfig.get();
+        $scope.config = $config.get();
         $scope.time = $scope.config.seconds * 1000;
         $scope.armTime = $scope.config.seconds * 1;
-        $scope.connect();
-
-        $tracks.init();
         
         var handlers = {};
         $scope.bgColor = 'black';
@@ -145,6 +142,7 @@ angular.module('Clock').controller('ClockCtrl',[
                 $scope.state = 'paused';
                 $tracks.pause();
                 $scope.pauseTime = t/1000;
+                $tracks.trigger('pause', $scope.pauseTime);
             } else {
                 $tracks.unpause();                
                 $scope.start(pauseStamp);
@@ -257,6 +255,10 @@ angular.module('Clock').controller('ClockCtrl',[
                     break;
             };
         }
+
+        $scope.connect();
+
+        $tracks.init();
 
         //TODO: simplify these two
         angular.element(document.body).bind('keydown',function(e) {
