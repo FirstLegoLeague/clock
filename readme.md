@@ -47,27 +47,37 @@ Can also be written as:
 Runs xxx percents of the clock full duration after/before [event] is triggered.
 Can also be written as:
   - xxx percents after/before [event] 
+- You can tracks as events by naming them, and then use these events from different tracks. Notice you must put the referenced track first in the configuration.
+
+Using those options, you can tell file when to start, stop, pause or reset, by adding them as options in the track's configuration.
+
 Examples tracks:
 `tracks: [{
-	//This track will start when the clock starts.
-	source: 'audio_source_file.mp3',
-	start: 'on start'
+  //This track will start when the clock starts.
+  source: 'audio_source_file.mp3',
+  start: 'on start'
 },{
-	//This track will start when the clock ends. If you prefer yuo can use 'one stop' instead.
-	source: 'audio_source_file.mp3',
-	start: 'on start'
+  //This track will start when the clock ends. If you prefer yuo can use 'one stop' instead.
+  source: 'audio_source_file.mp3',
+  start: 'on start'
 },{
-	//This track will start 30 seconds after the clock starts.
-	source: 'audio_source_file.mp3',
-	start: '30 seconds after start'
+  //This track will start 30 seconds after the clock starts.
+  source: 'audio_source_file.mp3',
+  start: '30 seconds after start'
 },{
-	//This track will start 30 seconds before the clock ends.
-	source: 'audio_source_file.mp3',
-	start: '30 seconds before stop'
+  //This track will start 30 seconds before the clock ends.
+  source: 'audio_source_file.mp3',
+  start: '30 seconds before stop'
 },{
-	//This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
-	source: 'audio_source_file.mp3',
-	start: '30% before stop'
+  //This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
+  source: 'audio_source_file.mp3',
+  start: '30% before stop',
+  name: '30p' //I give it a name so I can start an event right after it.
+},{
+  //This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
+  source: 'audio_source_file.mp3',
+  start: 'on 30p',
+  stop: '20% before end'
 }]`
 
 Usage with Mhub

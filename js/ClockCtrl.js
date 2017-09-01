@@ -1,5 +1,5 @@
 angular.module('Clock').controller('ClockCtrl',[
-    '$scope','$timeout','$window','$config','$tracks',
+    '$scope','$timeout','$window','$config','$tracks','$opener'
     function($scope,$timeout,$window,$config,$tracks) {
         $scope.config = $config.get();
         $scope.time = $scope.config.seconds * 1000;
@@ -144,18 +144,19 @@ angular.module('Clock').controller('ClockCtrl',[
                 $scope.pauseTime = t/1000;
                 $tracks.trigger('pause', $scope.pauseTime);
             } else {
-                $tracks.unpause();                
+                $tracks.unpause();
                 $scope.start(pauseStamp);
+                $tracks.trigger('unpause', $scope.pauseTime);
             }
         };
 
         $scope.start = function(startStamp,countdown) {
             if (countdown) {
                 $scope.arm(countdown);
+                $tracks.trigger('start', $scope.time);
             }
             $scope.startStamp = startStamp||(+(new Date()));
             $scope.state = 'started';
-            $tracks.trigger('start', $scope.time);
             $scope.tick();
         };
 
@@ -181,8 +182,11 @@ angular.module('Clock').controller('ClockCtrl',[
             if ($scope.state === 'started') {
                 var now = +(new Date());
                 var startTime = ($scope.pauseTime||$scope.armTime);
-                $scope.time = (startTime*1000) - (now - $scope.startStamp);
-                $tracks.trigger(Math.floor($scope.time / 1000), $scope.time);
+                var newTime = (startTime*1000) - (now - $scope.startStamp);
+                if(Math.floor(newTime / 1000) != Math.floor($scope.time / 1000)) {
+                    $tracks.trigger(Math.floor(newTime / 1000), $scope.time);
+                }
+                $scope.time = newTime;
                 if ($scope.time <= 0) {
                     $scope.time = 0;
                     $scope.stop();

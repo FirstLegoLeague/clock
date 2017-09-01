@@ -48,7 +48,7 @@
     function set(listener, time) {
         let event = Math.floor(time / 1000) - listener.timeAfterEvent;
         listeners.push({
-            event: event,
+            event: event.toString(),
             track: listener.track,
             action: listener.metaAction
         });
