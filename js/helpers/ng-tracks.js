@@ -148,6 +148,7 @@
                 });
             }
         });
+        console.log(listeners);
         return listeners;
     }
 

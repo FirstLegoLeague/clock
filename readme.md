@@ -37,7 +37,7 @@ The soundtracks are saved in the mp3 folder inside the clock. If you want, you c
 To choose which files to use, you simply configure the tracks area in the config.js file.
 The following options are avalable:
 - on [event]
-Runs when [event] is triggered. [event] can be 'start' and 'stop' (or 'end', which is equivalent), 'pause'.
+Runs when [event] is triggered. [event] can be 'start' and 'stop' (or 'end', which is equivalent).
 - xxxs after/before [event]
 Runs xxx seconds after/before [event] is triggered.
 Can also be written as:

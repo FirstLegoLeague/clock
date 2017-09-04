@@ -7,6 +7,6 @@ var clockConfig = {
     	start: 'on start'
     },{
     	source: 'mp3/lossetrack-B.mp3',
-    	start: 'on end'
+    	pause: 'on end'
     }]
 }
