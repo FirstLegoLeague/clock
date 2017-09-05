@@ -1,4 +1,4 @@
-angular.module('Clock').service('$config',['$localStorage' ,'$q' ,function($localStorage, $q) {
+angular.module('Clock').service('$config',['$localStorage' ,'$q', '$window' ,function($localStorage, $q, $window) {
 	var _config;
 
 	function params() {
