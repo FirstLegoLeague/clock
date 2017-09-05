@@ -161,6 +161,8 @@ angular.module('Clock').controller('ClockCtrl',[
         $scope.stop = function() {
             $scope.state = 'stopped';
             $scope.pauseTime = false;
+            $tracks.pause();
+            $tracks.reset();
             $tracks.trigger(['end','stop'], $scope.time);
         };
 
