@@ -3,10 +3,10 @@ var clockConfig = {
     node: 'default',
     seconds: 150,
     tracks: [{
-    	source: 'mp3/lossetrack-A +6.mp3',
+    	source: 'lossetrack-A +6.mp3',
     	start: 'on start'
     },{
-    	source: 'mp3/lossetrack-B.mp3',
+    	source: 'lossetrack-B.mp3',
     	pause: 'on end'
     }]
 }

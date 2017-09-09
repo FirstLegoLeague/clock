@@ -161,7 +161,7 @@
             }
             
             config.tracks.forEach(function(trackConfig) {
-                $audio.init(trackConfig.source,function(track) {
+                $audio.init(`mp3/${trackConfig.source}`,function(track) {
                     listeners = listeners.concat(resolveListeners(trackConfig, track, config));
                 });
             });
