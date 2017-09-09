@@ -92,3 +92,8 @@ input {
 .stop {
     background-color: crimson;
 }
+.delete {
+    color: whitebone;
+    background-color: grey;
+    float: right;
+}
