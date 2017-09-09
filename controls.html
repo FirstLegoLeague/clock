@@ -21,7 +21,8 @@
         </p>
     </fieldset>
     <fieldset>
-        <legend>MHub Config</legend>
+        <legend>Configuration</legend>
+        <h3>MHub</h3>
         <p>
             <label>Host</label>
             <input ng-model="config.host">
@@ -29,6 +30,25 @@
         <p>
             <label>Node</label>
             <input ng-model="config.node">
+        </p>
+        <h3>Background soundtracks</h3>
+        <fieldset ng-repeat="track in config.tracks">
+            <p>
+                <label>Name</label>
+                <input ng-model="track.name">
+                <button class="delete" ng-click="config.tracks.splice(config.tracks.indexOf(track),1)">Delete</button>
+            </p>
+            <p>
+                <label>Source</label>
+                <input ng-model="track.source">
+            </p>
+            <p>
+                <label>Start</label>
+                <input ng-model="track.start">
+            </p>
+        </fieldset>
+        <p>
+            <button ng-click="config.tracks.push({})">New soundtrack</button>
         </p>
         <p>
             <button ng-click="update(config)">Update config</button>

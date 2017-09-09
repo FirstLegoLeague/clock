@@ -15,6 +15,9 @@ angular.module('Clock',['ngStorage'])
 
             $scope.config = $localStorage.config;
 
+            // For backwards compatibility
+            $scope.config.tracks = $scope.config.tracks || [];
+
             var actions = ['arm','start','stop','mode','pause'];
 
             actions.forEach(function(action) {
