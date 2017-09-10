@@ -25,7 +25,7 @@ angular.module('Clock').service('$config',['$localStorage' ,'$q', '$window' ,fun
 
 	            //config from localStorage, then url, then defaults from config
 	            var $storage = $localStorage.$default({
-	                config: urlConfig || clockConfig
+	                config: clockConfig || urlConfig
 	            });
 
 	            _config = $storage.config;
