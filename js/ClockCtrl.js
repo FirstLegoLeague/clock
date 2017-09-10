@@ -168,9 +168,17 @@ angular.module('Clock').controller('ClockCtrl',[
 
         $scope.toggle = function() {
             if ($scope.state == 'started') {
-                $scope.stop();
+                if ($scope.connected) {
+                    $scope.send('clock:stop')
+                } else {
+                    $scope.stop();
+                }
             } else {
-                $scope.start();
+                if ($scope.connected) {
+                    $scope.send('clock:start')
+                } else {
+                    $scope.start();
+                }
             }
         };
 
@@ -213,17 +221,29 @@ angular.module('Clock').controller('ClockCtrl',[
         $scope.handleKey = function(key) {
             switch(key) {
                 case 65:    //a
-                    $scope.arm();
+                    if ($scope.connected) {
+                        $scope.send('clock:arm')
+                    } else {
+                        $scope.arm();
+                    }
                     break;
                 case 88:    //x
-                    $scope.stop();
+                    if ($scope.connected) {
+                        $scope.send('clock:stop')
+                    } else {
+                        $scope.stop();
+                    }
                     break;
                 case 83:    //s
                     $scope.toggle();
                     break;
                 case 32:    //space
                 case 80:    //p
-                    $scope.pause();
+                    if ($scope.connected) {
+                        $scope.send('clock:pause')
+                    } else {
+                        $scope.pause();
+                    }
                     break;
                 case 219:   //[
                     $scope.size -= 2;
