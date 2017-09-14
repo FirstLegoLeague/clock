@@ -1,6 +1,6 @@
 {
-  "name": "clock",
-  "version": "1.0.0",
+  "name": "@first-lego-league/clock",
+  "version": "1.1.0",
   "description": "Clock\r =====",
   "main": "config.js",
   "scripts": {
