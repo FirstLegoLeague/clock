@@ -80,16 +80,7 @@ var ConfigService = function($localStorage, $window, $q) {
         }
 ConfigService.$inject = ['$localStorage', '$window', '$q'];
 
-
-
-angular.module('Clock',['ngStorage'])
-    .filter('time', timeFilter)
-    .factory('$audio',AudioService)
-    .service('$config',ConfigService)
-
-    .controller('ClockCtrl',[
-        '$scope','$timeout','$audio','$window','$config',
-        function($scope,$timeout,$audio,$window,$config) {
+var ClockController = function($scope,$timeout,$audio,$window,$config) {
             //initial values
             $audio.init('mp3/lossetrack-A +6.mp3',function(track) {
                 $scope.runTrack = track;
@@ -371,4 +362,10 @@ angular.module('Clock',['ngStorage'])
             });
 
         }
-    ]);
+ClockController.$inject = ['$scope','$timeout','$audio','$window','$config'];
+
+angular.module('Clock',['ngStorage'])
+    .filter('time', timeFilter)
+    .factory('$audio',AudioService)
+    .service('$config',ConfigService)
+    .controller('ClockCtrl',ClockController);
