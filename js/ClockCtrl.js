@@ -48,13 +48,7 @@ var AudioService = function() {
             };
 }
 
-angular.module('Clock',['ngStorage'])
-    .filter('time', timeFilter)
-    .factory('$audio',AudioService)
-
-    .service('$config',[
-        '$localStorage', '$window', '$q',
-        function($localStorage, $window, $q) {
+var ConfigService = function($localStorage, $window, $q) {
             var _promise;
 
             return {
@@ -84,7 +78,14 @@ angular.module('Clock',['ngStorage'])
                 }
             };
         }
-    ])
+ConfigService.$inject = ['$localStorage', '$window', '$q'];
+
+
+
+angular.module('Clock',['ngStorage'])
+    .filter('time', timeFilter)
+    .factory('$audio',AudioService)
+    .service('$config',ConfigService)
 
     .controller('ClockCtrl',[
         '$scope','$timeout','$audio','$window','$config',
