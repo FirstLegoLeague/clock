@@ -8,28 +8,28 @@ function params() {
 }
 
 function ConfigService($localStorage, $window, $q) {
-    var _promise;
+    var _config;
 
     return {
         load: function() {
-            if (_promise) {
-                return _promise;
+            if (!_config) {
+                var urlConfig;
+                try {
+                    // console.log(params().state);
+                    urlConfig = JSON.parse(params().state);
+                } catch (e) {
+                    //no url Config
+                }
+
+                //config from localStorage, then url, then defaults from config
+                var $storage = $localStorage.$default({
+                    config: urlConfig || clockConfig
+                });
+
+                _config = $storage.config;
             }
 
-            var urlConfig;
-            try {
-                // console.log(params().state);
-                urlConfig = JSON.parse(params().state);
-            } catch (e) {
-                //no url Config
-            }
-
-            //config from localStorage, then url, then defaults from config
-            var $storage = $localStorage.$default({
-                config: urlConfig || clockConfig
-            });
-
-            return $q.when($storage.config);
+            return _config;
         },
         setToUrl: function(config) {
             $window.history.pushState(config, '', '/?state=' + JSON.stringify(config));

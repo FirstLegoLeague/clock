@@ -7,12 +7,9 @@ function ClockController($scope, $timeout, $audio, $window, $config) {
         $scope.stopTrack = track;
     });
 
-    $config.load().then(function(config) {
-        $scope.config = config;
-        $scope.time = config.seconds * 1000;
-        $scope.armTime = config.seconds * 1;
-        $scope.connect();
-    });
+    $scope.config = $config.load();
+    $scope.time = $scope.config.seconds * 1000;
+    $scope.armTime = $scope.config.seconds * 1;
 
     var handlers = {};
     $scope.bgColor = 'black';
@@ -86,6 +83,8 @@ function ClockController($scope, $timeout, $audio, $window, $config) {
             }))
         }
     }
+
+    $scope.connect();
 
     $scope.updateConfig = function(config) {
         //reinitialize socket connection
