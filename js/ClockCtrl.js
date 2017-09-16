@@ -156,7 +156,7 @@ angular.module('Clock',['ngStorage'])
                 if ($scope.ws) {
                     $scope.ws.close();
                 }
-                $scope.conect();
+                $scope.connect();
                 $scope.armTime = config.seconds * 1;
                 //save to the url
                 console.log(config);
