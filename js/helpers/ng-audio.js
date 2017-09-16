@@ -1,4 +1,4 @@
-var AudioService = function() {
+function AudioService() {
     function init(file, cb) {
         new Audio5js({
             swf_path: 'swf/audio5js.swf',
@@ -16,4 +16,4 @@ var AudioService = function() {
     return {
         init: init
     };
-};
+}

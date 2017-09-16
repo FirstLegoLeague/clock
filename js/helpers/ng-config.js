@@ -7,7 +7,7 @@ function params() {
     }, {});
 }
 
-var ConfigService = function($localStorage, $window, $q) {
+function ConfigService($localStorage, $window, $q) {
     var _promise;
 
     return {
@@ -16,7 +16,7 @@ var ConfigService = function($localStorage, $window, $q) {
                 return _promise;
             }
 
-            var urlConfig
+            var urlConfig;
             try {
                 // console.log(params().state);
                 urlConfig = JSON.parse(params().state);
@@ -36,5 +36,5 @@ var ConfigService = function($localStorage, $window, $q) {
             $window.history.pushState(config, '', '/?state=' + JSON.stringify(config));
         }
     };
-};
+}
 ConfigService.$inject = ['$localStorage', '$window', '$q'];

@@ -1,4 +1,4 @@
-var ClockController = function($scope, $timeout, $audio, $window, $config) {
+function ClockController($scope, $timeout, $audio, $window, $config) {
     //initial values
     $audio.init('mp3/lossetrack-A +6.mp3', function(track) {
         $scope.runTrack = track;
@@ -278,5 +278,5 @@ var ClockController = function($scope, $timeout, $audio, $window, $config) {
         $scope.handleKey(key);
         $scope.$apply();
     });
-};
+}
 ClockController.$inject = ['$scope', '$timeout', '$audio', '$window', '$config'];

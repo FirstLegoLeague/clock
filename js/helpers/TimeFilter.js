@@ -1,4 +1,4 @@
-var timeFilter = function() {
+function timeFilter() {
     function pad(str) {
         str = '' + str;
         if (str.length < 2) {
@@ -17,4 +17,4 @@ var timeFilter = function() {
         }
         return str;
     };
-};
+}
