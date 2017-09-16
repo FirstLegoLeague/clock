@@ -32,7 +32,6 @@ function ConfigService($localStorage, $window, $q) {
             return $q.when($storage.config);
         },
         setToUrl: function(config) {
-            console.log(config);
             $window.history.pushState(config, '', '/?state=' + JSON.stringify(config));
         }
     };
