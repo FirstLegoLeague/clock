@@ -52,6 +52,16 @@ The port can be changed in localserver.js
 
 **Note:** currently the control panel (when pressing 'c') does not send commands. I.e. the clock in combination with mhub only listens. Using the controls will only affect the local instance of the clock (no other browser windows or running clocks).
 
+Configuration
+-----
+
+There is a configuration file that allows you to configure the clock. It has the following fields:
+
+- `host`: the Mhub host (see 'Usage with Mhub')
+- `node`: the Mhub node (see 'Usage with Mhub')
+- `seconds`: the number of seconds to count down from
+- `rememberSettings`: whether to remember adjusted settings. By default, this is set to `false`. This way, when you refresh the clock, it jumps back to the defaults. If you run this clock locally, you may set this to `true`, that way, any changes in the control window are remembered.
+
 Clock Mhub protocol
 -----
 

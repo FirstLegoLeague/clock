@@ -13,6 +13,7 @@ angular.module('Clock',['ngStorage'])
         '$scope','$timeout','$opener','$localStorage',
         function($scope,$timeout,$opener,$localStorage) {
 
+            //load settings from storage, which has been populated by now by the main controller
             $scope.config = $localStorage.config;
 
             var actions = ['arm','start','stop','mode','pause'];

@@ -73,6 +73,9 @@ angular.module('Clock',['ngStorage'])
             $scope.$storage = $localStorage.$default({
                 config: urlConfig || clockConfig
             });
+            if (clockConfig && !clockConfig.rememberSettings) {
+                $scope.$storage.config = clockConfig;
+            }
             var handlers = {};
             $scope.bgColor = 'black';
             $scope.state = 'stopped';
