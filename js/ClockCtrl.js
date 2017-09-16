@@ -28,10 +28,7 @@ var timeFilter = function() {
         };
 }
 
-angular.module('Clock',['ngStorage'])
-    .filter('time', timeFilter)
-    .factory('$audio',[
-        function() {
+var AudioService = function() {
             function init(file,cb) {
                 new Audio5js({
                     swf_path: 'swf/audio5js.swf',
@@ -49,8 +46,11 @@ angular.module('Clock',['ngStorage'])
             return {
                 init: init
             };
-        }
-    ])
+}
+
+angular.module('Clock',['ngStorage'])
+    .filter('time', timeFilter)
+    .factory('$audio',AudioService)
 
     .service('$config',[
         '$localStorage', '$window', '$q',
