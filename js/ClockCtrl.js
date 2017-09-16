@@ -7,8 +7,7 @@ function params() {
     }, {});
 }
 
-angular.module('Clock',['ngStorage'])
-    .filter('time',function() {
+var timeFilter = function() {
         function pad(str) {
             str = ''+str;
             if (str.length<2) {
@@ -27,7 +26,10 @@ angular.module('Clock',['ngStorage'])
             }
             return str;
         };
-    })
+}
+
+angular.module('Clock',['ngStorage'])
+    .filter('time', timeFilter)
     .factory('$audio',[
         function() {
             function init(file,cb) {
