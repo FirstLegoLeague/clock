@@ -25,6 +25,9 @@ function ConfigService($localStorage, $window, $q) {
                 var $storage = $localStorage.$default({
                     config: urlConfig || clockConfig
                 });
+                if ($storage.config.version !== clockConfig.version) {
+                    $storage.config = clockConfig;
+                }
 
                 _config = $storage.config;
             }
