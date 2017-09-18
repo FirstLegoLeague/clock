@@ -1,5 +1,5 @@
 var clockConfig = {
-    host: 'ws://localhost:13900/',
+    host: `ws://${window.location.hostname}:13900/`,
     node: 'default',
     seconds: 150,
     tracks: [{
