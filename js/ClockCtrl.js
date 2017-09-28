@@ -39,12 +39,14 @@ angular.module('Clock').controller('ClockCtrl',[
                         backoff = 100;
                     }
 
-                    ws.send(JSON.stringify({
-                        type: "login",
-                        node: settings.node,
-                        username: settings.mhubUsername,
-                        password: settings.mhubPassword
-                    }));
+                    if(config.mhubUsername && config.mhubPassword) {
+                        ws.send(JSON.stringify({
+                            type: "login",
+                            node: config.node,
+                            username: config.mhubUsername,
+                            password: config.mhubPassword
+                        }));
+                    }
 
                     $scope.$digest();
                 };

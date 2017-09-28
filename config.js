@@ -1,8 +1,6 @@
 var clockConfig = {
     host: `ws://${window.location.hostname}:13900/`,
     node: 'default',
-    username: 'clock',
-    password: 'clock',
     seconds: 150,
     tracks: [{
     	source: '30SecstoGo.mp3',
@@ -14,4 +12,4 @@ var clockConfig = {
     	source: 'Start.mp3',
         start: 'on start',
     }]
-}
+};
