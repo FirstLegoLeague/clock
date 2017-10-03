@@ -38,6 +38,16 @@ angular.module('Clock').controller('ClockCtrl',[
                         $scope.connected = true;
                         backoff = 100;
                     }
+
+                    if(config.mhubUsername && config.mhubPassword) {
+                        ws.send(JSON.stringify({
+                            type: "login",
+                            node: config.node,
+                            username: config.mhubUsername,
+                            password: config.mhubPassword
+                        }));
+                    }
+
                     $scope.$digest();
                 };
                 ws.onerror = function(e){

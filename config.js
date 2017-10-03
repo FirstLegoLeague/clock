@@ -12,4 +12,4 @@ var clockConfig = {
     	source: 'Start.mp3',
         start: 'on start',
     }]
-}
+};
