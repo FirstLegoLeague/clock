@@ -9,7 +9,7 @@ angular.module('Clock').controller('ClockCtrl',[
         $scope.bgColor = 'black';
         $scope.state = 'stopped';
         $scope.tenths = false;
-        $scope.size = 340;
+        $scope.size = 21;
 
         $scope.pos = {
             x: 0,
@@ -216,7 +216,7 @@ angular.module('Clock').controller('ClockCtrl',[
 
         $scope.clockStyle = function() {
             return {
-                fontSize: $scope.size +'px',
+                fontSize: $scope.size +'vw',
                 left: $scope.pos.x + 'px',
                 top: $scope.pos.y + 'px'
             };
