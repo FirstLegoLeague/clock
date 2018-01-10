@@ -289,7 +289,6 @@ angular.module('Clock').controller('ClockCtrl', [
                     $window.open('controls.html', 'fllClockControlWindow', 'resize=yes,width=600,height=800');
                     break;
             }
-            ;
         }
 
         $scope.connect();
