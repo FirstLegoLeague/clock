@@ -1,10 +1,10 @@
-angular.module('Clock').controller('ClockCtrl',[
-    '$scope','$timeout','$window','$config','$tracks',
-    function($scope,$timeout,$window,$config,$tracks) {
+angular.module('Clock').controller('ClockCtrl', [
+    '$scope', '$timeout', '$window', '$config', '$tracks',
+    function ($scope, $timeout, $window, $config, $tracks) {
         $scope.config = $config.get();
         $scope.time = $scope.config.seconds * 1000;
         $scope.armTime = $scope.config.seconds * 1;
-        
+
         var handlers = {};
         $scope.bgColor = 'black';
         $scope.state = 'stopped';
@@ -29,7 +29,7 @@ angular.module('Clock').controller('ClockCtrl',[
                 }
                 ws = new WebSocket(config.host);
 
-                ws.onopen = function() {
+                ws.onopen = function () {
                     if (config.node) {
                         ws.send(JSON.stringify({
                             type: "subscribe",
@@ -39,7 +39,7 @@ angular.module('Clock').controller('ClockCtrl',[
                         backoff = 100;
                     }
 
-                    if(config.mhubUsername && config.mhubPassword) {
+                    if (config.mhubUsername && config.mhubPassword) {
                         ws.send(JSON.stringify({
                             type: "login",
                             node: config.node,
@@ -50,18 +50,18 @@ angular.module('Clock').controller('ClockCtrl',[
 
                     $scope.$digest();
                 };
-                ws.onerror = function(e){
+                ws.onerror = function (e) {
                     console.log("error");
                     ws.close();
                 };
-                ws.onclose = function() {
-                    console.log("close reconnecting in",backoff,'ms');
+                ws.onclose = function () {
+                    console.log("close reconnecting in", backoff, 'ms');
                     $scope.connected = false;
                     $scope.$digest();
-                    pendingConnection = $timeout($scope.connect,backoff);
-                    backoff = Math.min(maxBackoff,backoff * 2);
+                    pendingConnection = $timeout($scope.connect, backoff);
+                    backoff = Math.min(maxBackoff, backoff * 2);
                 };
-                ws.onmessage = function(msg) {
+                ws.onmessage = function (msg) {
                     var data = JSON.parse(msg.data);
                     if (data.topic) {
                         $scope.handleMessage(data);
@@ -73,11 +73,11 @@ angular.module('Clock').controller('ClockCtrl',[
             return ws;
         }
 
-        $scope.connect = function() {
+        $scope.connect = function () {
             $scope.ws = initWebsocket($scope.config);
         };
 
-        $scope.send = function(topic, data) {
+        $scope.send = function (topic, data) {
             if ($scope.ws) {
                 $scope.ws.send(JSON.stringify({
                     type: 'publish',
@@ -88,7 +88,7 @@ angular.module('Clock').controller('ClockCtrl',[
             }
         }
 
-        $scope.updateConfig = function(config) {
+        $scope.updateConfig = function (config) {
             //reinitialize socket connection
             if ($scope.ws) {
                 $scope.ws.close();
@@ -99,7 +99,7 @@ angular.module('Clock').controller('ClockCtrl',[
             $config.setToUrl(config);
         };
 
-        $scope.handleMessage = function(msg){
+        $scope.handleMessage = function (msg) {
             var topic = msg.topic.toLowerCase();
 
             //Check if data object was received, if not use set default values in object
@@ -117,7 +117,7 @@ angular.module('Clock').controller('ClockCtrl',[
                     $scope.arm(msg.data.countdown);
                     break;
                 case 'clock:start':
-                    $scope.start(msg.data.stamp,msg.data.countdown);
+                    $scope.start(msg.data.stamp, msg.data.countdown);
                     break;
                 case 'clock:stop':
                     $scope.stop();
@@ -134,49 +134,49 @@ angular.module('Clock').controller('ClockCtrl',[
             }
         };
 
-        $scope.arm = function(countdown) {
-            $scope.armTime = countdown||$scope.armTime;
+        $scope.arm = function (countdown) {
+            $scope.armTime = countdown || $scope.armTime;
             $scope.pauseTime = false;
-            $scope.time = $scope.armTime*1000;
+            $scope.time = $scope.armTime * 1000;
             $scope.state = 'armed';
             $tracks.reset();
             $scope.$apply();
         };
 
-        $scope.pause = function(pauseStamp) {
-            pauseStamp = pauseStamp||(+new Date());
+        $scope.pause = function (pauseStamp) {
+            pauseStamp = pauseStamp || (+new Date());
             if ($scope.state === 'started') {
-                var startTime = ($scope.pauseTime||$scope.armTime);
-                var t = (startTime*1000) - (pauseStamp - ($scope.startStamp||pauseStamp));
+                var startTime = ($scope.pauseTime || $scope.armTime);
+                var t = (startTime * 1000) - (pauseStamp - ($scope.startStamp || pauseStamp));
                 $scope.time = t;
                 $scope.state = 'paused';
                 $tracks.pause();
-                $scope.pauseTime = t/1000;
+                $scope.pauseTime = t / 1000;
             } else {
                 $tracks.unpause();
                 $scope.start(pauseStamp);
             }
         };
 
-        $scope.start = function(startStamp,countdown) {
+        $scope.start = function (startStamp, countdown) {
             if (countdown) {
                 $scope.arm(countdown);
             }
             $tracks.trigger('start', $scope.time);
-            $scope.startStamp = startStamp||(+(new Date()));
+            $scope.startStamp = startStamp || (+(new Date()));
             $scope.state = 'started';
             $scope.tick();
         };
 
-        $scope.stop = function() {
+        $scope.stop = function () {
             $scope.state = 'stopped';
             $scope.pauseTime = false;
             $tracks.pause();
             $tracks.reset();
-            $tracks.trigger(['end','stop'], $scope.time);
+            $tracks.trigger(['end', 'stop'], $scope.time);
         };
 
-        $scope.toggle = function() {
+        $scope.toggle = function () {
             if ($scope.state == 'started') {
                 if ($scope.connected) {
                     $scope.send('clock:stop')
@@ -192,16 +192,16 @@ angular.module('Clock').controller('ClockCtrl',[
             }
         };
 
-        $scope.mode = function() {
+        $scope.mode = function () {
             $scope.tenths = !$scope.tenths;
         };
 
-        $scope.tick = function() {
+        $scope.tick = function () {
             if ($scope.state === 'started') {
                 var now = +(new Date());
-                var startTime = ($scope.pauseTime||$scope.armTime);
-                var newTime = (startTime*1000) - (now - $scope.startStamp);
-                if(Math.floor(newTime / 1000) != Math.floor($scope.time / 1000)) {
+                var startTime = ($scope.pauseTime || $scope.armTime);
+                var newTime = (startTime * 1000) - (now - $scope.startStamp);
+                if (Math.floor(newTime / 1000) != Math.floor($scope.time / 1000)) {
                     $tracks.trigger(Math.floor(newTime / 1000), $scope.time);
                 }
                 $scope.time = newTime;
@@ -209,27 +209,27 @@ angular.module('Clock').controller('ClockCtrl',[
                     $scope.time = 0;
                     $scope.stop();
                 } else {
-                    $timeout($scope.tick,10);
+                    $timeout($scope.tick, 10);
                 }
             }
         };
 
-        $scope.clockStyle = function() {
+        $scope.clockStyle = function () {
             return {
-                fontSize: $scope.size +'vw',
+                fontSize: $scope.size + 'vw',
                 left: $scope.pos.x + 'px',
                 top: $scope.pos.y + 'px'
             };
         };
 
-        $scope.bodyStyle = function() {
+        $scope.bodyStyle = function () {
             return {
                 backgroundColor: $scope.bgColor
             };
         };
 
-        $scope.handleKey = function(key) {
-            switch(key) {
+        $scope.handleKey = function (key) {
+            switch (key) {
                 case 65:    //a
                     if ($scope.connected) {
                         $scope.send('clock:arm')
@@ -245,6 +245,7 @@ angular.module('Clock').controller('ClockCtrl',[
                     }
                     break;
                 case 83:    //s
+
                     $scope.toggle();
                     break;
                 case 32:    //space
@@ -285,9 +286,9 @@ angular.module('Clock').controller('ClockCtrl',[
                     }
                     break;
                 case 67:    //c
-                    $window.open('controls.html','fllClockControlWindow','resize=yes,width=600,height=800');
+                    $window.open('controls.html', 'fllClockControlWindow', 'resize=yes,width=600,height=800');
                     break;
-            };
+            }
         }
 
         $scope.connect();
@@ -295,10 +296,13 @@ angular.module('Clock').controller('ClockCtrl',[
         $tracks.init();
 
         //TODO: simplify these two
-        angular.element(document.body).bind('keydown',function(e) {
-            var key = e.which||e.keyCode;
-            $scope.handleKey(key);
-            $scope.$apply();
+        angular.element(document.body).bind('keydown', function (e) {
+            // Every key must be pressed with ctrl
+            if (e.altKey) {
+                var key = e.which || e.keyCode;
+                $scope.handleKey(key);
+                $scope.$apply();
+            }
         });
 
     }
