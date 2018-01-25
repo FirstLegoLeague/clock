@@ -1,4 +1,4 @@
-angular.module('Clock',['ngStorage'])
+angular.module('Clock',[])
     .factory('$opener',[
         '$window',
         function($window) {
@@ -10,10 +10,9 @@ angular.module('Clock',['ngStorage'])
         }
     ])
     .controller('ClockControlsCtrl',[
-        '$scope','$timeout','$opener','$localStorage',
-        function($scope,$timeout,$opener,$localStorage) {
-
-            $scope.config = $localStorage.config;
+        '$scope','$timeout','$opener','$config',
+        function($scope,$timeout,$opener,$config) {
+            $scope.config = $config.get();
 
             // For backwards compatibility
             $scope.config.tracks = $scope.config.tracks || [];

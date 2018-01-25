@@ -1,4 +1,4 @@
-angular.module('Clock').service('$config',['$localStorage' ,'$q', '$window' ,function($localStorage, $q, $window) {
+angular.module('Clock').service('$config',['$q', '$window' ,function($q, $window) {
 	var _config;
 
 	function params() {
@@ -23,12 +23,7 @@ angular.module('Clock').service('$config',['$localStorage' ,'$q', '$window' ,fun
 	                //no url Config
 	            }
 
-	            //config from localStorage, then url, then defaults from config
-	            var $storage = $localStorage.$default({
-	                config: urlConfig || clockConfig
-	            });
-
-	            _config = $storage.config;
+	            _config = urlConfig || clockConfig;
 	    	}
 	    	return _config;
 	    },

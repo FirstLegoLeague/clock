@@ -47,11 +47,15 @@
 
     function set(listener, time) {
         let event = Math.floor(time / 1000) - listener.timeAfterEvent;
-        listeners.push({
-            event: event.toString(),
-            track: listener.track,
-            action: listener.metaAction
-        });
+        let newListenerName = listener.name + '_set';
+        if(!listeners.find(listener => listener.name === newListenerName)) {
+            listeners.push({
+                name: newListenerName,
+                event: event.toString(),
+                track: listener.track,
+                action: listener.metaAction
+            });
+        }
     }
 
     function resolveTimeEvent(str, config) {
@@ -60,13 +64,11 @@
         // With the option for xxx after yyy
         // Where xxx is the original number-unit trigger, and the yyy is a 
         // reference to another trigger
-        if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after|before) (.+))?$/)) {
+        if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after) (.+))?$/)) {
             let quantity = parseInt(match[1]);
             let unit = match[2];
-            let direction = 1; // Counting forward
             let startCountingAt = config.seconds; // Start from the beginning
             if(match[3]) { // Start at a specific time
-                direction = (match[4] === 'before') ? -1 : 1;
                 startCountingAt = resolveTimeEvent(match[5], config);
             }
             let time;
@@ -79,16 +81,16 @@
 
             if(isFinite(startCountingAt)) {
                 startCountingAt = parseInt(startCountingAt);
-                let time = startCountingAt - direction * quantity;
+                let time = startCountingAt - quantity;
                 return time.toString();
             } else {
-                if(startCountingAt.match(/^(after|before)/)) {
+                if(startCountingAt.match(/^(after)/)) {
                     console.error(`Illegal trigger: ${str}`);
                     return undefined;
                 }
                 return {
                     event: startCountingAt,
-                    timeAfter: direction * quantity
+                    timeAfter: quantity
                 };
             }
 
@@ -148,7 +150,6 @@
                 });
             }
         });
-        console.log(listeners);
         return listeners;
     }
 
@@ -162,9 +163,12 @@
             
             config.tracks.forEach(function(trackConfig) {
                 $audio.init(`mp3/${trackConfig.source}`,function(track) {
-                    listeners = listeners.concat(resolveListeners(trackConfig, track, config));
+                    if(!listeners.find(listener => listener.name === trackConfig.name)) {
+                        listeners = listeners.concat(resolveListeners(trackConfig, track, config));
+                    }
                 });
             });
+            console.log(listeners);
         },
         trigger: trigger,
         pause: function() {
