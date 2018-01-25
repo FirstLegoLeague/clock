@@ -47,11 +47,15 @@
 
     function set(listener, time) {
         let event = Math.floor(time / 1000) - listener.timeAfterEvent;
-        listeners.push({
-            event: event.toString(),
-            track: listener.track,
-            action: listener.metaAction
-        });
+        let newListenerName = listener.name + '_set';
+        if(!listeners.find(listener => listener.name === newListenerName)) {
+            listeners.push({
+                name: newListenerName,
+                event: event.toString(),
+                track: listener.track,
+                action: listener.metaAction
+            });
+        }
     }
 
     function resolveTimeEvent(str, config) {
@@ -146,7 +150,6 @@
                 });
             }
         });
-        console.log(listeners);
         return listeners;
     }
 
@@ -160,9 +163,12 @@
             
             config.tracks.forEach(function(trackConfig) {
                 $audio.init(`mp3/${trackConfig.source}`,function(track) {
-                    listeners = listeners.concat(resolveListeners(trackConfig, track, config));
+                    if(!listeners.find(listener => listener.name === trackConfig.name)) {
+                        listeners = listeners.concat(resolveListeners(trackConfig, track, config));
+                    }
                 });
             });
+            console.log(listeners);
         },
         trigger: trigger,
         pause: function() {
