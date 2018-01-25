@@ -1,1 +1,1 @@
-angular.module('Clock',['ngStorage']);
+angular.module('Clock',[]);

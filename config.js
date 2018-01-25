@@ -4,7 +4,7 @@ var clockConfig = {
     seconds: 150,
     tracks: [{
     	source: '30SecstoGo.mp3',
-    	start: '30 seconds before stop'
+    	start: '120 seconds after start'
     },{
     	source: 'End.mp3',
     	start: 'on stop'

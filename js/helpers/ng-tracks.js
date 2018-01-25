@@ -60,13 +60,11 @@
         // With the option for xxx after yyy
         // Where xxx is the original number-unit trigger, and the yyy is a 
         // reference to another trigger
-        if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after|before) (.+))?$/)) {
+        if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after) (.+))?$/)) {
             let quantity = parseInt(match[1]);
             let unit = match[2];
-            let direction = 1; // Counting forward
             let startCountingAt = config.seconds; // Start from the beginning
             if(match[3]) { // Start at a specific time
-                direction = (match[4] === 'before') ? -1 : 1;
                 startCountingAt = resolveTimeEvent(match[5], config);
             }
             let time;
@@ -79,16 +77,16 @@
 
             if(isFinite(startCountingAt)) {
                 startCountingAt = parseInt(startCountingAt);
-                let time = startCountingAt - direction * quantity;
+                let time = startCountingAt - quantity;
                 return time.toString();
             } else {
-                if(startCountingAt.match(/^(after|before)/)) {
+                if(startCountingAt.match(/^(after)/)) {
                     console.error(`Illegal trigger: ${str}`);
                     return undefined;
                 }
                 return {
                     event: startCountingAt,
-                    timeAfter: direction * quantity
+                    timeAfter: quantity
                 };
             }
 
