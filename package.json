@@ -4,8 +4,9 @@
   "description": "Clock\r =====",
   "main": "config.js",
   "scripts": {
-    "start": "webpack --config webpack.config.js",
-    "webpack": "webpack"
+    "build": "webpack --config webpack.config.js",
+    "webpack": "webpack",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,12 @@
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.20.3",
