@@ -9,10 +9,6 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
-  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -44,13 +40,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-        use: [
-          'file-loader'
-        ]
-      },
-      {
-        test: /\.(mp3|swf)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|svg|mp3|swf)$/,
         use: [
           'file-loader'
         ]
