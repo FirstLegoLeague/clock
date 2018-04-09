@@ -19,14 +19,14 @@
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
     "angular": "^1.6",
-    "audio5": "^0.1.12",
-    "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
-    "style-loader": "^0.20.3"
+    "audio5": "^0.1.12"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.20.3",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14"
   }
