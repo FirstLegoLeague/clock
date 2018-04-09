@@ -1,0 +1,4 @@
+api: "1.0"
+name: "clock"
+type: web
+config:
