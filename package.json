@@ -5,7 +5,10 @@
   "main": "config.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
     "build": "webpack --mode production --config webpack.prod.js",
+    "pack": "webpack --mode production --config webpack.prod.js",
     "webpack": "webpack",
     "eslint": "eslint"
   },
@@ -26,9 +29,9 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
-    "babel-minify-webpack-plugin": "^0.3.1",
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
