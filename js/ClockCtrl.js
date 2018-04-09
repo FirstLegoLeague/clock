@@ -1,3 +1,9 @@
+import angular from 'angular';
+import './helpers/ClockModule'
+import './helpers/ng-config'
+import './helpers/ng-tracks'
+import './helpers/TimeFilter'
+
 angular.module('Clock').controller('ClockCtrl', [
     '$scope', '$timeout', '$window', '$config', '$tracks',
     function ($scope, $timeout, $window, $config, $tracks) {

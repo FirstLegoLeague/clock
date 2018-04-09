@@ -1,3 +1,7 @@
+import angular from 'angular';
+import Audio5js from 'audio5';
+import './ClockModule';
+
 angular.module('Clock').factory('$audio',[
     function() {
         function init(file,cb) {

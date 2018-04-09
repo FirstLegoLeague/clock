@@ -1,3 +1,6 @@
+import angular from 'angular';
+import './ClockModule';
+
 angular.module('Clock').filter('time',function() {
     function pad(str) {
         str = ''+str;

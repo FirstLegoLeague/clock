@@ -1,4 +1,8 @@
-angular.module('Clock',[])
+import angular from 'angular';
+import './helpers/ClockModule';
+import './helpers/ng-config';
+
+angular.module('Clock')
     .factory('$opener',[
         '$window',
         function($window) {

@@ -1,4 +1,9 @@
-    angular.module('Clock').service('$tracks', ['$config','$audio', function($config, $audio) {
+import angular from 'angular';
+import './ClockModule';
+import './ng-config'
+import './ng-audio'
+
+angular.module('Clock').service('$tracks', ['$config','$audio', function($config, $audio) {
     var listeners = [];
 
     function trigger(event, time) {
@@ -62,7 +67,7 @@
         var match;
         // The xxxs | xxx% | xxx secs | xxx seconds | xxx percents case
         // With the option for xxx after yyy
-        // Where xxx is the original number-unit trigger, and the yyy is a 
+        // Where xxx is the original number-unit trigger, and the yyy is a
         // reference to another trigger
         if(match = str.match(/^(\d+)(s| secs| seconds|%| percents)( (after) (.+))?$/)) {
             let quantity = parseInt(match[1]);
@@ -156,11 +161,11 @@
     return {
         init: function() {
             var config = $config.get();
-            
+
             if(!config.tracks) {
                 return;
             }
-            
+
             config.tracks.forEach(function(trackConfig) {
                 $audio.init(`mp3/${trackConfig.source}`,function(track) {
                     if(!listeners.find(listener => listener.name === trackConfig.name)) {
@@ -168,7 +173,6 @@
                     }
                 });
             });
-            console.log(listeners);
         },
         trigger: trigger,
         pause: function() {
@@ -180,7 +184,7 @@
             });
         },
         unpause: function() {
-            listeners.forEach(listener => { 
+            listeners.forEach(listener => {
                 if(listener.paused) {
                     listener.track.play();
                     delete listener.paused;

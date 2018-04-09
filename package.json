@@ -4,7 +4,8 @@
   "description": "Clock\r =====",
   "main": "config.js",
   "scripts": {
-    "start": "node localserver.js"
+    "start": "webpack --config webpack.config.js",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,11 @@
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
-    "connect": "^3.4.0",
-    "minimist": "^1.1.0",
-    "morgan": "^1.9.0",
-    "serve-static": "^1.10.0"
+    "angular": "^1.6",
+    "audio5": "^0.1.12"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  }
 }
