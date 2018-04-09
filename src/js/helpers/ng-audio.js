@@ -9,14 +9,18 @@ angular.module('Clock').factory('$audio', [
       init (file, cb) {
         const audio5js = new Audio5js({
           swf_path: audioSwf,
-          ready: () => {
-            audio5js.load(file)
-            audio5js.reset = () => {
-              audio5js.pause()
-              audio5js.load(file)
+          ready () {
+            this.load(file)
+            this.reset = () => {
+              this.pause()
+              this.load(file)
             }
-            cb(null, audio5js)
+            cb(null, this)
           }
+        })
+
+        audio5js.on('error', err => {
+          console.error(err)
         })
       }
     }
