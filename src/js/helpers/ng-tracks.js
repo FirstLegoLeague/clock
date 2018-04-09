@@ -167,7 +167,7 @@ angular.module('Clock').service('$tracks', ['$config','$audio', function($config
             }
 
             config.tracks.forEach(function(trackConfig) {
-                $audio.init(`mp3/${trackConfig.source}`,function(track) {
+                $audio.init(trackConfig.source,function(track) {
                     if(!listeners.find(listener => listener.name === trackConfig.name)) {
                         listeners = listeners.concat(resolveListeners(trackConfig, track, config));
                     }

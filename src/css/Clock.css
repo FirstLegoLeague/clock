@@ -1,4 +1,4 @@
-@import url('lcd-bold.css');
+    @import url('lcd-bold.css');
 
 @keyframes blink {  
     0% { opacity: 1; }

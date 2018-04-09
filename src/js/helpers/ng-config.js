@@ -1,4 +1,5 @@
 import angular from 'angular';
+import clockConfig from './config';
 import './ClockModule';
 
 angular.module('Clock').service('$config',['$q', '$window' ,function($q, $window) {
