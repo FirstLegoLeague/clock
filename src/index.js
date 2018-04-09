@@ -1,4 +1,4 @@
 'use strict'
 
-import './ClockCtrl'
-import './ClockControlsCtrl'
+import './js/ClockCtrl'
+import './js/ClockControlsCtrl'
