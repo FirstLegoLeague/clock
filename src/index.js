@@ -1,5 +1,5 @@
 
-import './css/Clock.css'
+import './client/ClockManager.css'
 
 import './js/ClockCtrl'
 import './js/ClockControlsCtrl'

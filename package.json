@@ -24,7 +24,13 @@
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
     "angular": "^1.6",
-    "audio5": "^0.1.12"
+    "audio5": "^0.1.12",
+    "axios": "^0.18.0",
+    "babel-preset-react": "^6.24.1",
+    "bluebird": "^3.5.1",
+    "express": "^4.16.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
