@@ -1,0 +1,17 @@
+
+html,body {
+    overflow: hidden;
+    font-family: verdana, sans-serif;
+    font-size: 12px;
+}
+
+body {
+    padding: 50px;
+    padding-top: 100px;
+    background-color: #000000;
+    color: white;
+}
+
+p {
+    margin: 0;
+}

@@ -3,7 +3,7 @@ import axios from 'axios'
 import Promise from 'bluebird'
 import React, { Component } from 'react'
 
-import { onTimeEvent } from './mhub-listener'
+import { onTimeEvent, onStartEvent, onEndEvent, onReloadEvent, onStopEvent } from './mhub-listener'
 import './clock.css'
 
 export default class Clock extends Component {
@@ -24,9 +24,41 @@ export default class Clock extends Component {
         console.error(err)
       })
 
+    onStartEvent(() => {
+      this.setState({ status: 'running' })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
+    onStopEvent(() => {
+      this.setState({ status: 'armed' })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
+    onReloadEvent(() => {
+      this.setState({ status: 'armed' })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
+    onEndEvent(() => {
+      this.setState({ status: 'ended' })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
     Promise.resolve(axios.get('/api/state'))
       .then(res => this.setState({
-        status: res.data.time,
+        status: res.data.status,
         time: res.data.time
       }))
       .catch(err => {
@@ -42,7 +74,7 @@ export default class Clock extends Component {
 
   render () {
     return (
-      <p className="clock">
+      <p class={ `clock ${this.state.status}` }>
         { this.state.time }
       </p>
     )

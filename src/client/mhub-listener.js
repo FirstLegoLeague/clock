@@ -2,7 +2,7 @@
 import { MClient } from 'mhub/dist/src/browserclient'
 import Promise from 'bluebird'
 
-const mClient = new MClient('ws://localhost:13900')
+const mClient = new MClient(`ws://${window.location.hostname}:13900`)
 
 const listeners = {}
 
