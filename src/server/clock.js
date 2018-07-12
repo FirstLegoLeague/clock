@@ -7,21 +7,30 @@ exports.Clock = class extends EventEmitter {
   constructor () {
     super()
 
-    this._countdown = 0
+    this._time = 0
+  }
+
+  get time () {
+    return this._time
+  }
+
+  setTime (seconds) {
+    this._time = seconds
+    setImmediate(() => this.emit('time', this._time))
   }
 
   startCountdown (seconds) {
     this._interval = setInterval(() => {
-      this._countdown -= 1
-      setImmediate(() => this.emit('time', this._countdown))
+      this._time -= 1
+      setImmediate(() => this.emit('time', this._time))
 
-      if (this._countdown <= 0) {
-        setImmediate(() => this._end())
+      if (this._time <= 0) {
+        setImmediate(() => this._endCountdown())
       }
     }, SECOND)
 
-    this._countdown = seconds
-    setImmediate(() => this.emit('time', this._countdown))
+    this._time = seconds
+    setImmediate(() => this.emit('time', this._time))
   }
 
   stopCountdown () {
@@ -31,7 +40,7 @@ exports.Clock = class extends EventEmitter {
     }
   }
 
-  _end () {
+  _endCountdown () {
     this.emit('end')
     if (this._interval) {
       clearInterval(this._interval)

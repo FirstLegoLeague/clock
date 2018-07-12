@@ -31,6 +31,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.static('dist'))
 
-app.use('/api', createRouter(clockManager))
+app.use('/api', createRouter({ clockManager, clock }))
 
 app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}!`))

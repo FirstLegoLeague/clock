@@ -13,61 +13,64 @@ exports.ClockManager = class extends EventEmitter {
 
   constructor (clock) {
     super()
-    this._state = ARMED
+    this._status = ARMED
     this._clock = clock
 
     this._clock.on('end', () => {
       this._end()
     })
+
+    setImmediate(() => this._clock.setTime(MATCH_TIME))
   }
 
-  get state () {
-    return this._state
+  get status () {
+    return this._status
   }
 
   start () {
-    if (this._state !== ARMED) {
+    if (this._status !== ARMED) {
       throw Object.assign(new Error('Clock is not armed'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
-    this._state = RUNNING
+    this._status = RUNNING
     this.emit('start')
     this._clock.startCountdown(MATCH_TIME)
   }
 
   _end () {
-    if (this._state !== RUNNING) {
+    if (this._status !== RUNNING) {
       throw Object.assign(new Error('Clock is not running when countdown ended'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
-    this._state = ENDED
+    this._status = ENDED
     this.emit('end')
   }
 
   stop () {
-    if (this._state !== RUNNING) {
+    if (this._status !== RUNNING) {
       throw Object.assign(new Error('Clock is not running'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
-    this._state = ARMED
+    this._status = ARMED
     this._clock.stopCountdown()
     this.emit('stop')
   }
 
   reload () {
-    if ([ARMED, ENDED].includes(this._state)) {
+    if (![ARMED, ENDED].includes(this._status)) {
       throw Object.assign(new Error('Clock is not ended'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
-    this._state = ARMED
+    this._status = ARMED
+    this._clock.setTime(MATCH_TIME)
     this.emit('reload')
   }
 }

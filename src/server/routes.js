@@ -3,11 +3,14 @@ const { Router } = require('express')
 
 const { WRONG_STATE_OF_CLOCK_CODE } = require('./manager')
 
-exports.createRouter = clockManager => {
+exports.createRouter = ({ clockManager, clock }) => {
   const router = new Router()
 
   router.get('/state', (req, res) => {
-    res.json({ state: clockManager.state })
+    res.json({
+      status: clockManager.status,
+      time: clock.time
+    })
   })
 
   router.post('/action/start', (req, res) => {
