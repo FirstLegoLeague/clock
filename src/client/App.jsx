@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Clock from './Clock.jsx'
+import Clock from './clock/Clock.jsx'
 
 import './app.css'
 

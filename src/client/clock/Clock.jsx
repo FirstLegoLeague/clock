@@ -3,7 +3,7 @@ import axios from 'axios'
 import Promise from 'bluebird'
 import React, { Component } from 'react'
 
-import { onTimeEvent, onStartEvent, onEndEvent, onReloadEvent, onStopEvent } from './mhub-listener'
+import { onTimeEvent, onStartEvent, onEndEvent, onReloadEvent, onStopEvent } from '../mhub-listener'
 import './clock.css'
 
 export default class Clock extends Component {
