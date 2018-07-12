@@ -20,7 +20,7 @@ exports.ClockManager = class extends EventEmitter {
       this._end()
     })
 
-    setImmediate(() => this._clock.setTime(MATCH_TIME))
+    setImmediate(() => this.reload())
   }
 
   get status () {
@@ -59,6 +59,7 @@ exports.ClockManager = class extends EventEmitter {
 
     this._status = ARMED
     this._clock.stopCountdown()
+    this._clock.setTime(MATCH_TIME)
     this.emit('stop')
   }
 
