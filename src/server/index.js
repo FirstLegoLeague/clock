@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   app.use(authenticationMiddleware)
 }
-app.use(express.static('dist'))
+app.use(express.static('public'))
 
 app.use('/api', createRouter({ clockManager, clock }))
 

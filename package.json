@@ -1,16 +1,12 @@
 {
   "name": "@first-lego-league/clock",
   "version": "1.2.4",
-  "description": "Clock\r =====",
-  "main": "config.js",
+  "description": "Clock for ",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint src/**/*.js --fix",
-    "build": "webpack --mode production --config webpack.prod.js",
-    "pack": "webpack --mode production --config webpack.prod.js",
-    "webpack": "webpack",
-    "eslint": "eslint"
+    "build": "webpack --mode production --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -27,10 +23,9 @@
     "@first-lego-league/ms-configuration": "^1.0.4",
     "@first-lego-league/ms-correlation": "^0.0.2",
     "@first-lego-league/ms-logger": "^1.2.2",
-    "angular": "^1.6",
+    "@first-lego-league/user-interface": "^1.2.3",
     "audio5": "^0.1.12",
     "axios": "^0.18.0",
-    "babel-preset-react": "^6.24.1",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
     "mhub": "^0.9.1",
@@ -41,6 +36,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",

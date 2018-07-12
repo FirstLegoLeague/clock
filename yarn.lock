@@ -35,6 +35,12 @@
     path "^0.12.7"
     yamljs "^0.3.0"
 
+"@first-lego-league/user-interface@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.3.tgz#96b66500a1f35f3912263a4ea17dd7baf9b74cd3"
+  dependencies:
+    hamburgers "^0.9.3"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -128,10 +134,6 @@ ajv@^6.1.0:
 alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
-
-angular@^1.6:
-  version "1.6.9"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.9.tgz#bc812932e18909038412d594a5990f4bb66c0619"
 
 ansi-escapes@^1.0.0:
   version "1.4.0"
@@ -3057,6 +3059,10 @@ grouped-queue@^0.3.3:
   resolved "https://registry.yarnpkg.com/grouped-queue/-/grouped-queue-0.3.3.tgz#c167d2a5319c5a0e0964ef6a25b7c2df8996c85c"
   dependencies:
     lodash "^4.17.2"
+
+hamburgers@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/hamburgers/-/hamburgers-0.9.3.tgz#73b3d299652a028647ca68b2957df172c76cc636"
 
 handle-thing@^1.2.5:
   version "1.2.5"

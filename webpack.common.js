@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/client/index.jsx',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist/public')
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -41,7 +41,12 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg|mp3|swf)$/,
         use: [
-          'file-loader'
+          {
+            loader: 'file-loader',
+            // options: {
+            //   outputPath: 'public'
+            // }
+          }
         ]
       }
     ]
