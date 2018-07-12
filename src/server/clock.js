@@ -3,6 +3,12 @@ const EventEmitter = require('events')
 
 const SECOND = 1000
 
+function exactTimeListener (listener, requestedTime, currentTime) {
+  if (currentTime === requestedTime) {
+    listener.call(this, currentTime)
+  }
+}
+
 exports.Clock = class extends EventEmitter {
   constructor () {
     super()
@@ -12,6 +18,10 @@ exports.Clock = class extends EventEmitter {
 
   get time () {
     return this._time
+  }
+
+  onExactTime (requestedTime, listener) {
+    this.on('time', exactTimeListener.bind(this, listener, requestedTime))
   }
 
   setTime (seconds) {
