@@ -23,12 +23,17 @@
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
+    "@first-lego-league/ms-auth": "^1.2.0",
+    "@first-lego-league/ms-configuration": "^1.0.4",
+    "@first-lego-league/ms-correlation": "^0.0.2",
+    "@first-lego-league/ms-logger": "^1.2.2",
     "angular": "^1.6",
     "audio5": "^0.1.12",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
+    "mhub": "^0.9.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },

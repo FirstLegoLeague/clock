@@ -1,8 +1,12 @@
 
 const express = require('express')
+const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
+const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
+const { loggerMiddleware } = require('@first-lego-league/ms-logger')
 
 const mhub = require('./mhub-handlers')
 const { Clock } = require('./clock')
+const { logger } = require('./logger')
 const { ClockManager } = require('./manager')
 const { createRouter } = require('./routes')
 
@@ -18,8 +22,15 @@ clockManager.on('reload', () => mhub.sendEvent('reload'))
 
 const app = express()
 
+app.use(correlationMiddleware)
+app.use(loggerMiddleware)
+if (process.env.NODE_ENV === 'development') {
+  app.use(authenticationDevMiddleware('roy'))
+} else {
+  app.use(authenticationMiddleware)
+}
 app.use(express.static('dist'))
 
 app.use('/api', createRouter(clockManager))
 
-app.listen(8080, () => console.log('Listening on port 8080!'))
+app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}!`))
