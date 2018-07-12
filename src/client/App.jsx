@@ -7,8 +7,6 @@ import Clock from './clock/Clock.jsx'
 import Controls from './controls/index.jsx'
 import { onStartEvent, onEndEvent, onReloadEvent, onStopEvent, onTimeEvent } from './mhub-listener'
 
-import './app.css'
-
 export default class App extends Component {
   constructor (props) {
     super(props)
