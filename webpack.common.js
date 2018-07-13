@@ -4,15 +4,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: './src/client/index.jsx',
+  entry: './client/index.jsx',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist/public')
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './src/client/index.html',
+      template: './client/index.html',
       filename: 'index.html'
     })
   ],
@@ -41,12 +41,7 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg|mp3|swf)$/,
         use: [
-          {
-            loader: 'file-loader',
-            // options: {
-            //   outputPath: 'public'
-            // }
-          }
+          'file-loader'
         ]
       }
     ]
