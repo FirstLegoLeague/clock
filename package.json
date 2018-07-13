@@ -31,7 +31,9 @@
     "mhub": "^0.9.1",
     "play-sound": "^1.1.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-foundation": "^0.9.5",
+    "react-foundation-modal": "^0.1.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

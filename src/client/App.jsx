@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 
 import Clock from './clock/Clock.jsx'
 import Controls from './controls/index.jsx'
+import Settings from './settings/index.jsx'
 import { onStartEvent, onEndEvent, onReloadEvent, onStopEvent, onTimeEvent } from './mhub-listener'
 
 export default class App extends Component {
@@ -73,6 +74,7 @@ export default class App extends Component {
   render () {
     return (
       <div>
+        <Settings hidden={false}></Settings>
         <Clock status={this.state.status} time={this.state.time}></Clock>
         <Controls status={this.state.status}></Controls>
       </div>

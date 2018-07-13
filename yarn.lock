@@ -1457,6 +1457,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.3:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-css@4.1.x:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.11.tgz#2ecdf145aba38f54740f26cefd0ff3e03e125d6a"
@@ -5361,7 +5365,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -5521,6 +5525,18 @@ react-dom@^16.4.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+react-foundation-modal@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-foundation-modal/-/react-foundation-modal-0.1.5.tgz#cc866beb816093762e7cd3a7f17b8b8a41d5e0ad"
+
+react-foundation@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/react-foundation/-/react-foundation-0.9.5.tgz#6a2afe99d2a590df966cefd05592262177223d02"
+  dependencies:
+    classnames "^2.2.3"
+    fbjs "^0.8.16"
+    prop-types "^15.5.10"
 
 react@^16.4.1:
   version "16.4.1"
