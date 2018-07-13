@@ -21,11 +21,13 @@ const app = express()
 
 app.use(correlationMiddleware)
 app.use(loggerMiddleware)
+
 if (process.env.NODE_ENV === 'development') {
-  app.use(authenticationDevMiddleware('roy'))
+  app.use(authenticationDevMiddleware('scorekeeper'))
 } else {
   app.use(authenticationMiddleware)
 }
+
 app.use(express.static('public'))
 
 app.use('/api', createRouter({ clockManager, clock, sounds }))
