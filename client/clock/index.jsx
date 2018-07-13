@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react'
 
-import './clock.css'
+import './index.css'
 
-export default class Clock extends Component {
+export default class Index extends Component {
   render () {
     return (
       <p className={`clock ${this.props.status}`}>

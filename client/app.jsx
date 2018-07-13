@@ -3,7 +3,7 @@ import axios from 'axios'
 import Promise from 'bluebird'
 import React, { Component } from 'react'
 
-import Clock from './clock/Clock.jsx'
+import Clock from './clock/index.jsx'
 import Controls from './controls/index.jsx'
 import Settings from './settings/index.jsx'
 import { onStartEvent, onEndEvent, onReloadEvent, onStopEvent, onTimeEvent } from './mhub-listener'
