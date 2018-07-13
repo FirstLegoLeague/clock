@@ -10,7 +10,6 @@ const WRONG_STATE_OF_CLOCK_CODE = exports.WRONG_STATE_OF_CLOCK_CODE = 'WRONG_STA
 const MATCH_TIME = 30
 
 exports.ClockManager = class extends EventEmitter {
-
   constructor (clock) {
     super()
     this._status = ARMED

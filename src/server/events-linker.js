@@ -1,7 +1,7 @@
 
 const { logger } = require('./logger')
 
-function catchPromiseWrap(asyncFunction, operationDescription, ...args) {
+function catchPromiseWrap (asyncFunction, operationDescription, ...args) {
   asyncFunction(...args)
     .catch(err => {
       logger.error(`Error while ${operationDescription}: ${err.message}`)

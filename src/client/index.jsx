@@ -5,4 +5,4 @@ import App from './App.jsx'
 
 import './main.css'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'))

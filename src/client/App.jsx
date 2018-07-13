@@ -74,9 +74,9 @@ export default class App extends Component {
   render () {
     return (
       <div>
-        <Settings hidden={false}></Settings>
-        <Clock status={this.state.status} time={this.state.time}></Clock>
-        <Controls status={this.state.status}></Controls>
+        <Settings hidden={false} />
+        <Clock status={this.state.status} time={this.state.time} />
+        <Controls status={this.state.status} />
       </div>
     )
   }
