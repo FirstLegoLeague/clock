@@ -75,7 +75,7 @@ export default class App extends Component {
     return (
       <div>
         <Settings hidden={false} />
-        <Clock status={this.state.status} time={this.state.time} />
+        <Clock status={this.state.status} time={this.state.time} format={`clock`} />
         <Controls status={this.state.status} />
       </div>
     )
