@@ -2,3 +2,9 @@ api: "1.0"
 name: "clock"
 type: web
 config:
+  - fields:
+    - name: clockFormat
+      display: Clock format
+      type: values
+      default: clock
+      values: [clock, seconds]

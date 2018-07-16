@@ -23,3 +23,19 @@ exports.sendTimeEvent = time => {
     .then(() => logger.debug(`sending time event to mhub for (t=${time})`))
     .then(() => mClient.publish('protected', 'clock:time', { time }))
 }
+
+exports.sendClockFormat = format => {
+  return loginPromise
+    .then(() => logger.debug(`sending format event to mhub for format ${format}`))
+    .then(() => mClient.publish('protected', 'clock:format-changed', { format }))
+}
+
+exports.subscribe = (node, topic, listener) => {
+  return loginPromise
+    .then(() => mClient.subscribe(node, topic))
+    .then(() => mClient.on('message', function (message) {
+      if (message.topic === topic) {
+        listener.apply(this, arguments)
+      }
+    }))
+}

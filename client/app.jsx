@@ -6,7 +6,8 @@ import React, { Component } from 'react'
 import Clock from './clock/index.jsx'
 import Controls from './controls/index.jsx'
 import Settings from './settings/index.jsx'
-import { onStartEvent, onEndEvent, onReloadEvent, onStopEvent, onTimeEvent } from './mhub-listener'
+import { onStartEvent, onEndEvent, onReloadEvent,
+  onStopEvent, onTimeEvent, onFormatChangedEvent } from './mhub-listener'
 
 export default class App extends Component {
   constructor (props) {
@@ -61,10 +62,19 @@ export default class App extends Component {
         console.error(err)
       })
 
-    Promise.resolve(axios.get('/api/state'))
+    onFormatChangedEvent(({ format }) => {
+      this.setState({ clockFormat: format })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
+    Promise.resolve(axios.get('/api/startup'))
       .then(res => this.setState({
         status: res.data.status,
-        time: res.data.time
+        time: res.data.time,
+        clockFormat: res.data.clockFormat
       }))
       .catch(err => {
         console.error(err)
@@ -75,7 +85,7 @@ export default class App extends Component {
     return (
       <div>
         <Settings hidden={false} />
-        <Clock status={this.state.status} time={this.state.time} format={`clock`} />
+        <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
         <Controls status={this.state.status} />
       </div>
     )

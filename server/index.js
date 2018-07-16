@@ -6,6 +6,7 @@ const { loggerMiddleware } = require('@first-lego-league/ms-logger')
 
 const mhub = require('./mhub-handlers')
 const sounds = require('./sounds')
+const configuration = require('./configuration')
 const { Clock } = require('./clock')
 const { logger } = require('./logger')
 const { ClockManager } = require('./manager')
@@ -14,6 +15,8 @@ const { linkEvents } = require('./events-linker')
 
 const clock = new Clock()
 const clockManager = new ClockManager(clock)
+
+configuration.linkConfiguration({ mhub })
 
 linkEvents({ clockManager, clock, sounds, mhub })
 
@@ -30,6 +33,6 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.static('public'))
 
-app.use('/api', createRouter({ clockManager, clock, sounds }))
+app.use('/api', createRouter({ clockManager, clock, sounds, configuration }))
 
 app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}!`))
