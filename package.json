@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
-    "@first-lego-league/ms-auth": "^1.2.0",
+    "@first-lego-league/ms-auth": "^1.2.2",
     "@first-lego-league/ms-configuration": "^1.0.4",
-    "@first-lego-league/ms-correlation": "^0.0.2",
-    "@first-lego-league/ms-logger": "^1.2.2",
+    "@first-lego-league/ms-correlation": "^0.0.3",
+    "@first-lego-league/ms-logger": "^1.2.4",
     "@first-lego-league/user-interface": "^1.2.3",
     "audio5": "^0.1.12",
     "axios": "^0.18.0",

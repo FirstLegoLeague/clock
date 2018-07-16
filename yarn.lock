@@ -2,11 +2,10 @@
 # yarn lockfile v1
 
 
-"@first-lego-league/ms-auth@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.2.0.tgz#cd9eb28cee2aa7d9513a5109bc59ee4a77421a8c"
+"@first-lego-league/ms-auth@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.2.2.tgz#83f1f02aa3b50f2e1a4e7325c77bdd7ef2bdb500"
   dependencies:
-    "@first-lego-league/ms-logger" "^1.2.0"
     cookie-parser "^1.4.3"
     express "^4.16.3"
     jsonwebtoken "^8.2.0"
@@ -18,22 +17,19 @@
     mhub "^0.9.1"
     yamljs "^0.3.0"
 
-"@first-lego-league/ms-correlation@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.2.tgz#387abe6f243ee5c603c25731e0a789f74bbd3c49"
+"@first-lego-league/ms-correlation@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.3.tgz#a8b674fd7b401a4dc86cf8605030255c152ab5eb"
   dependencies:
     jsonwebtoken "^8.2.1"
     randomatic "^3.0.0"
 
-"@first-lego-league/ms-logger@^1.2.0", "@first-lego-league/ms-logger@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.2.2.tgz#c5e2623d687566745b5f782930a9ec92fd5ee15c"
+"@first-lego-league/ms-logger@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.2.4.tgz#ebecc5389424ecb907cac59b06effb73cf3a73e4"
   dependencies:
-    jsonfile "^4.0.0"
     on-finished "^2.3.0"
     on-headers "^1.0.1"
-    path "^0.12.7"
-    yamljs "^0.3.0"
 
 "@first-lego-league/user-interface@^1.2.3":
   version "1.2.3"
@@ -3073,7 +3069,7 @@ got@^8.2.0:
     url-parse-lax "^3.0.0"
     url-to-options "^1.0.1"
 
-graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
+graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
@@ -3914,12 +3910,6 @@ json3@^3.3.2:
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
-
-jsonfile@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
-  optionalDependencies:
-    graceful-fs "^4.1.6"
 
 jsonify@~0.0.0:
   version "0.0.0"
@@ -5014,13 +5004,6 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-path@^0.12.7:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
-  dependencies:
-    process "^0.11.1"
-    util "^0.10.3"
-
 pbkdf2@^3.0.3:
   version "3.0.14"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.14.tgz#a35e13c64799b06ce15320f459c230e68e73bade"
@@ -5372,7 +5355,7 @@ process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
 
-process@^0.11.1, process@^0.11.10:
+process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
