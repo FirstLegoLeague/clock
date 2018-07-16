@@ -34,19 +34,19 @@ export default class Controls extends Component {
           className={`success button`}
           onClick={this.startClock}
           disabled={this.props.status !== 'armed'}>
-          Start
+          Start <i className='fas fa-play' />
         </button>
         <button type='button'
           className={`button`}
           onClick={this.reloadClock}
           disabled={this.props.status !== 'ended'}>
-          Reload
+          Reload <i className='fas fa-step-backward' />
         </button>
         <button type='button'
           className={`alert button`}
           onClick={this.stopClock}
           disabled={this.props.status !== 'running'}>
-          Stop
+          Stop <i className='fas fa-stop' />
         </button>
       </h1>
     )
