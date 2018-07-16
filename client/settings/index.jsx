@@ -30,7 +30,7 @@ export default class Settings extends Component {
   render () {
     return (<div className='settings'>
       <button className='large button' onClick={() => this.showPopup(true)}>
-        Settings
+        <i className='fas fa-music' />
       </button>
       <Modal
         open={this.state.modalIsOpen}

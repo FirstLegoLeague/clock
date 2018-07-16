@@ -2,6 +2,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './client/index.jsx',
@@ -14,7 +15,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'index.html'
-    })
+    }),
+    new CopyWebpackPlugin([{
+      from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
+      to: './webfonts'
+    }])
   ],
   module: {
     rules: [
