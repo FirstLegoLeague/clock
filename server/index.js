@@ -36,3 +36,8 @@ app.use(express.static('public'))
 app.use('/api', createRouter({ clockManager, clock, sounds, configuration }))
 
 app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}!`))
+
+process.on('SIGINT', () => {
+  logger.info('Process received SIGINT: shutting down')
+  process.exit(1)
+})

@@ -1,6 +1,7 @@
 api: "1.0"
 name: "clock"
-type: web
+type: node
+script: ./server/index.js
 config:
   - fields:
     - name: clockFormat

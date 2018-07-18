@@ -6,7 +6,8 @@
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
     "lint": "eslint \"**/*.js\" \"**/*.jsx\"",
     "lint:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
-    "build": "webpack --mode production --config webpack.prod.js"
+    "build": "webpack --mode production --config webpack.prod.js",
+    "prepack": "webpack --mode production --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.2",
-    "@first-lego-league/ms-configuration": "^1.0.4",
     "@first-lego-league/ms-correlation": "^0.0.3",
     "@first-lego-league/ms-logger": "^1.2.4",
     "@first-lego-league/user-interface": "^1.2.3",

@@ -4,7 +4,7 @@ const { MClient } = require('mhub')
 
 const { logger } = require('./logger')
 
-const mClient = new MClient(process.env.MHUB_CONNECTION_STRING)
+const mClient = new MClient('ws://localhost:13900')
 
 const loginPromise = Promise.resolve(mClient.connect())
   .then(() => mClient.login('protected-client', process.env.MHUB_PASSWORD))
