@@ -4,7 +4,7 @@
   "description": "Clock for ",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
-    "lint": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "lint": "eslint \"./server/**/*.js\" \"./client/**/*.jsx\" \"./client/**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
     "build": "webpack --mode production --config webpack.prod.js",
     "prepack": "webpack --mode production --config webpack.prod.js"
