@@ -23,6 +23,6 @@ exports.linkEvents = ({ clockManager, clock, mhub, sounds }) => {
 
   clockManager.on('start', catchPromiseWrap.bind(null, sounds.playStartSound, 'playing start sound'))
   clockManager.on('stop', catchPromiseWrap.bind(null, sounds.playStopSound, 'playing stop sound'))
-  clock.onExactTime(10, catchPromiseWrap.bind(null, sounds.playEndGameSound, 'playing end-game sound'))
+  clock.onExactTime(30, catchPromiseWrap.bind(null, sounds.playEndGameSound, 'playing end-game sound'))
   clock.onExactTime(0, catchPromiseWrap.bind(null, sounds.playEndSound, 'playing end sound'))
 }
