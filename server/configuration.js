@@ -7,7 +7,7 @@ const { logger } = require('./logger')
 const CONFIGURATION_NODE = 'configuration'
 const CONFIGURATION_TOPIC = 'config:clock'
 
-const mClient = new MClient('ws://localhost:13900')
+const mClient = new MClient(process.env.MHUB_URI)
 
 const loginPromise = Promise.resolve(mClient.connect())
   .then(() => mClient.login(CONFIGURATION_NODE, process.env.SECRET))
