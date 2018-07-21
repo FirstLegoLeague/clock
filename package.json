@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "1.2.4",
+  "version": "2.0.2",
   "description": "Clock for ",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/FirstLegoLeague/clock.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/FirstLegoLeague/clock/issues"
