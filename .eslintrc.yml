@@ -1,4 +1,6 @@
-extends: standard
+extends:
+- standard
+- standard-jsx
 
 parserOptions:
   env:

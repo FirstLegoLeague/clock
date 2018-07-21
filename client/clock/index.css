@@ -1,0 +1,29 @@
+
+@keyframes blink {  
+    0% { opacity: 1; }
+    100% { opacity: 0.1; }
+}
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.1; }
+}
+
+.clock {
+    font-size: 26rem;
+    font-family: lcdbold, monospace;
+    padding: 0.1em;
+    position: relative;
+    text-align: center;
+}
+
+.ended{
+    color: red;
+}
+
+.armed {
+    color: yellow;
+}
+
+.running {
+    color: lime;
+}

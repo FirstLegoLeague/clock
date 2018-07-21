@@ -1,0 +1,20 @@
+@import url('~@first-lego-league/user-interface/current/assets/css/app.css');
+@import url('./lcd-bold/index.css');
+@import url('./radioland/index.css');
+
+html,body {
+    overflow: hidden;
+    font-family: verdana, sans-serif;
+    font-size: 12px;
+}
+
+body {
+    padding: 50px;
+    padding-top: 100px;
+    background-color: #000000;
+    color: white;
+}
+
+p {
+    margin: 0;
+}

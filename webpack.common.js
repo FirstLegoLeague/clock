@@ -2,33 +2,37 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './client/index.jsx',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './client/index.html',
       filename: 'index.html'
     }),
-    new HtmlWebpackPlugin({
-      template: './src/controls.html',
-      filename: 'controls.html'
-    })
+    new CopyWebpackPlugin([{
+      from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
+      to: './webfonts'
+    }])
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['babel-preset-env']
+            presets: [
+              'babel-preset-env',
+              'babel-preset-react'
+            ]
           }
         }
       },
