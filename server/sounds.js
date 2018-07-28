@@ -5,7 +5,9 @@ const Player = require('play-sound')
 
 const { logger } = require('./logger')
 
-const player = new Player()
+const playerFile = process.platform === 'win32' ? path.join(__dirname, './win-mplayer/mplayer.exe') : 'mplayer'
+
+const player = new Player({ player: playerFile })
 
 Promise.promisifyAll(player)
 
