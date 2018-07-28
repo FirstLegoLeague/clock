@@ -7,7 +7,7 @@ const EventEmitter = require('events')
 
 const WRONG_STATE_OF_CLOCK_CODE = exports.WRONG_STATE_OF_CLOCK_CODE = 'WRONG_STATE_OF_CLOCK'
 
-const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 30 : 150
+const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
 
 exports.ClockManager = class extends EventEmitter {
   constructor (clock) {

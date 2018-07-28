@@ -1,145 +1,28 @@
 Clock
 =====
 
-Web based application showing the clock. Works in the latest versions of chrome, firefox and internet explorer
+Web based application showing the clock. Works in the latest versions
+of chrome, firefox and internet explorer
 
-Usage
------
+Clock Mhub Events
+-----------------
 
-[Use the online version](http://firstlegoleague.github.io/clock/)
+The clock creates to the following mhub messages (on the protected node)
 
-[Download the repository](https://github.com/FirstLegoLeague/clock/archive/gh-pages.zip) (See `Download ZIP` on the right) or clone it using GIT. **Note**: Control window does not work when served via the file system, you'll need to run a local server. If that does not make sense to you: control window will not work.
+| Topic          | Fired On                                       | Data                            |
+| -------------- | ---------------------------------------------- | ------------------------------- |
+| `clock:start`  | Fired when the countdown is starting to run    |                                 |
+| `clock:stop`   | Fired when a countdown have stop in the middle |                                 |
+| `clock:end`    | Fired at the end of the countdown              |                                 |
+| `clock:reload` | Fired when the clock is reset the time         |                                 |
+| `clock:time`   | Fired each second during the countdown         | Seconds to end of the countdown |
 
-Open [index.html](http://firstlegoleague.github.io/clock/), set to full screen (press `F11`). Use keys or the control window on another screen (press `c`)
+External software
+-----------------
+### MPlayer
+This module is using mplayer to play the different sound for the server.
+The original software and it's source can be found in the
+[mplayer site](http://www.mplayerhq.hu). This software is been changed
+such that only the mplayer executable and the licenese is devlivered as
+part of this module.
 
-Usage with key control (local)
------
-
-The following keys can be used to control the clock:
-
-- `a` arms the clock to 2:30
-- `s` starts or stops the clock
-- `p` pauses or resumes the clock
-- `<space>` pauses or resumes the clock
-- `x` stops the clock
-- `[` reduces clock font size
-- `]` increases clock font size
-- `t` switches display of tenths
-- `<up>,<down>,<left>,<right>` repositions the clock
-- `m` edit clock countdown
-- `<enter>` leaves edit mode
-- `c` shows controls (does not work on local file system)
-- `<F11>` toggle fullscreen
-
-Audio soundtracks
------
-The soundtracks are saved in the mp3 folder inside the clock. If you want, you can add as many files in there as you want, and you can use them at different times of the clock, or after events in the timeline.
-To choose which files to use, you simply configure the tracks area in the config.js file.
-The following options are avalable:
-- on [event]
-Runs when [event] is triggered. [event] can be 'start' and 'stop' (or 'end', which is equivalent).
-- xxxs after/before [event]
-Runs xxx seconds after/before [event] is triggered.
-Can also be written as:
-  - xxx secs after/before [event]
-  - xxx seconds after/before [event]
- - xxx% after/before [event]
-Runs xxx percents of the clock full duration after/before [event] is triggered.
-Can also be written as:
-  - xxx percents after/before [event] 
-- You can tracks as events by naming them, and then use these events from different tracks. Notice you must put the referenced track first in the configuration.
-
-Using those options, you can tell file when to start, stop, pause or reset, by adding them as options in the track's configuration.
-
-Examples tracks:
-`tracks: [{
-  //This track will start when the clock starts.
-  source: 'audio_source_file.mp3',
-  start: 'on start'
-},{
-  //This track will start when the clock ends. If you prefer yuo can use 'one stop' instead.
-  source: 'audio_source_file.mp3',
-  start: 'on start'
-},{
-  //This track will start 30 seconds after the clock starts.
-  source: 'audio_source_file.mp3',
-  start: '30 seconds after start'
-},{
-  //This track will start 30 seconds before the clock ends.
-  source: 'audio_source_file.mp3',
-  start: '30 seconds before stop'
-},{
-  //This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
-  source: 'audio_source_file.mp3',
-  start: '30% before stop',
-  name: '30p' //I give it a name so I can start an event right after it.
-},{
-  //This track will start 30 seconds before the clock ends, in a clock that runs 1 minute and 40 seconds.
-  source: 'audio_source_file.mp3',
-  start: 'on 30p',
-  stop: '20% before end'
-}]`
-
-Usage with Mhub
------
-Make sure you have a working (and accessible) mhub instance running on your server; see [mbhub documentation](https://github.com/poelstra/mhub)
-
-1. Open the control panel (press 'c' to configure the mhub server (default is localserver at port 13900)
-2. Also configure the node to connect to (default is 'clock', so it works with the DisplaySystem)
-
-Optional:
-It is recommended to run from a webserver rather then open the file locally. A config for a sample node server is included, to install:
-
-3. Install the package (if not present):
-`npm install`
-4. Run the webserver:
-`npm start`
-5. Open a browser to
-`localhost:1392`
-
-The port can be changed in localserver.js
-
-**Note:** currently the control panel (when pressing 'c') does not send commands. I.e. the clock in combination with mhub only listens. Using the controls will only affect the local instance of the clock (no other browser windows or running clocks).
-
-Clock Mhub protocol
------
-
-### Receiving commands
-The clock listens to the following mhub messages (by default on the 'clock' node)
-
-| Topic | Data (optional)    | Comments |
-| ----- |:------------------:| --------:|
-| `clock:arm` | `"countdown":tt`   | arms (resets) the clock, without data uses previous set arm time |
-| `clock:start` | `"countdown":tt`   | tt is seconds to countdown from, without data uses previous set arm time |
-| `clock:stop` |    | stops the clock, and leave it at the countdown time  |
-| `clock:pause` |    | pauses the clock when running, and resumes it when paused (toggle) |
-| `clock:nudge` | `"direction":"xy","amount":"px""`    | moves the clock in x or y direction by the given number of pixels |
-| `clock:size` | `"amount":px`   | increases the font size by the given number of pixels |
-
-
-Make sure you use the right quotes, see [mbhub documentation](https://github.com/poelstra/mhub)
-The following is a command line example on the windows command prompt, which will start the countdown from 40 seconds. (note that strings are double quoted)
-- `mclient -n clock -t clock:start -d "{ ""countdown"": "40" }"`
-
-This one will move the clock 10 px in the horizontal direction (to the right)
-- `mclient -n clock -t clock:nudge -d "{ ""direction"": ""x"",""amount"":"10" }"`
-
-### Sending commands
-Not yet implemented
-
-Compatibility
--------------
-
-The clock has been verified to work correctly on the following systems:
-
-- windows 7
-  - Chrome 30.0.1
-  - Firefox 23.0.1
-  - IE 10
-  - IE 9
-  - IE 8
-
-Development
-----------
-
-Development is done directly on the gh-pages branch, in order to keep a github hosted version online.
