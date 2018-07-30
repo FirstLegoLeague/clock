@@ -11,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public')
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['public']),
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'index.html'
