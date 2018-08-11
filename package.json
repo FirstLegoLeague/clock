@@ -20,7 +20,7 @@
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.2",
-    "@first-lego-league/ms-correlation": "^0.0.3",
+    "@first-lego-league/ms-correlation": "^0.0.5",
     "@first-lego-league/ms-logger": "^1.2.4",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
