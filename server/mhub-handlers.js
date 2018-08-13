@@ -3,6 +3,7 @@ const Promise = require('bluebird')
 const { MClient } = require('mhub')
 
 const { logger } = require('./logger')
+const { getCurrentConfig } = require('./configuration')
 
 const mClient = new MClient(process.env.MHUB_URI)
 
@@ -21,7 +22,7 @@ exports.sendEvent = event => {
 exports.sendTimeEvent = time => {
   return loginPromise
     .then(() => logger.debug(`sending time event to mhub for (t=${time})`))
-    .then(() => mClient.publish('protected', 'clock:time', { time }))
+    .then(() => mClient.publish('protected', 'clock:time', Object.assign({ time }, getCurrentConfig())))
 }
 
 exports.sendClockFormat = format => {
