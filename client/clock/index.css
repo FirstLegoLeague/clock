@@ -9,9 +9,8 @@
 }
 
 .clock {
-    font-size: 26rem;
+    font-size: 40vh;
     font-family: lcdbold, monospace;
-    padding: 0.1em;
     position: relative;
     text-align: center;
 }
