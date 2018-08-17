@@ -3,10 +3,14 @@ import React from 'react'
 
 import './index.css'
 
+function pad (number, length) {
+  return (new Array(length + 1).join('0') + number).slice(-length)
+}
+
 function parseTime (time, format) {
   switch (format) {
     case 'clock':
-      return `${(time / 60) | 0}:${(time % 60) | 0}`
+      return `${pad(time / 60, 2)}:${pad(time % 60, 2)}`
     case 'seconds':
     default:
       return `${time | 0}`
@@ -15,8 +19,8 @@ function parseTime (time, format) {
 
 export default function Clock (props) {
   return (
-    <p className={`clock ${props.status}`}>
+    <div className={`clock ${props.status}`}>
       { parseTime(props.time, props.format) }
-    </p>
+    </div>
   )
 }

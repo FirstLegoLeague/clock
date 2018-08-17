@@ -82,12 +82,10 @@ export default class App extends Component {
   }
 
   render () {
-    return (
-      <div>
-        <Settings hidden={false} />
-        <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
-        <Controls status={this.state.status} />
-      </div>
-    )
+    return [
+      <Settings hidden={false} />,
+      <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />,
+      <Controls status={this.state.status} />
+    ]
   }
 }

@@ -14,7 +14,8 @@ module.exports = {
     new CleanWebpackPlugin(['public']),
     new HtmlWebpackPlugin({
       template: './client/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
     }),
     new CopyWebpackPlugin([{
       from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
