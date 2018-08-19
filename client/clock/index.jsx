@@ -10,7 +10,7 @@ function pad (number, length) {
 function parseTime (time, format) {
   switch (format) {
     case 'clock':
-      return `${pad(time / 60, 2)}:${pad(time % 60, 2)}`
+      return `${pad(Math.floor(time / 60), 2)}:${pad(time % 60, 2)}`
     case 'seconds':
     default:
       return `${time | 0}`
