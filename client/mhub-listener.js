@@ -6,17 +6,29 @@ const mClient = new MClient(`ws://${window.location.hostname}:13900`)
 
 const listeners = {}
 
-const connectPromise = Promise.resolve(mClient.connect())
-  .then(() => {
-    mClient.on('message', message => {
-      const topic = message.topic
+let connectPromise = null
 
-      listeners[topic].forEach(listener => listener(message.data))
-    })
-  })
-  .catch(err => {
-    console.error(`error while logging into mhub: ${err.message}`)
-  })
+mClient.on('close', () => {
+  connectPromise = null
+})
+
+function connect () {
+  if (!connectPromise) {
+    connectPromise = Promise.resolve(mClient.connect())
+      .then(() => {
+        mClient.on('message', message => {
+          const topic = message.topic
+
+          listeners[topic].forEach(listener => listener(message.data))
+        })
+      })
+      .catch(err => {
+        console.error(`error while logging into mhub: ${err.message}`)
+      })
+  }
+
+  return connectPromise
+}
 
 function removeListener (event, listener) {
   const topic = `clock:${event}`
@@ -28,7 +40,7 @@ function onEvent (event, listener) {
   const topic = `clock:${event}`
   listeners[topic] = listeners[topic] || []
 
-  return connectPromise
+  return connect()
     .then(() => mClient.subscribe('protected', topic))
     .then(() => { listeners[topic].push(listener) })
     .then(() => removeListener.bind(null, event, listener))
