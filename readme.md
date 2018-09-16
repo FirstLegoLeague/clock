@@ -4,8 +4,8 @@ Clock
 Web based application showing the clock. Works in the latest versions
 of chrome, firefox and internet explorer
 
-Clock Mhub Events
------------------
+Mhub events
+-----------
 
 The clock creates to the following mhub messages (on the protected node)
 
@@ -26,3 +26,11 @@ The original software and it's source can be found in the
 such that only the mplayer executable and the licenese is devlivered as
 part of this module.
 
+Publishing to NPM
+-----------------
+When needed to publish to npm run the command `yarn publish`. When running publish the
+building script would run before the packing stage (`prepack`).
+
+**:warning: Warning:** Prior to version `1.9.0`, Yarn has a bug with using the `.npmignore`
+file correctly. Therefore please make sure your Yarn version is `1.9.0` or later. If not either
+upgrade your yarn or use the command `npm publish` instead.
