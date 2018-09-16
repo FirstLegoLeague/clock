@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "2.0.8",
+  "version": "2.0.11",
   "description": "Clock for ",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
