@@ -2,28 +2,47 @@
 import { MClient } from 'mhub/dist/src/browserclient'
 import Promise from 'bluebird'
 
+const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
+
 const mClient = new MClient(`ws://${window.location.hostname}:13900`)
 
 const listeners = {}
 
 let connectPromise = null
 
-mClient.on('close', () => {
+function attemptRecconection () {
   connectPromise = null
+  console.log('Disonnected from mhub')
+  setTimeout(() => {
+    console.log('Retrying mhub connection')
+    connectPromise = null
+    connect()
+      .catch(() => {
+        attemptRecconection()
+      })
+  }, RETRY_TIMEOUT)
+}
+
+mClient.on('close', () => {
+  attemptRecconection()
+})
+
+mClient.on('message', message => {
+  const topic = message.topic
+
+  listeners[topic].forEach(listener => listener(message.data))
 })
 
 function connect () {
   if (!connectPromise) {
     connectPromise = Promise.resolve(mClient.connect())
       .then(() => {
-        mClient.on('message', message => {
-          const topic = message.topic
-
-          listeners[topic].forEach(listener => listener(message.data))
-        })
+        console.log('Connected to mhub')
+        Object.keys(listeners).map(topic => mClient.subscribe('protected', topic))
       })
       .catch(err => {
-        console.error(`error while logging into mhub: ${err.message}`)
+        console.error(`Error while logging into mhub: ${err.message}`)
+        throw err
       })
   }
 
@@ -41,7 +60,6 @@ function onEvent (event, listener) {
   listeners[topic] = listeners[topic] || []
 
   return connect()
-    .then(() => mClient.subscribe('protected', topic))
     .then(() => { listeners[topic].push(listener) })
     .then(() => removeListener.bind(null, event, listener))
 }
