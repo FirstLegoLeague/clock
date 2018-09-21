@@ -61,6 +61,7 @@ function onEvent (event, listener) {
 
   return connect()
     .then(() => { listeners[topic].push(listener) })
+    .then(() => mClient.subscribe('protected', topic))
     .then(() => removeListener.bind(null, event, listener))
 }
 
