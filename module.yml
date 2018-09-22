@@ -1,6 +1,6 @@
 api: "1.0"
 name: "clock"
-display: "Timer"
+display: Timer
 type: node
 script: ./server/index.js
 config:
