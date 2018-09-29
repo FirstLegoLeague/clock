@@ -2,7 +2,7 @@
 import { MClient } from 'mhub/dist/src/browserclient'
 import Promise from 'bluebird'
 
-const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
+const RETRY_TIMEOUT = 1000 // 1 second
 
 const mClient = new MClient(`ws://${window.location.hostname}:13900`)
 
