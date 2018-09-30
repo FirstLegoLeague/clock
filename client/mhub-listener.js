@@ -10,7 +10,7 @@ const listeners = {}
 
 let connectPromise = null
 
-function attemptRecconection () {
+function attemptReconection () {
   connectPromise = null
   console.log('Disonnected from mhub')
   setTimeout(() => {
@@ -18,13 +18,13 @@ function attemptRecconection () {
     connectPromise = null
     connect()
       .catch(() => {
-        attemptRecconection()
+        attemptReconection()
       })
   }, RETRY_TIMEOUT)
 }
 
 mClient.on('close', () => {
-  attemptRecconection()
+  attemptReconection()
 })
 
 mClient.on('message', message => {

@@ -20,10 +20,14 @@ mClient.on('close', () => {
 
 function login () {
   if (!loginPromise) {
+    logger.info('Connecting to mhub')
     loginPromise = Promise.resolve(mClient.connect())
+      .tap(() => logger.debug('Trying to login to mhub'))
       .then(() => mClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
-      .catch(err => {
+      .tap(() => logger.debug('Logged into mhub'))
+      .tapCatch(err => {
         logger.error(`error while logging into mhub: ${err.message}`)
+        loginPromise = null
       })
   }
 

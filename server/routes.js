@@ -21,7 +21,7 @@ exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
       res.send()
     } catch (e) {
       if (e.code === WRONG_STATE_OF_CLOCK_CODE) {
-        res.status(400).send({
+        res.status(400).json({
           message: e.message,
           code: e.code
         })
@@ -55,7 +55,7 @@ exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
       res.send()
     } catch (e) {
       if (e.code === WRONG_STATE_OF_CLOCK_CODE) {
-        res.status(400).send({
+        res.status(400).json({
           message: e.message,
           code: e.code
         })
