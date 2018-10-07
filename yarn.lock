@@ -17,9 +17,9 @@
     cookie "^0.3.1"
     randomatic "^3.0.0"
 
-"@first-lego-league/ms-logger@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.3.4.tgz#295a879dd067def2df8e345c7fb5b28f682d5654"
+"@first-lego-league/ms-logger@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.4.0.tgz#7c8374df5e665354155128279134f8898334cdd3"
   dependencies:
     express "^4.16.3"
     on-finished "^2.3.0"
