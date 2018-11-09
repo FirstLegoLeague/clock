@@ -29,7 +29,7 @@ part of this module.
 
 When you want to publish to npm, run the command `yarn publish`. First you will be asked to enter a new version to publish. Following that the build script will run the packing stage (`prepack`).
 
-Note: In most cases you will publish from the master branch.
+Note: Publish from a version branch (e.g. v2.2.3) so that you can do a PR.
 
 ```
 $ yarn publish
