@@ -1,4 +1,3 @@
-
 const ARMED = 'armed'
 const RUNNING = 'running'
 const ENDED = 'ended'
@@ -8,12 +7,14 @@ const EventEmitter = require('events')
 const WRONG_STATE_OF_CLOCK_CODE = exports.WRONG_STATE_OF_CLOCK_CODE = 'WRONG_STATE_OF_CLOCK'
 
 const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
+const MATCH_TIME_BUFFER = 5
 
 exports.ClockManager = class extends EventEmitter {
-  constructor (clock) {
+  constructor (clock, timeSaver) {
     super()
     this._status = ARMED
     this._clock = clock
+    this._timeSaver = timeSaver
 
     this._clock.on('end', () => {
       this._end()
@@ -35,6 +36,7 @@ exports.ClockManager = class extends EventEmitter {
 
     this._status = RUNNING
     this.emit('start')
+    this._timeSaver.writeTimeToFile(new Date())
     this._clock.startCountdown(MATCH_TIME)
   }
 
@@ -47,6 +49,7 @@ exports.ClockManager = class extends EventEmitter {
 
     this._status = ENDED
     this.emit('end')
+    this._timeSaver.clearFile()
   }
 
   stop () {
@@ -68,6 +71,23 @@ exports.ClockManager = class extends EventEmitter {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
+
+    this._timeSaver.getTimeFromFile().then(time => {
+      if (time) {
+        this._status = RUNNING
+
+        const currentTime = new Date()
+        const timeRun = Math.floor((currentTime.getTime() - time.getTime()) / 1000)
+        const matchTimeWithBuffer = MATCH_TIME + MATCH_TIME_BUFFER
+
+        if (timeRun < matchTimeWithBuffer) {
+          const timeLeft = matchTimeWithBuffer - timeRun
+          this._clock.startCountdown(timeLeft)
+        } else {
+          this._clock.startCountdown(0)
+        }
+      }
+    })
 
     this._status = ARMED
     this._clock.setTime(MATCH_TIME)
