@@ -7,14 +7,15 @@ const readFile = Promise.promisify(fs.readFile)
 
 const DATA_DIR = process.env.DATA_DIR
 const FILE_NAME = 'timer-start-time.json'
+const FILE_PATH = path.join(DATA_DIR, FILE_NAME);
 
 exports.TimeSaver = class {
-  writeTimeToFile (time) {
-    return writeFile(path.join(DATA_DIR, FILE_NAME), time.getTime())
+  saveTime (time) {
+    return writeFile(FILE_PATH, time.getTime())
   }
 
-  getTimeFromFile () {
-    return readFile(path.join(DATA_DIR, FILE_NAME), 'utf-8').then(time => {
+  getTime () {
+    return readFile(FILE_PATH, 'utf-8').then(time => {
       time = JSON.parse(time)
       if (time) {
         return new Date(parseInt(time))
@@ -23,7 +24,7 @@ exports.TimeSaver = class {
     })
   }
 
-  clearFile () {
-    return writeFile(path.join(DATA_DIR, FILE_NAME), null)
+  clearTime () {
+    return writeFile(FILE_PATH, null)
   }
 }

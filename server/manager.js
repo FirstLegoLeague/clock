@@ -77,11 +77,11 @@ exports.ClockManager = class extends EventEmitter {
         this._status = RUNNING
 
         const currentTime = new Date()
-        const timeRun = Math.floor((currentTime.getTime() - time.getTime()) / 1000)
+        const timeRan = Math.floor((currentTime.getTime() - time.getTime()) / 1000)
         const matchTimeWithBuffer = MATCH_TIME + MATCH_TIME_BUFFER
 
-        if (timeRun < matchTimeWithBuffer) {
-          const timeLeft = matchTimeWithBuffer - timeRun
+        if (timeRan < matchTimeWithBuffer) {
+          const timeLeft = matchTimeWithBuffer - timeRan
           this._clock.startCountdown(timeLeft)
         } else {
           this._clock.startCountdown(0)
