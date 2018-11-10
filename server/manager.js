@@ -36,7 +36,7 @@ exports.ClockManager = class extends EventEmitter {
 
     this._status = RUNNING
     this.emit('start')
-    this._timeSaver.writeTimeToFile(new Date())
+    this._timeSaver.saveTime(new Date())
     this._clock.startCountdown(MATCH_TIME)
   }
 
@@ -49,7 +49,7 @@ exports.ClockManager = class extends EventEmitter {
 
     this._status = ENDED
     this.emit('end')
-    this._timeSaver.clearFile()
+    this._timeSaver.clearTime()
   }
 
   stop () {
@@ -72,7 +72,7 @@ exports.ClockManager = class extends EventEmitter {
       })
     }
 
-    this._timeSaver.getTimeFromFile().then(time => {
+    this._timeSaver.getTime().then(time => {
       if (time) {
         this._status = RUNNING
 
