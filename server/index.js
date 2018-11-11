@@ -1,4 +1,3 @@
-
 const express = require('express')
 const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
@@ -8,13 +7,15 @@ const mhub = require('./mhub-handlers')
 const sounds = require('./sounds')
 const configuration = require('./configuration')
 const { Clock } = require('./clock')
+const { TimeSaver } = require('./time-saver')
 const { logger } = require('./logger')
 const { ClockManager } = require('./manager')
 const { createRouter } = require('./routes')
 const { linkEvents } = require('./events-linker')
 
 const clock = new Clock()
-const clockManager = new ClockManager(clock)
+const timeSaver = new TimeSaver()
+const clockManager = new ClockManager(clock, timeSaver)
 
 configuration.linkConfiguration({ mhub })
 
