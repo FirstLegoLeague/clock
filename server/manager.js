@@ -101,7 +101,7 @@ exports.ClockManager = class extends EventEmitter {
         }
       })
       .catch(err => {
-        logger.error(`reload: ${err.message}`)
+        logger.error(`reload: ${err}`)
 
         this._status = ARMED
         this._clock.setTime(MATCH_TIME)

@@ -41,7 +41,7 @@ app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.
 process.on('SIGINT', () => {
   logger.info('Process received SIGINT: shutting down')
   timeSaver.clearTime();
-  process.exit(1)
+  process.exit(130)
 })
 
 process.on('uncaughtException', err => {
