@@ -65,6 +65,7 @@ exports.ClockManager = class extends EventEmitter {
     this._clock.stopCountdown()
     this._clock.setTime(MATCH_TIME)
     this.emit('stop')
+    this._timeSaver.clearTime()
   }
 
   reload () {
@@ -84,23 +85,27 @@ exports.ClockManager = class extends EventEmitter {
 
           if (timeRan < MATCH_TIME) {
             const timeLeft = MATCH_TIME - timeRan
-            logger.info(`Running timer after restart. Time Left: ${timeLeft}`)
+            logger.info(`Running timer after restart. Time remaining: ${timeLeft}`)
             this._clock.startCountdown(timeLeft)
           } else {
-            logger.info('Clock recoverd after time is up.')
+            logger.info('Clock recovered after time is up.')
             if (timeRan < MATCH_TIME + MATCH_TIME_BUFFER) {
               logger.info('We are in the buffer period. Playing end sound.')
-              this._clock.startCountdown(0)
+              this._clock.startCountdown(1)
             }
           }
+        } else {
+          this._status = ARMED
+          this._clock.setTime(MATCH_TIME)
+          this.emit('reload')
         }
-      }).catch(err => {
-        logger.error(err.message)
-        this._clock.startCountdown(0)
       })
+      .catch(err => {
+        logger.error(`reload: ${err}`)
 
-    this._status = ARMED
-    this._clock.setTime(MATCH_TIME)
-    this.emit('reload')
+        this._status = ARMED
+        this._clock.setTime(MATCH_TIME)
+        this.emit('reload')
+      })
   }
 }
