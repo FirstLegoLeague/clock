@@ -1,4 +1,5 @@
 const express = require('express')
+const projectVersion = require('project-version')
 const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { loggerMiddleware } = require('@first-lego-league/ms-logger')
@@ -16,6 +17,8 @@ const { linkEvents } = require('./events-linker')
 const clock = new Clock()
 const timeSaver = new TimeSaver()
 const clockManager = new ClockManager(clock, timeSaver)
+
+logger.info (`-------------------- clock version ${projectVersion} startup --------------------`)
 
 configuration.linkConfiguration({ mhub })
 
