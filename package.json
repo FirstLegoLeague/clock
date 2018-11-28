@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "Clock for ",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
@@ -25,7 +25,8 @@
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
     "mhub": "^0.9.1",
-    "play-sound": "^1.1.2"
+    "play-sound": "^1.1.2",
+    "project-version": "^1.2.0"
   },
   "devDependencies": {
     "@first-lego-league/user-interface": "^1.2.8",
