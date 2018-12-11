@@ -29,7 +29,7 @@ export default class Controls extends Component {
 
   render () {
     return (
-      <h1 className={`controls expanded button-group`}>
+      <div className={`controls expanded show-on-hover button-group`}>
         <button type='button'
           className={`success button`}
           onClick={this.startClock}
@@ -48,7 +48,7 @@ export default class Controls extends Component {
           disabled={this.props.status !== 'running'}>
           Stop <i className='fas fa-stop' />
         </button>
-      </h1>
+      </div>
     )
   }
 }

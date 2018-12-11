@@ -2,6 +2,9 @@
 import axios from 'axios'
 import Promise from 'bluebird'
 import React, { Component } from 'react'
+import ReactResizeDetector from 'react-resize-detector'
+
+import isFullscreen from './fullscreen.js'
 
 import Clock from './clock/index.jsx'
 import Controls from './controls/index.jsx'
@@ -17,7 +20,8 @@ export default class App extends Component {
 
     this.state = {
       status: null,
-      time: null
+      time: null,
+      isFullscreen: isFullscreen()
     }
   }
 
@@ -82,10 +86,11 @@ export default class App extends Component {
   }
 
   render () {
-    return [
-      <Settings hidden={false} />,
-      <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />,
+    return <div className={this.state.isFullscreen ? 'fullscreen' : ''}>
+      <Settings hidden={false} />
+      <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
       <Controls status={this.state.status} />
-    ]
+      <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
+    </div>
   }
 }
