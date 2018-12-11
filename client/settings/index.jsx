@@ -29,7 +29,7 @@ export default class Settings extends Component {
 
   render () {
     return (<div className='show-on-hover settings'>
-      <button className='large button' onClick={() => this.showPopup(true)}>
+      <button className='large clear button' onClick={() => this.showPopup(true)}>
         <i className='fas fa-music' />
       </button>
       <Modal

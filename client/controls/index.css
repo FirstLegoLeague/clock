@@ -1,12 +1,10 @@
-
-.controls {
-    text-align: center;
+.controls.button {
+    font-size: 5vh;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-}
-
-.controls.button-group .button {
-    font-size: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

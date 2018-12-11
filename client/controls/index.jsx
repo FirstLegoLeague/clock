@@ -28,27 +28,26 @@ export default class Controls extends Component {
   }
 
   render () {
-    return (
-      <div className={`controls expanded show-on-hover button-group`}>
-        <button type='button'
-          className={`success button`}
-          onClick={this.startClock}
-          disabled={this.props.status !== 'armed'}>
-          Start <i className='fas fa-play' />
+    switch (this.props.status) {
+      case 'armed':
+        return <button type='button'
+          className={`controls show-on-hover clear success button`}
+          onClick={this.startClock}>
+          <i className='fas fa-play' /> Start
         </button>
-        <button type='button'
-          className={`button`}
-          onClick={this.reloadClock}
-          disabled={this.props.status !== 'ended'}>
-          Reload <i className='fas fa-step-backward' />
+      case 'ended':
+        return <button type='button'
+          className={`controls show-on-hover clear button`}
+          onClick={this.reloadClock}>
+          <i className='fas fa-step-backward' /> Reload
         </button>
-        <button type='button'
-          className={`alert button`}
-          onClick={this.stopClock}
-          disabled={this.props.status !== 'running'}>
-          Stop <i className='fas fa-stop' />
+      case 'running':
+        return <button type='button'
+          className={`controls show-on-hover clear alert button`}
+          onClick={this.stopClock}>
+          <i className='fas fa-stop' /> Stop
         </button>
-      </div>
-    )
+    }
+    return null
   }
 }
