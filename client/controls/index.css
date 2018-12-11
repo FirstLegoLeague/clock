@@ -8,3 +8,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.controls.button i {
+    font-size: 2em;
+    margin-bottom: 0.1em;
+}
