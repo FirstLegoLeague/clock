@@ -52,6 +52,7 @@
     "react-dom": "^16.4.1",
     "react-foundation": "^0.9.5",
     "react-foundation-modal": "^0.1.5",
+    "react-resize-detector": "^3.2.1",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.5.0",

@@ -1,8 +1,15 @@
-
-.controls {
-    text-align: center;
+.controls.button {
+    font-size: 5vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.controls.button-group .button {
-    font-size: 5vh;
+.controls.button i {
+    font-size: 2em;
+    margin-bottom: 0.1em;
 }
