@@ -86,7 +86,8 @@ export default class App extends Component {
       .then(res => this.setState({
         status: res.data.status,
         time: res.data.time,
-        clockFormat: res.data.clockFormat
+        clockFormat: res.data.clockFormat,
+        countdownEnabled: res.data.countdownEnabled
       }))
       .catch(err => {
         console.error(err)
@@ -97,7 +98,7 @@ export default class App extends Component {
     return <div id='main-container' className={this.state.isFullscreen ? 'fullscreen' : ''}>
       <Settings hidden={false} />
       <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
-      <Controls status={this.state.status} />
+      <Controls status={this.state.status} countdownEnabled={this.state.countdownEnabled} />
       <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
     </div>
   }

@@ -34,46 +34,44 @@ export default class Controls extends Component {
       })
   }
 
+  button (buttonClass, callback, icon) {
+    return <button type='button'
+      className={`controls clear ${buttonClass} button`}
+      onClick={callback}>
+      <i className={icon} /> Start
+    </button>
+  }
+
+  startButton () {
+    return this.button('success', this.startClock, 'far fa-play-circle')
+  }
+
+  prestartButton () {
+    return this.button('', this.prestartClock, 'far fa-clock')
+  }
+
+  stopButton () {
+    return this.button('alert', this.stopClock, 'fas fa-stop')
+  }
+
+  reloadButton () {
+    return this.button('', this.reloadClock, 'fas fa-step-backward')
+  }
+
   renderButtons () {
     switch (this.props.status) {
       case 'armed':
-        return [
-          <button type='button'
-            className={`controls clear success button`}
-            onClick={this.startClock}>
-            <i className='far fa-play-circle' /> Start
-          </button>,
-          <button type='button'
-            className={`controls clear button`}
-            onClick={this.prestartClock}>
-            <i className='far fa-clock' /> Countdown
-          </button>
-        ]
+        if (this.props.countdownEnabled) {
+          return [this.startButton(), this.prestartButton()]
+        } else {
+          return this.startButton()
+        }
       case 'prerunning':
-        return [
-          <button type='button'
-            className={`controls clear success button`}
-            onClick={this.startClock}>
-            <i className='fas fa-play' /> Start
-          </button>,
-          <button type='button'
-            className={`controls clear alert button`}
-            onClick={this.stopClock}>
-            <i className='fas fa-stop' /> Stop
-          </button>
-        ]
+        return [this.startButton(), this.stopButton()]
       case 'running':
-        return <button type='button'
-          className={`controls clear alert button`}
-          onClick={this.stopClock}>
-          <i className='fas fa-stop' /> Stop
-        </button>
+        return this.stopButton()
       case 'ended':
-        return <button type='button'
-          className={`controls clear button`}
-          onClick={this.reloadClock}>
-          <i className='fas fa-step-backward' /> Reload
-        </button>
+        return this.reloadButton()
     }
     return null
   }

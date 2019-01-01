@@ -10,15 +10,15 @@ const { logger } = require('./logger')
 const WRONG_STATE_OF_CLOCK_CODE = exports.WRONG_STATE_OF_CLOCK_CODE = 'WRONG_STATE_OF_CLOCK'
 
 const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
-const PREMATCH_TIME = 5
 const MATCH_TIME_BUFFER = 5
 
 exports.ClockManager = class extends EventEmitter {
-  constructor (clock, timeSaver) {
+  constructor (clock, timeSaver, precount) {
     super()
     this._status = ARMED
     this._clock = clock
     this._timeSaver = timeSaver
+    this._precount = precount
 
     this._clock.on('end', () => {
       if (this.status === PRERUNNING) {
@@ -42,9 +42,13 @@ exports.ClockManager = class extends EventEmitter {
       })
     }
 
-    this._status = PRERUNNING
-    this.emit('prestart')
-    this._clock.startCountdown(PREMATCH_TIME)
+    if (!this._precount) {
+      this.start()
+    } else {
+      this._status = PRERUNNING
+      this.emit('prestart')
+      this._clock.startCountdown(this._precount)
+    }
   }
 
   start () {

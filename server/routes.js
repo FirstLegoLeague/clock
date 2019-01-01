@@ -11,7 +11,8 @@ exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
     res.json({
       status: clockManager.status,
       time: clock.time,
-      clockFormat: configuration.getCurrentConfig().clockFormat
+      clockFormat: configuration.getCurrentConfig().clockFormat,
+      countdownEnabled: Boolean(configuration.getCurrentConfig().precount)
     })
   })
 
