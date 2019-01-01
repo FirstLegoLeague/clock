@@ -15,6 +15,23 @@ exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
     })
   })
 
+  router.post('/action/prestart', (req, res) => {
+    try {
+      clockManager.prestart()
+      res.send()
+    } catch (e) {
+      if (e.code === WRONG_STATE_OF_CLOCK_CODE) {
+        res.status(400).json({
+          message: e.message,
+          code: e.code
+        })
+      } else {
+        logger.error(e)
+        res.status(500).send()
+      }
+    }
+  })
+
   router.post('/action/start', (req, res) => {
     try {
       clockManager.start()

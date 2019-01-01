@@ -1,4 +1,5 @@
 const ARMED = 'armed'
+const PRERUNNING = 'prerunning'
 const RUNNING = 'running'
 const ENDED = 'ended'
 
@@ -9,6 +10,7 @@ const { logger } = require('./logger')
 const WRONG_STATE_OF_CLOCK_CODE = exports.WRONG_STATE_OF_CLOCK_CODE = 'WRONG_STATE_OF_CLOCK'
 
 const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
+const PREMATCH_TIME = 5
 const MATCH_TIME_BUFFER = 5
 
 exports.ClockManager = class extends EventEmitter {
@@ -19,7 +21,11 @@ exports.ClockManager = class extends EventEmitter {
     this._timeSaver = timeSaver
 
     this._clock.on('end', () => {
-      this._end()
+      if (this.status === PRERUNNING) {
+        setImmediate(() => this.start())
+      } else {
+        this._end()
+      }
     })
 
     setImmediate(() => this.reload())
@@ -29,21 +35,34 @@ exports.ClockManager = class extends EventEmitter {
     return this._status
   }
 
-  start () {
+  prestart () {
     if (this._status !== ARMED) {
       throw Object.assign(new Error('Clock is not armed'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
+    this._status = PRERUNNING
+    this.emit('prestart')
+    this._clock.startCountdown(PREMATCH_TIME)
+  }
+
+  start () {
+    if (![ARMED, PRERUNNING].includes(this._status)) {
+      throw Object.assign(new Error('Clock is not armed'), {
+        code: WRONG_STATE_OF_CLOCK_CODE
+      })
+    }
+
     this._status = RUNNING
+
     this.emit('start')
     this._timeSaver.saveTime(new Date())
     this._clock.startCountdown(MATCH_TIME)
   }
 
   _end () {
-    if (this._status !== RUNNING) {
+    if (![PRERUNNING, RUNNING].includes(this._status)) {
       throw Object.assign(new Error('Clock is not running when countdown ended'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
@@ -55,7 +74,7 @@ exports.ClockManager = class extends EventEmitter {
   }
 
   stop () {
-    if (this._status !== RUNNING) {
+    if (![PRERUNNING, RUNNING].includes(this._status)) {
       throw Object.assign(new Error('Clock is not running'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
