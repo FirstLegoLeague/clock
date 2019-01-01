@@ -21,6 +21,11 @@ body {
 	flex-direction: column;
 }
 
+#main-container {
+	width: 100vw;
+	height: 100vh;
+}
+
 .fullscreen .show-on-hover {
 	transition: linear 0.2s opacity;
 	opacity: 0;
