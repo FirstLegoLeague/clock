@@ -22,13 +22,15 @@ exports.linkConfiguration = ({ mhub }) => {
     .then(() => mClient.on('message', message => {
       if (message.topic === CONFIGURATION_TOPIC) {
         logger.info('Received configuration from mhub')
-        const clockFormatField = message.data.clockFormatFields.find(f => f.name === 'clockFormat')
-        const precountField = message.data.clockFormatFields.find(f => f.name === 'precount')
+        const clockFormatField = message.data.fields.find(f => f.name === 'clockFormat')
+        const precountField = message.data.fields.find(f => f.name === 'precount')
         if (clockFormatField) {
           clockFormat = clockFormatField.value
-          precount = precountField.value
           mhub.sendClockFormat(clockFormatField.value)
             .catch(err => logger.error(`Error while sending clock format changed event: ${err.message}`))
+        }
+        if (precountField) {
+          precount = precountField.value
         }
       }
     }))
