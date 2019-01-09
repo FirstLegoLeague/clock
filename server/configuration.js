@@ -15,18 +15,22 @@ const loginPromise = Promise.resolve(mClient.connect())
     logger.error(`error while logging into mhub (configuration): ${err.message}`)
   })
 
-let clockFormat
+let clockFormat, precount
 
 exports.linkConfiguration = ({ mhub }) => {
   loginPromise
     .then(() => mClient.on('message', message => {
       if (message.topic === CONFIGURATION_TOPIC) {
-        logger.info('Received configurations from mhub')
-        const field = message.data.fields.find(f => f.name === 'clockFormat')
-        if (field) {
-          clockFormat = field.value
-          mhub.sendClockFormat(field.value)
+        logger.info('Received configuration from mhub')
+        const clockFormatField = message.data.fields.find(f => f.name === 'clockFormat')
+        const precountField = message.data.fields.find(f => f.name === 'precount')
+        if (clockFormatField) {
+          clockFormat = clockFormatField.value
+          mhub.sendClockFormat(clockFormatField.value)
             .catch(err => logger.error(`Error while sending clock format changed event: ${err.message}`))
+        }
+        if (precountField) {
+          precount = precountField.value
         }
       }
     }))
@@ -34,4 +38,4 @@ exports.linkConfiguration = ({ mhub }) => {
     .catch(err => { throw err })
 }
 
-exports.getCurrentConfig = () => ({ clockFormat })
+exports.getCurrentConfig = () => ({ clockFormat, precount })

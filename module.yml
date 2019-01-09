@@ -10,3 +10,8 @@ config:
       type: values
       default: clock
       values: [clock, seconds]
+    - name: precount
+      display: Seconds of countdown to match
+      type: number
+      default: 5
+

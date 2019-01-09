@@ -1,4 +1,5 @@
 const ARMED = 'armed'
+const PRERUNNING = 'prerunning'
 const RUNNING = 'running'
 const ENDED = 'ended'
 
@@ -12,14 +13,19 @@ const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
 const MATCH_TIME_BUFFER = 5
 
 exports.ClockManager = class extends EventEmitter {
-  constructor (clock, timeSaver) {
+  constructor (clock, timeSaver, precount) {
     super()
     this._status = ARMED
     this._clock = clock
     this._timeSaver = timeSaver
+    this._precount = precount
 
     this._clock.on('end', () => {
-      this._end()
+      if (this.status === PRERUNNING) {
+        setImmediate(() => this.start())
+      } else {
+        this._end()
+      }
     })
 
     setImmediate(() => this.reload())
@@ -29,21 +35,38 @@ exports.ClockManager = class extends EventEmitter {
     return this._status
   }
 
-  start () {
+  prestart () {
     if (this._status !== ARMED) {
       throw Object.assign(new Error('Clock is not armed'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
     }
 
+    if (!this._precount) {
+      this.start()
+    } else {
+      this._status = PRERUNNING
+      this.emit('prestart')
+      this._clock.startCountdown(this._precount)
+    }
+  }
+
+  start () {
+    if (![ARMED, PRERUNNING].includes(this._status)) {
+      throw Object.assign(new Error('Clock is not armed'), {
+        code: WRONG_STATE_OF_CLOCK_CODE
+      })
+    }
+
     this._status = RUNNING
+
     this.emit('start')
     this._timeSaver.saveTime(new Date())
     this._clock.startCountdown(MATCH_TIME)
   }
 
   _end () {
-    if (this._status !== RUNNING) {
+    if (![PRERUNNING, RUNNING].includes(this._status)) {
       throw Object.assign(new Error('Clock is not running when countdown ended'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })
@@ -55,7 +78,7 @@ exports.ClockManager = class extends EventEmitter {
   }
 
   stop () {
-    if (this._status !== RUNNING) {
+    if (![PRERUNNING, RUNNING].includes(this._status)) {
       throw Object.assign(new Error('Clock is not running'), {
         code: WRONG_STATE_OF_CLOCK_CODE
       })

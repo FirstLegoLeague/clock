@@ -9,7 +9,7 @@ import isFullscreen from './fullscreen.js'
 import Clock from './clock/index.jsx'
 import Controls from './controls/index.jsx'
 import Settings from './settings/index.jsx'
-import { onStartEvent, onEndEvent, onReloadEvent,
+import { onPrestartEvent, onStartEvent, onEndEvent, onReloadEvent,
   onStopEvent, onTimeEvent, onFormatChangedEvent } from './mhub-listener'
 
 export default class App extends Component {
@@ -28,6 +28,14 @@ export default class App extends Component {
   componentDidMount () {
     onTimeEvent(({ time }) => {
       this.setState({ time })
+    })
+      .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
+      .catch(err => {
+        console.error(err)
+      })
+
+    onPrestartEvent(() => {
+      this.setState({ status: 'prerunning' })
     })
       .then(removeSubscription => { this._removeSubscriptions.push(removeSubscription) })
       .catch(err => {
@@ -78,7 +86,8 @@ export default class App extends Component {
       .then(res => this.setState({
         status: res.data.status,
         time: res.data.time,
-        clockFormat: res.data.clockFormat
+        clockFormat: res.data.clockFormat,
+        countdownEnabled: res.data.countdownEnabled
       }))
       .catch(err => {
         console.error(err)
@@ -86,10 +95,10 @@ export default class App extends Component {
   }
 
   render () {
-    return <div className={this.state.isFullscreen ? 'fullscreen' : ''}>
+    return <div id='main-container' className={this.state.isFullscreen ? 'fullscreen' : ''}>
       <Settings hidden={false} />
       <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
-      <Controls status={this.state.status} />
+      <Controls status={this.state.status} countdownEnabled={this.state.countdownEnabled} />
       <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
     </div>
   }

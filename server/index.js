@@ -16,9 +16,9 @@ const { linkEvents } = require('./events-linker')
 
 const clock = new Clock()
 const timeSaver = new TimeSaver()
-const clockManager = new ClockManager(clock, timeSaver)
+const clockManager = new ClockManager(clock, timeSaver, configuration.getCurrentConfig().precount)
 
-logger.info (`-------------------- clock version ${projectVersion} startup --------------------`)
+logger.info(`-------------------- clock version ${projectVersion} startup --------------------`)
 
 configuration.linkConfiguration({ mhub })
 

@@ -23,6 +23,10 @@
     color: yellow;
 }
 
+.prerunning {
+    color: orange;
+}
+
 .running {
     color: lime;
 }

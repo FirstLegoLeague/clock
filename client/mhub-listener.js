@@ -68,6 +68,7 @@ function onEvent (event, listener) {
 export const onEndEvent = onEvent.bind(null, 'end')
 export const onStopEvent = onEvent.bind(null, 'stop')
 export const onTimeEvent = onEvent.bind(null, 'time')
+export const onPrestartEvent = onEvent.bind(null, 'prestart')
 export const onStartEvent = onEvent.bind(null, 'start')
 export const onReloadEvent = onEvent.bind(null, 'reload')
 export const onFormatChangedEvent = onEvent.bind(null, 'format-changed')
