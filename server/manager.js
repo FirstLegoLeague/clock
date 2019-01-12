@@ -13,12 +13,12 @@ const MATCH_TIME = (process.env.NODE_ENV === 'development') ? 35 : 150
 const MATCH_TIME_BUFFER = 5
 
 exports.ClockManager = class extends EventEmitter {
-  constructor (clock, timeSaver, precount) {
+  constructor (clock, timeSaver, config) {
     super()
     this._status = ARMED
     this._clock = clock
     this._timeSaver = timeSaver
-    this._precount = precount
+    this._config = config
 
     this._clock.on('end', () => {
       if (this.status === PRERUNNING) {
@@ -42,12 +42,14 @@ exports.ClockManager = class extends EventEmitter {
       })
     }
 
-    if (!this._precount) {
+    const precount = this._config.getCurrentConfig().precount
+
+    if (!precount) {
       this.start()
     } else {
       this._status = PRERUNNING
       this.emit('prestart')
-      this._clock.startCountdown(this._precount)
+      this._clock.startCountdown(precount)
     }
   }
 
