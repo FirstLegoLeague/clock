@@ -30,7 +30,7 @@ exports.linkConfiguration = ({ mhub }) => {
             .catch(err => logger.error(`Error while sending clock format changed event: ${err.message}`))
         }
         if (precountField) {
-          precount = precountField.value
+          precount = Number(precountField.value)
         }
       }
     }))
