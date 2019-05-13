@@ -34,28 +34,28 @@ export default class Controls extends Component {
       })
   }
 
-  button (buttonClass, callback, icon) {
+  button (buttonClass, callback, icon, label) {
     return <button type='button'
       className={`controls clear ${buttonClass} button`}
       onClick={callback}>
-      <i className={icon} /> Start
+      <i className={icon} /> {label}
     </button>
   }
 
   startButton () {
-    return this.button('success', this.startClock, 'far fa-play-circle')
+    return this.button('success', this.startClock, 'far fa-play-circle', 'Start')
   }
 
   prestartButton () {
-    return this.button('', this.prestartClock, 'far fa-clock')
+    return this.button('', this.prestartClock, 'far fa-clock', '')
   }
 
   stopButton () {
-    return this.button('alert', this.stopClock, 'fas fa-stop')
+    return this.button('alert', this.stopClock, 'fas fa-stop', 'Stop')
   }
 
   reloadButton () {
-    return this.button('', this.reloadClock, 'fas fa-step-backward')
+    return this.button('', this.reloadClock, 'fas fa-step-backward', 'Reload')
   }
 
   renderButtons () {
