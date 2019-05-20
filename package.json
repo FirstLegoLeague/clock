@@ -32,7 +32,7 @@
     "project-version": "^1.2.0"
   },
   "devDependencies": {
-    "@first-lego-league/eslint-config": "0.0.2",
+    "@first-lego-league/eslint-config": "1.0.0",
     "@first-lego-league/user-interface": "^1.2.8",
     "axios": "^0.18.0",
     "babel-core": "^6.26.0",
