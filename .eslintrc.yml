@@ -1,5 +1,5 @@
 extends:
-- standard
+- "@first-lego-league"
 - standard-jsx
 
 parserOptions:
@@ -9,33 +9,39 @@ parserOptions:
 globals:
   WebSocket: true
 
-rules:
-  arrow-parens:
-  - warn
-  - as-needed
-  - requireForBlockBody: false
-  no-shadow: warn
-  no-var: warn
-  object-curly-spacing: [ warn, always ]
-  prefer-arrow-callback: warn
-  prefer-const: warn
-  strict: [ warn, never ]
-
-
-  import/newline-after-import: warn
-  import/no-absolute-path: warn
-  import/no-dynamic-require: warn
-  import/no-extraneous-dependencies: warn
-  import/no-mutable-exports: warn
-  import/order:
-  - warn
-  - groups:
-    - [ builtin, external ]
-    - [ sibling, index ]
-    - parent
-    newlines-between: always-and-inside-groups
-
-  promise/catch-or-return: warn
-  promise/no-callback-in-promise: warn
-  promise/no-native: warn
-  promise/no-return-wrap: warn
+rules: {}
+#  node/no-unsupported-features: off
+#  node/no-unsupported-features/es-builtins: error
+#  node/no-unsupported-features/es-syntax:
+#   - warn
+#   - ignores: [ modules ]
+#  node/no-unsupported-features/node-builtins: off
+#  arrow-parens:
+#  - warn
+#  - as-needed
+#  - requireForBlockBody: false
+#  no-shadow: warn
+#  no-var: warn
+#  object-curly-spacing: [ warn, always ]
+#  prefer-arrow-callback: warn
+#  prefer-const: warn
+#  strict: [ warn, never ]
+#
+#
+#  import/newline-after-import: warn
+#  import/no-absolute-path: warn
+#  import/no-dynamic-require: warn
+#  import/no-extraneous-dependencies: warn
+#  import/no-mutable-exports: warn
+#  import/order:
+#  - warn
+#  - groups:
+#    - [ builtin, external ]
+#    - [ sibling, index ]
+#    - parent
+#    newlines-between: always-and-inside-groups
+#
+#  promise/catch-or-return: warn
+#  promise/no-callback-in-promise: warn
+#  promise/no-native: warn
+#  promise/no-return-wrap: warn
