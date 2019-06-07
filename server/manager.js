@@ -124,9 +124,11 @@ exports.ClockManager = class extends EventEmitter {
           this._clock.setTime(MATCH_TIME)
           this.emit('reload')
         }
+
+        return null // Bluebird warning
       })
       .catch(err => {
-        logger.error(`reload: ${err}`)
+        logger.error(err)
 
         this._status = ARMED
         this._clock.setTime(MATCH_TIME)
