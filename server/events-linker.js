@@ -8,12 +8,13 @@ function catchPromiseWrap (asyncFunction, operationDescription, ...args) {
     })
 }
 
-exports.linkEvents = ({ clockManager, clock, mhub, sounds }) => {
+exports.linkEvents = ({ clockManager, clock, mhub }) => {
   const mhubSendPrestartEvent = mhub.sendEvent.bind(null, 'prestart')
   const mhubSendStartEvent = mhub.sendEvent.bind(null, 'start')
   const mhubSendEndEvent = mhub.sendEvent.bind(null, 'end')
   const mhubSendStopEvent = mhub.sendEvent.bind(null, 'stop')
   const mhubSendReloadEvent = mhub.sendEvent.bind(null, 'reload')
+  const mhubSendEndGameEvent = mhub.sendEvent.bind(null, 'endgame')
 
   clock.on('time', catchPromiseWrap.bind(null, mhub.sendTimeEvent, 'sending time event to mhub'))
 
@@ -22,9 +23,5 @@ exports.linkEvents = ({ clockManager, clock, mhub, sounds }) => {
   clockManager.on('end', catchPromiseWrap.bind(null, mhubSendEndEvent, 'sending end event to mhub'))
   clockManager.on('stop', catchPromiseWrap.bind(null, mhubSendStopEvent, 'sending stop event to mhub'))
   clockManager.on('reload', catchPromiseWrap.bind(null, mhubSendReloadEvent, 'sending reload event to mhub'))
-
-  clockManager.on('start', catchPromiseWrap.bind(null, sounds.playStartSound, 'playing start sound'))
-  clockManager.on('stop', catchPromiseWrap.bind(null, sounds.playStopSound, 'playing stop sound'))
-  clockManager.on('end', catchPromiseWrap.bind(null, sounds.playEndSound, 'playing end sound'))
-  clock.onExactTime(30, catchPromiseWrap.bind(null, sounds.playEndGameSound, 'playing end-game sound'))
+  clock.onExactTime(30, catchPromiseWrap.bind(null, mhubSendEndGameEvent, 'sending end-game event to mhub'))
 }

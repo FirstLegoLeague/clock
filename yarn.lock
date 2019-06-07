@@ -3195,13 +3195,6 @@ find-cache-dir@^1.0.0:
     make-dir "^1.0.0"
     pkg-dir "^2.0.0"
 
-find-exec@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/find-exec/-/find-exec-1.0.0.tgz#65249cd524de08050531d9d0b84ad2ee1ab727c9"
-  integrity sha1-ZSSc1STeCAUFMdnQuErS7hq3J8k=
-  dependencies:
-    sync-exec "^0.6.2"
-
 find-up@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
@@ -5906,13 +5899,6 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
-play-sound@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/play-sound/-/play-sound-1.1.2.tgz#aaca3047692af571c0d3a9dc475a5fa7c21322c5"
-  integrity sha1-qsowR2kq9XHA06ncR1pfp8ITIsU=
-  dependencies:
-    find-exec "1.0.0"
-
 portfinder@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"
@@ -6265,13 +6251,6 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-project-version@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/project-version/-/project-version-1.2.0.tgz#3c5b59cb53af9790bb21ebb87a9f21b0bf0b9815"
-  integrity sha512-o94hj3Ld7/7jeFPZEPuZxsbpeOsPqZMXh5iYIDS7rjhjj4UcYHDlb4pYi43qjXMYM3LUcD6qJhQq9siEzg1KIA==
-  dependencies:
-    read-pkg "^4.0.1"
-
 promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
@@ -6554,15 +6533,6 @@ read-pkg@^3.0.0:
     load-json-file "^4.0.0"
     normalize-package-data "^2.3.2"
     path-type "^3.0.0"
-
-read-pkg@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-4.0.1.tgz#963625378f3e1c4d48c85872b5a6ec7d5d093237"
-  integrity sha1-ljYlN48+HE1IyFhytabsfV0JMjc=
-  dependencies:
-    normalize-package-data "^2.3.2"
-    parse-json "^4.0.0"
-    pify "^3.0.0"
 
 "readable-stream@1 || 2", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.9, readable-stream@^2.3.3, readable-stream@^2.3.5:
   version "2.3.6"
@@ -7538,11 +7508,6 @@ symbol-observable@^0.2.2:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-0.2.4.tgz#95a83db26186d6af7e7a18dbd9760a2f86d08f40"
   integrity sha1-lag9smGG1q9+ehjb2XYKL4bQj0A=
-
-sync-exec@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/sync-exec/-/sync-exec-0.6.2.tgz#717d22cc53f0ce1def5594362f3a89a2ebb91105"
-  integrity sha1-cX0izFPwzh3vVZQ2LzqJouu5EQU=
 
 table@^5.2.3:
   version "5.3.3"
