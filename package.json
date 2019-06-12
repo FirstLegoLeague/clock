@@ -3,9 +3,9 @@
   "version": "2.4.2",
   "description": "Clock for ",
   "scripts": {
-    "start": "concurrently -k npm:start:ui npm:start:server",
+    "start": "concurrently -k npm:start:*",
     "start:ui": "webpack-dev-server --open --mode development --config webpack.dev.js",
-    "start:server": "devl -p 8080 node server/index.js",
+    "start:server": "devl -p 8080",
     "lint": "eslint \"./server/**/*.js\" \"./client/**/*.jsx\" \"./client/**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
     "build": "webpack --mode production --config webpack.prod.js",
@@ -34,7 +34,7 @@
     "project-version": "^1.2.0"
   },
   "devDependencies": {
-    "@first-lego-league/dev-launcher": "^0.0.1",
+    "@first-lego-league/dev-launcher": "^0.1.0",
     "@first-lego-league/eslint-config": "1.0.0",
     "@first-lego-league/user-interface": "^1.2.8",
     "axios": "^0.18.0",

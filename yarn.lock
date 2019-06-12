@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@first-lego-league/dev-launcher@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/dev-launcher/-/dev-launcher-0.0.1.tgz#bdbdbd5f82ecc02430913829d6cfd3d67621bf60"
-  integrity sha512-w+jqj/axax/oSpSejVFvEaIupm1YH+LyqU/xhJtnKJTFOOR/1xCgGT6AzFFFwyuL3/6t16FgVNKpfKeI03fhbg==
+"@first-lego-league/dev-launcher@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/dev-launcher/-/dev-launcher-0.1.0.tgz#6e84201a3eb65d41cc10702ec772b984342a6fd5"
+  integrity sha512-kfpoY7APvD0bfpvWLCL5mayX9QtMN1dYsIYChGeo+1D1AP96IIyLjlB+k5G3tyBnUdbrJVvJbu4VQYJ0pmR2ZA==
   dependencies:
     bluebird "^3.5.5"
     caporal "^1.2.0"
