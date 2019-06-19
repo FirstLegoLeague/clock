@@ -26,7 +26,7 @@
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.2",
     "@first-lego-league/ms-correlation": "^1.0.1",
-    "@first-lego-league/ms-logger": "^1.4.1",
+    "@first-lego-league/ms-logger": "^2.0.0",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
     "mhub": "^1.0.0",

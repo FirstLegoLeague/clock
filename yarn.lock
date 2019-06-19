@@ -58,10 +58,10 @@
     jsonwebtoken "^8.5.1"
     randomatic "^3.1.1"
 
-"@first-lego-league/ms-logger@^1.4.1":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.6.0.tgz#302602982cc9d9ccc0694a661b1adc674da4f826"
-  integrity sha512-NWSUWb5Oc2gENEq49xbbIAalcdgrWWBmjur/Q0CAOLX7hrCoLOztCN0VvNWi/A2tv9D8nNesJspmPfF+g6VhvQ==
+"@first-lego-league/ms-logger@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-2.0.0.tgz#2a9e19e4277b62d81621806434f4d468f6b4d805"
+  integrity sha512-Zh9edCBhr6G4sl9HmuR7x/vyt60fs/zGtWMfKFFLeJlb6vF0/504OCZLyUI3IDTMirNhc/H4I+jHsab08daQng==
   dependencies:
     body-parser "^1.19.0"
     on-finished "^2.3.0"
