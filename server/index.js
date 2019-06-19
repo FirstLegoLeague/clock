@@ -49,10 +49,10 @@ process.on('SIGINT', () => {
 
 process.on('uncaughtException', err => {
   logger.fatal(err.message)
-  process.exit(1)
+  setTimeout(() => process.exit(1), 2000)
 })
 
 process.on('unhandledRejection', err => {
   logger.fatal(err.message)
-  process.exit(1)
+  setTimeout(() => process.exit(1), 2000)
 })
