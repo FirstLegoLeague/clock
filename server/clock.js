@@ -20,13 +20,17 @@ exports.Clock = class extends EventEmitter {
     return this._time
   }
 
+  set time (seconds) {
+    this._time = seconds
+    setImmediate(() => this.emit('time', this._time))
+  }
+
   onExactTime (requestedTime, listener) {
     this.on('time', exactTimeListener.bind(this, listener, requestedTime))
   }
 
   setTime (seconds) {
-    this._time = seconds
-    setImmediate(() => this.emit('time', this._time))
+    this.time = seconds
   }
 
   startCountdown (seconds) {
