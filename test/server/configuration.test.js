@@ -7,6 +7,7 @@ const sinonChai = require('sinon-chai')
 const { env, stringContaining } = require('./helpers')
 
 chai.use(sinonChai)
+sinon.usingPromise(global.Promise)
 proxyquire
   .noCallThru()
   .noPreserveCache()
