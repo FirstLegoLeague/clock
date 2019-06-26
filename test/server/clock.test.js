@@ -44,7 +44,7 @@ describe('Clock', () => {
     expect(clock).property('time').to.be.equal(20)
   })
 
-  it('changes the time stop changing the time after stopping the countdown', () => {
+  it('stop changing the time after stopping the countdown', () => {
     clock.startCountdown(50)
     systemTimer.tick(20 * SECOND)
     clock.stopCountdown()
