@@ -16,11 +16,16 @@
   "engines": {
     "node": ">=8.2.1"
   },
+  "files": [
+    "server",
+    "public",
+    "module.yml"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FirstLegoLeague/clock.git"
   },
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/FirstLegoLeague/clock/issues"
   },
