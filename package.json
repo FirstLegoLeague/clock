@@ -3,16 +3,15 @@
   "version": "2.4.2",
   "description": "Clock for ",
   "scripts": {
-    "start": "concurrently -k \"yarn start:server\" \"yarn start:ui\"",
-    "start:ui": "webpack-dev-server --open --mode development --config webpack.dev.js",
+    "start": "concurrently -k \"yarpm start:server\" \"yarpm start:ui\"",
+    "start:ui": "webpack-dev-server --mode development --config webpack.dev.js",
     "start:server": "devl -p 8080",
     "test": "mocha ./test/**/*.test.js",
     "test:coverage": "nyc --all -n={client,server}/**/*.js{,x} -e=.js -e=.jsx -r text yarpm test",
     "test:ci": "nyc --all -n={client,server}/**/*.js{,x} -e=.js -e=.jsx -r lcov yarpm test && codecov",
     "lint": "eslint \"./server/**/*.js\" \"./client/**/*.jsx\" \"./client/**/*.js\"",
-    "lint:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
     "build": "webpack --mode production --config webpack.prod.js",
-    "prepack": "webpack --mode production --config webpack.prod.js"
+    "prepack": "yarpm run build"
   },
   "engines": {
     "node": ">=8.2.1"
