@@ -19,6 +19,7 @@
   "files": [
     "server",
     "public",
+    "yarn.lock",
     "module.yml"
   ],
   "repository": {
