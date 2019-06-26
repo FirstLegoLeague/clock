@@ -1,3 +1,8 @@
+[![npm](https://img.shields.io/npm/v/@first-lego-league/clock.svg)](https://www.npmjs.com/package/@first-lego-league/clock)
+[![codecov](https://codecov.io/gh/FirstLegoLeague/clock/branch/master/graph/badge.svg)](https://codecov.io/gh/FirstLegoLeague/clock)
+[![Build status](https://ci.appveyor.com/api/projects/status/yvxmdp73an9sl6gc/branch/master?svg=true)](https://ci.appveyor.com/project/2roy999/clock/branch/master)
+[![GitHub](https://img.shields.io/github/license/FirstLegoLeague/clock.svg)](https://github.com/FirstLegoLeague/clock/blob/master/LICENSE)
+
 # Clock
 
 Web based application showing the FLL match timer. Works in the latest versions
