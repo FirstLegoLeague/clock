@@ -100,7 +100,7 @@ exports.ClockManager = class extends EventEmitter {
       })
     }
 
-    this._timeSaver.getTime()
+    return this._timeSaver.getTime()
       .then(time => {
         if (time) {
           this._status = RUNNING

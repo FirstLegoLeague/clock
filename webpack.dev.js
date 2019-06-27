@@ -1,3 +1,5 @@
+/* eslint-disable node/exports-style */
+
 const merge = require('webpack-merge')
 
 const common = require('./webpack.common.js')

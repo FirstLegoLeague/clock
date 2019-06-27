@@ -1,0 +1,13 @@
+environment:
+  nodejs_version: "10.13.0"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - yarn install --frozen-lockfile
+
+test_script:
+  - yarn lint
+  - yarn test:ci
+
+build_script:
+  - yarn pack
