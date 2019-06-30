@@ -18,7 +18,7 @@ const loginPromise = Promise.resolve(mClient.connect())
 let clockFormat, precount
 
 exports.linkConfiguration = ({ mhub }) => {
-  loginPromise
+  return loginPromise
     .then(() => mClient.on('message', message => {
       if (message.topic === CONFIGURATION_TOPIC) {
         logger.info('Received configuration from mhub')
@@ -35,7 +35,6 @@ exports.linkConfiguration = ({ mhub }) => {
       }
     }))
     .then(() => mClient.subscribe(CONFIGURATION_NODE, CONFIGURATION_TOPIC))
-    .catch(err => { throw err })
 }
 
 exports.getCurrentConfig = () => ({ clockFormat, precount })

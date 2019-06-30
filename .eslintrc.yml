@@ -2,6 +2,9 @@ extends:
 - "@first-lego-league"
 - standard-jsx
 
+env:
+  mocha: true
+
 parserOptions:
   env:
     browser: true

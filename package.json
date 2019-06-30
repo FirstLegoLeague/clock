@@ -1,45 +1,59 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "Clock for ",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development --config webpack.dev.js",
+    "start": "concurrently -k \"yarpm start:server\" \"yarpm start:ui\"",
+    "start:ui": "webpack-dev-server --mode development --config webpack.dev.js",
+    "start:server": "devl -p 8080",
+    "test": "mocha ./test/**/*.test.js",
+    "test:coverage": "nyc --all -n={client,server}/**/*.js{,x} -e=.js -e=.jsx -r text yarpm test",
+    "test:ci": "nyc --all -n={client,server}/**/*.js{,x} -e=.js -e=.jsx -r lcov yarpm test && codecov",
     "lint": "eslint \"./server/**/*.js\" \"./client/**/*.jsx\" \"./client/**/*.js\"",
-    "lint:fix": "eslint \"**/*.js\" \"**/*.jsx\" --fix",
     "build": "webpack --mode production --config webpack.prod.js",
-    "prepack": "webpack --mode production --config webpack.prod.js"
+    "prepack": "yarpm run build"
   },
   "engines": {
     "node": ">=8.2.1"
   },
+  "files": [
+    "server",
+    "public",
+    "yarn.lock",
+    "module.yml"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FirstLegoLeague/clock.git"
   },
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/FirstLegoLeague/clock/issues"
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.2",
-    "@first-lego-league/ms-correlation": "^0.0.5",
-    "@first-lego-league/ms-logger": "^1.4.1",
+    "@first-lego-league/ms-correlation": "^1.0.1",
+    "@first-lego-league/ms-logger": "^2.0.0",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
-    "mhub": "^0.9.1"
+    "mhub": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@first-lego-league/dev-launcher": "^0.1.1",
     "@first-lego-league/eslint-config": "1.0.0",
     "@first-lego-league/user-interface": "^1.2.8",
-    "axios": "^0.18.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.1",
-    "css-loader": "^0.28.11",
+    "axios": "^0.19.0",
+    "babel-loader": "^8.0.6",
+    "chai": "^4.2.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "codecov": "^3.5.0",
+    "concurrently": "^4.1.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
     "eslint": "^5.0.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-jsx": "^6.0.2",
@@ -50,18 +64,24 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-standard": "^4.0.0",
-    "file-loader": "^1.1.11",
+    "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "proxyquire": "^2.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-foundation": "^0.9.5",
     "react-foundation-modal": "^0.1.5",
-    "react-resize-detector": "^3.2.1",
-    "style-loader": "^0.20.3",
-    "uglifyjs-webpack-plugin": "^1.2.4",
+    "react-resize-detector": "^4.2.0",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.3",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
+    "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.1.3",
-    "webpack-merge": "^4.1.2"
+    "webpack-merge": "^4.1.2",
+    "yarpm": "^0.2.1"
   }
 }

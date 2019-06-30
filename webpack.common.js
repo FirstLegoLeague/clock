@@ -1,7 +1,7 @@
+/* eslint-disable node/exports-style */
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -14,7 +14,6 @@ module.exports = {
     path: path.resolve(__dirname, 'public')
   },
   plugins: [
-    new CleanWebpackPlugin(['public']),
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'index.html',
@@ -47,8 +46,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              'babel-preset-env',
-              'babel-preset-react'
+              '@babel/env',
+              '@babel/react'
             ]
           }
         }
