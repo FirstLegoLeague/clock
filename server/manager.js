@@ -128,7 +128,7 @@ exports.ClockManager = class extends EventEmitter {
         return null // Bluebird warning
       })
       .catch(err => {
-        logger.error(err)
+        logger.error(err.toString())
 
         this._status = ARMED
         this._clock.setTime(MATCH_TIME)
