@@ -1,14 +1,14 @@
 
 import React, { Component } from 'react'
 
-import { onStartEvent, onEndEvent, onStopEvent, onEndGameEvent } from '../mhub-listener'
-
 import './index.css'
 
 import startSound from './mp3/start.mp3'
 import stopSound from './mp3/stop.mp3'
 import endgameSound from './mp3/end-game.mp3'
 import endSound from './mp3/end.mp3'
+
+import { onStartEvent, onEndEvent, onStopEvent, onEndGameEvent } from '../mhub-listener'
 
 export default class Sound extends Component {
   constructor (props) {

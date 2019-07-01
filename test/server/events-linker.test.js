@@ -13,10 +13,6 @@ proxyquire.noCallThru()
 
 const { expect } = chai
 
-function capitalize (word) {
-  return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
-}
-
 const loggerMock = {}
 
 const { linkEvents } = proxyquire('../../server/events-linker', {
