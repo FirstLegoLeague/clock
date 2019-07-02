@@ -58,10 +58,6 @@ export default class Sound extends Component {
       })
   }
 
-  openSoundWindow () {
-    window.open('/sound.html', 'sound-window', 'height=200,width=150')
-  }
-
   render () {
     return [
       <h1>Test sounds</h1>,
