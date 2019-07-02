@@ -7,7 +7,7 @@
     "start:ui": "webpack-dev-server --mode development --config webpack.dev.js",
     "start:server": "devl -p 8080",
     "test": "mocha ./test/**/*.test.js",
-    "test:ci": "yarpm run test:ci:server && yarpm run test:ci:ui &&  && codecov",
+    "test:ci": "yarpm run test:ci:server && yarpm run test:ci:ui && codecov",
     "test:ci:server": "nyc --all -n=server/**/*.js --report-dir ./coverage/server -r lcovonly yarpm run test:server",
     "test:ci:ui": "yarpm run test:ui --reporters coverage",
     "test:server": "mocha ./test/**/*.test.js",
