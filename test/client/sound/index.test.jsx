@@ -110,5 +110,4 @@ describe('Sounds Window', () => {
       expect(playSpy).to.have.been.calledOnce
     })
   })
-
 })
