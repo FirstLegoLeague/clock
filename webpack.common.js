@@ -30,11 +30,7 @@ module.exports = {
       {
         from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
         to: './webfonts'
-      },
-      // {
-      //   from: './client',
-      //   to: './'
-      // }
+      }
     ])
   ],
   module: {
