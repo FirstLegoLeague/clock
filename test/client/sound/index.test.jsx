@@ -25,6 +25,8 @@ describe('Sounds Window', () => {
     sandbox.stub(window, 'localStorage')
       .value(localStorageStub)
 
+    sandbox.stub(window, 'focus')
+
     sandbox.stub(window, 'onbeforeunload')
       .set(fn => {
         listeners.onBeforeUnload = fn
@@ -73,6 +75,40 @@ describe('Sounds Window', () => {
     expect(window.localStorage.removeItem).to.have.been.calledWith('sound-window')
   })
 
+  it('claims focus on the window when "focus" key is created in local storage', () => {
+    mount(<Sound />)
+
+    listeners.onStorage({ key: 'focus', newValue: 'true' })
+
+    expect(window.focus).to.have.been.calledOnce
+  })
+
+  it('remove the "focus" key when "focus" key is created in local storage', () => {
+    mount(<Sound />)
+
+    listeners.onStorage({ key: 'focus', newValue: 'true' })
+
+    expect(window.localStorage.removeItem).to.have.been.calledWith('focus')
+  })
+
+  it('not doing anything when key is changed in local storage other then "focus"', () => {
+    mount(<Sound />)
+
+    listeners.onStorage({ key: 'other', newValue: 'true' })
+
+    expect(window.focus).to.have.not.been.called
+    expect(window.localStorage.removeItem).to.have.not.been.called
+  })
+
+  it('not doing anything when key is "focus" key is removed from local storage', () => {
+    mount(<Sound />)
+
+    listeners.onStorage({ key: 'other', newValue: null })
+
+    expect(window.focus).to.have.not.been.called
+    expect(window.localStorage.removeItem).to.have.not.been.called
+  })
+
   it('sets closing message', () => {
     mount(<Sound />)
 
@@ -109,5 +145,21 @@ describe('Sounds Window', () => {
       expect(window.Audio).to.have.been.calledWith(`${event}-sound`)
       expect(playSpy).to.have.been.calledOnce
     })
+  })
+
+  it(`prints error when it can't play sound`, done => {
+    const error = new Error()
+    sandbox.stub(console, 'error')
+      .callsFake(() => {
+        expect(console.error).to.have.been.calledWith(error)
+        done()
+      })
+    const wrapper = mount(<Sound />)
+
+    window.Audio.returns({
+      play: sinon.stub().rejects(error)
+    })
+
+    wrapper.instance().testSound()
   })
 })

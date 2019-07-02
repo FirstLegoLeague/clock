@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 
-const { stringContaining } = require('./helpers')
+const { stringContaining } = require('../helpers')
 
 chai.use(sinonChai)
 sinon.usingPromise(Promise)
