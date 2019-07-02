@@ -2,7 +2,46 @@
 
 const merge = require('webpack-merge')
 
-const common = require('./webpack.common')
+const commonWebpackConfig = require('./webpack.common')
+
+const webpackConfig = merge(commonWebpackConfig, {
+  entry: null,
+  output: null,
+  devtool: 'inline-source-map'
+})
+
+if (webpackConfig.module && webpackConfig.module.rules) {
+  webpackConfig.module.rules
+    .forEach(rule => {
+      const isUseArray = Array.isArray(rule.use)
+      const uses = isUseArray ? [].concat(rule.use) : [ rule.use ]
+
+      uses.forEach((use, index) => {
+        if (use === 'babel-loader') {
+          const newUse = {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                'rewire',
+                'istanbul'
+              ]
+            }
+          }
+
+          if (isUseArray) {
+            rule.use[index] = newUse
+          } else {
+            rule.use = newUse
+          }
+        } else if (use.loader === 'babel-loader') {
+          use.options = use.options || {}
+          use.options.plugins = use.options.plugins || []
+          use.options.plugins.push('rewire')
+          use.options.plugins.push('istanbul')
+        }
+      })
+    })
+}
 
 module.exports = config => {
   config.set({
@@ -29,29 +68,7 @@ module.exports = config => {
 
     reporters: [ 'mocha' ],
 
-    webpack: merge(common, {
-      entry: null,
-      output: null,
-      devtool: 'inline-source-map',
-      module: {
-        rules: [
-          {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: [
-                  '@babel/env',
-                  '@babel/react'
-                ],
-                plugins: ['istanbul']
-              }
-            }
-          }
-        ]
-      }
-    }),
+    webpack: webpackConfig,
 
     coverageReporter: {
       type: process.env.CI ? 'lcovonly' : 'text',
