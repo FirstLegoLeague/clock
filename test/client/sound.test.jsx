@@ -6,7 +6,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import sinonChai from 'sinon-chai'
 import { EventEmitter } from 'events'
 
-import Sound from '../../../client/sound/index.jsx'
+import Sound from '../../client/sound/index.jsx'
 
 Enzyme.configure({ adapter: new Adapter() })
 chai.use(sinonChai)
