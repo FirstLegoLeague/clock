@@ -5,21 +5,33 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: './client/index.jsx',
+  entry: {
+    main: './client/index.jsx',
+    sound: './client/sound.jsx'
+  },
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'index.html',
+      chunks: ['main'],
       favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
     }),
-    new CopyWebpackPlugin([{
-      from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
-      to: './webfonts'
-    }])
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      filename: 'sound.html',
+      chunks: ['sound'],
+      favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
+        to: './webfonts'
+      }
+    ])
   ],
   module: {
     rules: [

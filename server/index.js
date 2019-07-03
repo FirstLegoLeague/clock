@@ -1,11 +1,9 @@
 const express = require('express')
-const projectVersion = require('project-version')
 const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { loggerMiddleware } = require('@first-lego-league/ms-logger')
 
 const mhub = require('./mhub-handlers')
-const sounds = require('./sounds')
 const configuration = require('./configuration')
 const { Clock } = require('./clock')
 const { TimeSaver } = require('./time-saver')
@@ -13,6 +11,8 @@ const { logger } = require('./logger')
 const { ClockManager } = require('./manager')
 const { createRouter } = require('./routes')
 const { linkEvents } = require('./events-linker')
+
+const { version: projectVersion } = require('../package.json')
 
 const clock = new Clock()
 const timeSaver = new TimeSaver()
@@ -22,7 +22,7 @@ logger.info(`-------------------- clock version ${projectVersion} startup ------
 
 configuration.linkConfiguration({ mhub })
 
-linkEvents({ clockManager, clock, sounds, mhub })
+linkEvents({ clockManager, clock, mhub })
 
 const app = express()
 
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.static('public'))
 
-app.use('/api', createRouter({ clockManager, clock, sounds, configuration }))
+app.use('/api', createRouter({ clockManager, clock, configuration }))
 
 app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}!`))
 

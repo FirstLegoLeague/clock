@@ -1,13 +1,4 @@
 extends:
-- "@first-lego-league"
-- standard-jsx
-
-env:
-  mocha: true
-
-parserOptions:
-  env:
-    browser: true
-
-globals:
-  WebSocket: true
+  - first-lego-league
+  - first-lego-league/jsx
+  - first-lego-league/tests

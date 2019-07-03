@@ -4,7 +4,7 @@ const sinon = require('sinon')
 const proxyquire = require('proxyquire')
 const sinonChai = require('sinon-chai')
 
-const { stringContaining } = require('./helpers')
+const { stringContaining } = require('../helpers')
 
 chai.use(sinonChai)
 proxyquire.noCallThru()

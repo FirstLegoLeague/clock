@@ -2,8 +2,6 @@ const Promise = require('bluebird')
 const fs = require('fs')
 const path = require('path')
 
-const { logger } = require('./logger')
-
 const writeFile = Promise.promisify(fs.writeFile)
 const readFile = Promise.promisify(fs.readFile)
 
@@ -19,14 +17,11 @@ exports.TimeSaver = class {
   getTime () {
     return readFile(FILE_PATH, 'utf-8')
       .then(time => {
-        time = JSON.parse(time)
-        if (time) {
-          return new Date(parseInt(time))
+        if (time.trim()) {
+          return new Date(Number(time))
         }
-      })
-      .catch(err => {
-        if (err.code === undefined || err.code !== 'ENOENT') { // Could be file read error or SyntaxError
-          logger.warn(`Error reading TimeSaver file ${FILE_PATH}`)
+      }, err => {
+        if (err.code !== 'ENOENT') {
           throw err
         }
       })

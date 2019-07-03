@@ -4,7 +4,7 @@ const { Router } = require('express')
 const { logger } = require('./logger')
 const { WRONG_STATE_OF_CLOCK_CODE } = require('./manager')
 
-exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
+exports.createRouter = ({ clockManager, clock, configuration }) => {
   const router = new Router()
 
   router.get('/startup', (req, res) => {
@@ -82,42 +82,6 @@ exports.createRouter = ({ clockManager, clock, sounds, configuration }) => {
         res.status(500).send()
       }
     }
-  })
-
-  router.post('/sound/start', (req, res) => {
-    sounds.playStartSound()
-      .then(() => res.send())
-      .catch(e => {
-        logger.error(e)
-        res.status(500).send()
-      })
-  })
-
-  router.post('/sound/end', (req, res) => {
-    sounds.playEndSound()
-      .then(() => res.send())
-      .catch(e => {
-        logger.error(e)
-        res.status(500).send()
-      })
-  })
-
-  router.post('/sound/stop', (req, res) => {
-    sounds.playStopSound()
-      .then(() => res.send())
-      .catch(e => {
-        logger.error(e)
-        res.status(500).send()
-      })
-  })
-
-  router.post('/sound/endgame', (req, res) => {
-    sounds.playEndGameSound()
-      .then(() => res.send())
-      .catch(e => {
-        logger.error(e)
-        res.status(500).send()
-      })
   })
 
   return router

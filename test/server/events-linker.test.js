@@ -5,17 +5,13 @@ const proxyquire = require('proxyquire')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 
-const { stringContaining } = require('./helpers')
+const { stringContaining } = require('../helpers')
 
 chai.use(sinonChai)
 sinon.usingPromise(Promise)
 proxyquire.noCallThru()
 
 const { expect } = chai
-
-function capitalize (word) {
-  return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()
-}
 
 const loggerMock = {}
 
@@ -37,19 +33,6 @@ const testsMetadata = [
       service: 'mhub',
       method: 'sendTimeEvent'
     }
-  },
-  {
-    event: {
-      name: 'clock exact time',
-      service: 'clock',
-      key: 'exactTime'
-    },
-    listener: {
-      name: 'end-game sound',
-      service: 'sounds',
-      method: 'playEndGameSound',
-      args: [30]
-    }
   }
 ].concat(['prestart', 'start', 'end', 'stop', 'reload'].map(event => {
   return {
@@ -63,19 +46,6 @@ const testsMetadata = [
       service: 'mhub',
       method: 'sendEvent',
       args: [event]
-    }
-  }
-})).concat(['start', 'end', 'stop'].map(event => {
-  return {
-    event: {
-      name: `clock manager ${event}`,
-      service: 'clockManager',
-      key: event
-    },
-    listener: {
-      name: `${event} sound`,
-      service: 'sounds',
-      method: `play${capitalize(event)}Sound`
     }
   }
 }))
@@ -94,12 +64,6 @@ describe('Event Linker', () => {
       mhub: {
         sendEvent: sinon.stub().resolves(),
         sendTimeEvent: sinon.stub().resolves()
-      },
-      sounds: {
-        playStartSound: sinon.stub().resolves(),
-        playStopSound: sinon.stub().resolves(),
-        playEndSound: sinon.stub().resolves(),
-        playEndGameSound: sinon.stub().resolves()
       }
     }
 
