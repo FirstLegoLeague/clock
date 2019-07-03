@@ -35,20 +35,20 @@ describe('Settings Component', () => {
     window.open.restore()
   })
 
-  it('shows the sound off icon when created without window-sound key in the local storage', () => {
+  it('shows the sound off icon when created without sound-window key in the local storage', () => {
     const wrapper = mount(<Settings />)
 
     expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
   })
 
-  it('shows the sound up icon when created with window-sound key in the local storage', () => {
+  it('shows the sound up icon when created with sound-window key in the local storage', () => {
     window.localStorage.setItem('sound-window', true)
     const wrapper = mount(<Settings />)
 
     expect(wrapper.find('.fas')).to.have.className('fa-volume-up')
   })
 
-  it('changes the icon when window-sound appears in the local storage', () => {
+  it('changes the icon when sound-window appears in the local storage', () => {
     const wrapper = mount(<Settings />)
 
     onStorageListener({ key: 'sound-window', newValue: 'true' })
@@ -56,7 +56,7 @@ describe('Settings Component', () => {
     expect(wrapper.find('.fas')).to.have.className('fa-volume-up')
   })
 
-  it('changes the icon when window-sound removed from the local storage', () => {
+  it('changes the icon when sound-window removed from the local storage', () => {
     window.localStorage.setItem('sound-window', true)
     const wrapper = mount(<Settings />)
 
@@ -65,7 +65,7 @@ describe('Settings Component', () => {
     expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
   })
 
-  it('does nothing when local storage changed on other key then window-sound', () => {
+  it('does nothing when local storage changed on other key then sound-window', () => {
     const wrapper = mount(<Settings />)
 
     onStorageListener({ key: 'other-key', newValue: 'true' })
@@ -78,6 +78,15 @@ describe('Settings Component', () => {
 
     wrapper.find('.fas').simulate('click')
 
-    expect(window.open).to.have.calledWith('/sound.html')
+    expect(window.open).to.have.been.calledWith('/sound.html')
+  })
+
+  it('does not open a new window when icon has been clicked and sound window exists', () => {
+    window.localStorage.setItem('sound-window', true)
+    const wrapper = mount(<Settings />)
+
+    wrapper.find('.fas').simulate('click')
+
+    expect(window.open).to.have.not.been.calledWith('/sound.html')
   })
 })
