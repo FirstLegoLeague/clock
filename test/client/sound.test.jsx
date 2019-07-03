@@ -21,9 +21,7 @@ describe('Sounds Window', () => {
     listeners = {}
     sandbox = sinon.createSandbox()
 
-    const localStorageStub = sandbox.stub(window.localStorage)
-    sandbox.stub(window, 'localStorage')
-      .value(localStorageStub)
+    window.localStorage.clear()
 
     sandbox.stub(window, 'focus')
 
@@ -63,7 +61,7 @@ describe('Sounds Window', () => {
 
   it('sets sound-window key in local storage when created', () => {
     mount(<Sound />)
-    expect(window.localStorage.setItem).to.have.been.calledWith('sound-window', true)
+    expect(window.localStorage).to.have.property('sound-window').which.is.equal('true')
   })
 
   it('removes sound-window key from local storage when unloading', () => {
@@ -72,7 +70,7 @@ describe('Sounds Window', () => {
 
     listeners.onUnload()
 
-    expect(window.localStorage.removeItem).to.have.been.calledWith('sound-window')
+    expect(window.localStorage).to.not.have.property('sound-window')
   })
 
   it('claims focus on the window when "focus" key is created in local storage', () => {
@@ -85,28 +83,31 @@ describe('Sounds Window', () => {
 
   it('remove the "focus" key when "focus" key is created in local storage', () => {
     mount(<Sound />)
+    window.localStorage.setItem('focus', 'true')
 
     listeners.onStorage({ key: 'focus', newValue: 'true' })
 
-    expect(window.localStorage.removeItem).to.have.been.calledWith('focus')
+    expect(window.localStorage).to.not.have.property('focus')
   })
 
   it('not doing anything when key is changed in local storage other then "focus"', () => {
     mount(<Sound />)
+    window.localStorage.setItem('focus', 'true')
 
     listeners.onStorage({ key: 'other', newValue: 'true' })
 
     expect(window.focus).to.have.not.been.called
-    expect(window.localStorage.removeItem).to.have.not.been.called
+    expect(window.localStorage).to.have.property('focus')
   })
 
   it('not doing anything when key is "focus" key is removed from local storage', () => {
     mount(<Sound />)
+    window.localStorage.setItem('focus', 'true')
 
     listeners.onStorage({ key: 'other', newValue: null })
 
     expect(window.focus).to.have.not.been.called
-    expect(window.localStorage.removeItem).to.have.not.been.called
+    expect(window.localStorage).to.have.property('focus')
   })
 
   it('sets closing message', () => {
