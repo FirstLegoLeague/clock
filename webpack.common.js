@@ -18,20 +18,14 @@ module.exports = {
       template: './client/index.html',
       filename: 'index.html',
       chunks: ['main'],
-      favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
+      favicon: './node_modules/@first-lego-league/user-interface/current/assets/images/first-favicon.ico'
     }),
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'sound.html',
       chunks: ['sound'],
-      favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: './node_modules/@first-lego-league/user-interface/current/assets/fonts',
-        to: './webfonts'
-      }
-    ])
+      favicon: './node_modules/@first-lego-league/user-interface/current/assets/images/first-favicon.ico'
+    })
   ],
   module: {
     rules: [
@@ -56,7 +50,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf|svg|mp3|swf)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|svg|png|jpeg|jpg|tif|gif|ico|mp3)$/,
         use: [
           'file-loader'
         ]

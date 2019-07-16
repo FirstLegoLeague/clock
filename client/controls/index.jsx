@@ -34,28 +34,27 @@ export default class Controls extends Component {
       })
   }
 
-  button (buttonClass, callback, icon, label) {
-    return <button type='button'
-      className={`controls clear ${buttonClass} button`}
-      onClick={callback}>
-      <i className={icon} /> {label}
-    </button>
+  button (color, callback, icon, label) {
+    return <div className='controls' onClick={callback}>
+      <i className={`ui ${icon} ${color} link huge icon`} />
+      <div className={`hover text ui ${color} header`}>{label}</div>
+    </div>
   }
 
   startButton () {
-    return this.button('success', this.startClock, 'far fa-play-circle', 'Start')
+    return this.button('green', this.startClock, 'play', 'Start')
   }
 
   prestartButton () {
-    return this.button('', this.prestartClock, 'far fa-clock', '')
+    return this.button('orange', this.prestartClock, 'stopwatch', 'Start after delay')
   }
 
   stopButton () {
-    return this.button('alert', this.stopClock, 'fas fa-stop', 'Stop')
+    return this.button('red', this.stopClock, 'stop', 'Stop')
   }
 
   reloadButton () {
-    return this.button('', this.reloadClock, 'fas fa-step-backward', 'Reload')
+    return this.button('orange', this.reloadClock, 'undo', 'Reload')
   }
 
   renderButtons () {

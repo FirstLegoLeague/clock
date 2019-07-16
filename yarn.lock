@@ -721,12 +721,10 @@
     on-headers "^1.0.2"
     router "^1.3.3"
 
-"@first-lego-league/user-interface@^1.2.8":
-  version "1.3.7"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.3.7.tgz#5489fe23316a63b214664829788b8780e9a9a1d1"
-  integrity sha512-VLWSnJzbxWod6KpTewH5wu7vz4NfE/X9Ql7Mz1frvAWxivlEhzqX2RCWkV+gRj7tZaSbjJAP/4lm9fsE6s15GA==
-  dependencies:
-    hamburgers "^0.9.3"
+"@first-lego-league/user-interface@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.3.tgz#80a45ae540439cf948dc80ea7b3f946e835401cb"
+  integrity sha512-C5rOc4FEkKWMx1f672rlB8IIjlPTvhXGZQyoLnbyuueacN1uQG4I3AFlgXVvulJNUm2cBKPf7k4EWenyflRCSA==
 
 "@sinonjs/commons@^1", "@sinonjs/commons@^1.0.2", "@sinonjs/commons@^1.4.0":
   version "1.4.0"
@@ -3879,11 +3877,6 @@ growl@1.10.5:
   version "1.10.5"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
   integrity sha512-qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==
-
-hamburgers@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/hamburgers/-/hamburgers-0.9.3.tgz#73b3d299652a028647ca68b2957df172c76cc636"
-  integrity sha512-7pC2GkvKcBtfUalg2Vfm2z3wOCUFI7ZHgqThUg6kHZ7ZcLelSzGhboB9UjlleRCBEUjAVCpcrdGdN7PcaJBQKQ==
 
 handle-thing@^2.0.0:
   version "2.0.0"

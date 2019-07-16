@@ -1,7 +1,7 @@
 .settings {
 	height: 10vh;
 	position: absolute;
-	top: 0;
+	top: 1rem;
 	left: 0;
 	z-index: 1;
 }
