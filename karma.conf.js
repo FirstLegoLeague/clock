@@ -7,7 +7,8 @@ const commonWebpackConfig = require('./webpack.common')
 const webpackConfig = merge(commonWebpackConfig, {
   entry: null,
   output: null,
-  devtool: 'inline-source-map'
+  devtool: 'inline-source-map',
+  mode: 'development'
 })
 
 if (webpackConfig.module && webpackConfig.module.rules) {
