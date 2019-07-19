@@ -16,7 +16,6 @@ const { mount } = Enzyme
 const { expect } = chai
 
 describe('Settings Component', () => {
-
   beforeEach(() => {
     window.localStorage.clear()
     sinon.stub(window, 'open')
