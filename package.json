@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "Clock for ",
   "scripts": {
     "start": "concurrently -k \"yarpm start:server\" \"yarpm start:ui\"",
