@@ -22,7 +22,6 @@ describe('Settings Component', () => {
   })
 
   afterEach(() => {
-    window.onstorage.restore()
     window.open.restore()
   })
 
