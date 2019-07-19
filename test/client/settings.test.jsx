@@ -16,17 +16,9 @@ const { mount } = Enzyme
 const { expect } = chai
 
 describe('Settings Component', () => {
-  let onStorageListener
 
   beforeEach(() => {
     window.localStorage.clear()
-
-    const onStorageStub = sinon.stub(window, 'onstorage')
-      .get(() => onStorageStub)
-      .set(fn => {
-        onStorageListener = fn
-      })
-
     sinon.stub(window, 'open')
   })
 
