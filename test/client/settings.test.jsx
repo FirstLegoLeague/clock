@@ -38,45 +38,19 @@ describe('Settings Component', () => {
   it('shows the sound off icon when created without sound-window key in the local storage', () => {
     const wrapper = mount(<Settings />)
 
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
+    expect(wrapper.find('i.icon')).to.have.className('music')
   })
 
   it('shows the sound up icon when created with sound-window key in the local storage', () => {
-    window.localStorage.setItem('sound-window', true)
     const wrapper = mount(<Settings />)
 
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-up')
-  })
-
-  it('changes the icon when sound-window appears in the local storage', () => {
-    const wrapper = mount(<Settings />)
-
-    onStorageListener({ key: 'sound-window', newValue: 'true' })
-
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-up')
-  })
-
-  it('changes the icon when sound-window removed from the local storage', () => {
-    window.localStorage.setItem('sound-window', true)
-    const wrapper = mount(<Settings />)
-
-    onStorageListener({ key: 'sound-window', oldValue: 'true' })
-
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
-  })
-
-  it('does nothing when local storage changed on other key then sound-window', () => {
-    const wrapper = mount(<Settings />)
-
-    onStorageListener({ key: 'other-key', newValue: 'true' })
-
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
+    expect(wrapper.find('i.icon')).to.have.className('music')
   })
 
   it('opens a new window when icon has been clicked', () => {
     const wrapper = mount(<Settings />)
 
-    wrapper.find('.fas').simulate('click')
+    wrapper.find('.button').simulate('click')
 
     expect(window.open).to.have.been.calledWith('/sound.html')
   })
@@ -85,7 +59,7 @@ describe('Settings Component', () => {
     window.localStorage.setItem('sound-window', true)
     const wrapper = mount(<Settings />)
 
-    wrapper.find('.fas').simulate('click')
+    wrapper.find('.button').simulate('click')
 
     expect(window.open).to.have.not.been.calledWith('/sound.html')
   })
