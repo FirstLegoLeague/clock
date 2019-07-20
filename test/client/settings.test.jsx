@@ -16,9 +16,9 @@ const { mount } = Enzyme
 const { expect } = chai
 
 describe('Settings Component', () => {
- let onStorageListener
+  let onStorageListener
 
-   beforeEach(() => {
+  beforeEach(() => {
     window.localStorage.clear()
 
     const onStorageStub = sinon.stub(window, 'onstorage')
@@ -35,17 +35,11 @@ describe('Settings Component', () => {
     window.open.restore()
   })
 
-  it('shows the sound off icon when created without sound-window key in the local storage', () => {
-    const wrapper = mount(<Settings />)
-
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
-  })
-
   it('shows the sound up icon when created with sound-window key in the local storage', () => {
     window.localStorage.setItem('sound-window', true)
     const wrapper = mount(<Settings />)
 
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-up')
+    expect(wrapper.find('i.icon')).to.have.className('music')
   })
 
   it('does nothing when local storage changed on other key then sound-window', () => {
@@ -53,7 +47,7 @@ describe('Settings Component', () => {
 
     onStorageListener({ key: 'other-key', newValue: 'true' })
 
-    expect(wrapper.find('.fas')).to.have.className('fa-volume-off')
+    expect(wrapper.find('i.icon')).to.have.className('music')
   })
 
   it('shows the sound off icon when created without sound-window key in the local storage', () => {
