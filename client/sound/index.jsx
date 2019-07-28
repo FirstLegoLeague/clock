@@ -61,17 +61,17 @@ export default class Sound extends Component {
   render () {
     return [
       <h1>Test sounds</h1>,
-      <div className={'large expanded button-group'}>
-        <button className='button' type='button' onClick={() => this.testSound(startSound)} >
+      <div className={'ui large buttons'}>
+        <button className='ui button' type='button' onClick={() => this.testSound(startSound)} >
             Start Sound
         </button>
-        <button className='button' type='button' onClick={() => this.testSound(endSound)} >
+        <button className='ui button' type='button' onClick={() => this.testSound(endSound)} >
             End Sound
         </button>
-        <button className='button' type='button' onClick={() => this.testSound(stopSound)} >
+        <button className='ui button' type='button' onClick={() => this.testSound(stopSound)} >
             Stop Sound
         </button>
-        <button className='button' type='button' onClick={() => this.testSound(endgameSound)} >
+        <button className='ui button' type='button' onClick={() => this.testSound(endgameSound)} >
             End Game Sound
         </button>
       </div>

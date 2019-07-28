@@ -11,8 +11,9 @@
 .clock {
     font-size: 60vh;
     font-family: lcdbold, monospace;
-    position: relative;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ended{

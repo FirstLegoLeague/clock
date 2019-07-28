@@ -26,8 +26,9 @@ export default class Settings extends Component {
 
   render () {
     return (<div className='show-on-hover settings'>
-      <button className='large clear button' onClick={() => this.openSoundWindow()} disabled={this.state.sound}>
-        <i className={`fas fa-volume-${this.state.sound ? 'up' : 'off'}`} />
+      <button className='ui primary inverted icon button' onClick={() => this.openSoundWindow()} disabled={this.state.sound}>
+        <i className='ui music icon' />
+        <span className='hover text'>Test sounds</span>
       </button>
     </div>)
   }

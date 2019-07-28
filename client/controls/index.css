@@ -4,17 +4,14 @@
     display: flex;
     left: 0;
     bottom: 0;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
-.controls.button {
-    font-size: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.controls {
+    height: 7rem;
+    width: 10rem;
 }
 
-.controls.button i {
-    font-size: 2em;
-    margin-bottom: 0.1em;
+.controls .hover.text {
+    margin-top: 0.5rem;
 }

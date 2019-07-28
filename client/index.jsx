@@ -1,3 +1,5 @@
+import '@first-lego-league/user-interface/current/app.js'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 

@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 import Promise from 'bluebird'
 import React, { Component } from 'react'
@@ -95,7 +94,7 @@ export default class App extends Component {
   }
 
   render () {
-    return <div id='main-container' className={this.state.isFullscreen ? 'fullscreen' : ''}>
+    return <div id='main-container' className={`ui centered grid ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
       <Settings hidden={false} />
       <Clock status={this.state.status} time={this.state.time} format={this.state.clockFormat} />
       <Controls status={this.state.status} countdownEnabled={this.state.countdownEnabled} />
