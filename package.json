@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/clock",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Clock for ",
   "scripts": {
     "start": "concurrently -k \"yarpm start:server\" \"yarpm start:ui\"",
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
-    "@first-lego-league/ms-auth": "^1.2.2",
+    "@first-lego-league/ms-auth": "^1.4.2",
     "@first-lego-league/ms-correlation": "^1.0.1",
     "@first-lego-league/ms-logger": "^2.0.0",
     "bluebird": "^3.5.1",
