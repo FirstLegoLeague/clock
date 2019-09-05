@@ -1,23 +1,24 @@
+.sound-line {
+	/*height: 10vh;*/
+	/*position: absolute;*/
+	/*top: 0;*/
+	/*left: 0;*/
+	width: 100% !important;
+}
+
 .settings {
-	height: 10vh;
-	position: absolute;
-	top: 0;
-	left: 0;
+	/*height: 10vh;*/
+	/*position: absolute;*/
+	/*top: 0;*/
+	/*left: 0;*/
 	z-index: 1;
 }
 
-.settings > .large.button {
-	font-size: 5vh;
-}
-
-.settings .close-button {
-    color: white;
-}
-
-.settings .reveal-overlay {
-	overflow-y: hidden;
-}
-
-.settings .reveal {
-    background: dimgrey;
+.indicator {
+	/*height: 10vh;*/
+	/*position: absolute;*/
+	/*top: 0;*/
+	/*left: 0;*/
+	margin-left: auto;
+	z-index: 1;
 }
