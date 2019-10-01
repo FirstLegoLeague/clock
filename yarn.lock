@@ -711,10 +711,10 @@
     mkdirp "^0.5.1"
     winston "^3.2.1"
 
-"@first-lego-league/ms-auth@^1.2.2":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.4.1.tgz#3ca752357e99ed14c4824ddd9e8d92bc4de989f9"
-  integrity sha512-E6ybfApFX4wV2S57zwCwUFl6XjM56U614+XDMvMKZt6WTn5N3qI68SoAhC5EalWxjjNfhp0K/yZZ9cwO0V4W4Q==
+"@first-lego-league/ms-auth@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.4.3.tgz#306e5cb0ef190d4e0c83821cce3e5f556d984567"
+  integrity sha512-XnFVF5+UdQCOkJdzPrjl/e8eQ/UI4IzHCdIS8eRCnyPTTQRTJzyBCdrKRwTyC6jJM5CcArXuapLNm1nc1NEVcQ==
   dependencies:
     body-parser "^1.19.0"
     cookie "^0.4.0"
@@ -731,10 +731,10 @@
     jsonwebtoken "^8.5.1"
     randomatic "^3.1.1"
 
-"@first-lego-league/ms-logger@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-2.0.0.tgz#2a9e19e4277b62d81621806434f4d468f6b4d805"
-  integrity sha512-Zh9edCBhr6G4sl9HmuR7x/vyt60fs/zGtWMfKFFLeJlb6vF0/504OCZLyUI3IDTMirNhc/H4I+jHsab08daQng==
+"@first-lego-league/ms-logger@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-2.0.1.tgz#cea7214b6bf273b66aa203c5349fe1240f7c5c3f"
+  integrity sha512-YjuAkxkZN7Zj7zgMjLAGmdslbWUq4Qi3O6BvHMVBhFzM7hGBx9L2P3Ti3qMZ3U8aChDK04Ve81Rz5YoKfunsLw==
   dependencies:
     body-parser "^1.19.0"
     on-finished "^2.3.0"

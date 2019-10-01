@@ -37,9 +37,9 @@
   },
   "homepage": "https://github.com/FirstLegoLeague/clock",
   "dependencies": {
-    "@first-lego-league/ms-auth": "^1.4.2",
+    "@first-lego-league/ms-auth": "^1.4.3",
     "@first-lego-league/ms-correlation": "^1.0.1",
-    "@first-lego-league/ms-logger": "^2.0.0",
+    "@first-lego-league/ms-logger": "^2.0.1",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
     "mhub": "^1.0.0"
