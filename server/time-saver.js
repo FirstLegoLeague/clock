@@ -20,7 +20,7 @@ exports.TimeSaver = class {
         if (time.trim()) {
           return new Date(Number(time))
         }
-       
+
         return null
       }, err => {
         if (err.code !== 'ENOENT') {
