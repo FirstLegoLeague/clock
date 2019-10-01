@@ -17,12 +17,11 @@ exports.TimeSaver = class {
   getTime () {
     return readFile(FILE_PATH, 'utf-8')
       .then(time => {
-        if (time === '') {
-          return null
-        }
-        else if (time.trim()) {
+        if (time.trim()) {
           return new Date(Number(time))
         }
+        
+        return null
       }, err => {
         if (err.code !== 'ENOENT') {
           throw err
