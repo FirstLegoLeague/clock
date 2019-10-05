@@ -119,11 +119,11 @@ describe('Sounds Window', () => {
   ;['start', 'stop', 'end', 'end-game'].forEach(event => {
     it(`play ${event} sound when ${event} event triggered`, () => {
       const playSpy = sinon.stub().resolves()
-      mount(<Sound />)
-
       window.Audio.returns({
         play: playSpy
       })
+
+      mount(<Sound />)
 
       mhubEventEmitter.emit(event)
 
@@ -133,11 +133,11 @@ describe('Sounds Window', () => {
 
     it(`play ${event} sound when ${event} sound button clicked`, () => {
       const playSpy = sinon.stub().resolves()
-      const wrapper = mount(<Sound />)
-
       window.Audio.returns({
         play: playSpy
       })
+
+      const wrapper = mount(<Sound />)
 
       wrapper.find('button')
         .filterWhere(b => b.text().toLowerCase() === `${event.replace('-', ' ')} sound`)
@@ -155,12 +155,11 @@ describe('Sounds Window', () => {
         expect(console.error).to.have.been.calledWith(error)
         done()
       })
+
     const wrapper = mount(<Sound />)
 
-    window.Audio.returns({
+    wrapper.instance().playSound({
       play: sinon.stub().rejects(error)
     })
-
-    wrapper.instance().testSound()
   })
 })

@@ -10,14 +10,14 @@ import endSound from './mp3/end.mp3'
 
 import { onStartEvent, onEndEvent, onStopEvent, onEndGameEvent } from '../mhub-listener'
 
-const startAudio = new window.Audio(startSound)
-const stopAudio = new window.Audio(stopSound)
-const endgameAudio = new window.Audio(endgameSound)
-const endAudio = new window.Audio(endSound)
-
 export default class Sound extends Component {
   constructor (props) {
     super(props)
+
+    this.startAudio = new window.Audio(startSound)
+    this.stopAudio = new window.Audio(stopSound)
+    this.endgameAudio = new window.Audio(endgameSound)
+    this.endAudio = new window.Audio(endSound)
 
     window.localStorage.setItem('sound-window', true)
 
@@ -37,19 +37,19 @@ export default class Sound extends Component {
     }
 
     onStartEvent(() => {
-      this.playSound(startAudio)
+      this.playSound(this.startAudio)
     })
 
     onEndGameEvent(() => {
-      this.playSound(endgameAudio)
+      this.playSound(this.endgameAudio)
     })
 
     onEndEvent(() => {
-      this.playSound(endAudio)
+      this.playSound(this.endAudio)
     })
 
     onStopEvent(() => {
-      this.playSound(stopAudio)
+      this.playSound(this.stopAudio)
     })
 
     this.state = {}
@@ -66,16 +66,16 @@ export default class Sound extends Component {
     return [
       <h1>Test sounds</h1>,
       <div className={'ui large buttons'}>
-        <button className='ui button' type='button' onClick={() => this.playSound(startAudio)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.startAudio)} >
             Start Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.playSound(endAudio)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.endAudio)} >
             End Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.playSound(stopAudio)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.stopAudio)} >
             Stop Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.playSound(endgameAudio)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.endgameAudio)} >
             End Game Sound
         </button>
       </div>
