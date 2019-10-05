@@ -53,7 +53,6 @@ export default class Sound extends Component {
       this.playSound(this.stopAudio)
     })
 
-    this.soundEvent = sound => this.playSound(sound)
     this.state = { enabled: true }
   }
 
@@ -67,10 +66,14 @@ export default class Sound extends Component {
   toggleState (isEnabled) {
     if (isEnabled) {
       this.setState({ enabled: false })
-      this.soundEvent = () => {}
     } else {
       this.setState({ enabled: true })
-      this.soundEvent = sound => this.playSound(sound)
+    }
+  }
+
+  playSoundIfEnabled (sound) {
+    if (this.state.enabled) {
+      this.playSound(sound)
     }
   }
 
@@ -85,7 +88,7 @@ export default class Sound extends Component {
         </Dropdown.Menu>
       </Dropdown>
       <Button color={this.state.enabled ? 'orange' : ''} onClick={() => this.toggleState(this.state.enabled)}>
-        <Icon name={`volume ${this.state.enabled ? 'up' : 'off'}`}></Icon>
+        <Icon name={`volume ${this.state.enabled ? 'up' : 'off'}`} />
         {this.state.enabled ? 'Sound on' : 'Sound off'}
       </Button>
     </Button.Group>
