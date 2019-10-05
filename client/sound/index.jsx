@@ -14,6 +14,11 @@ export default class Sound extends Component {
   constructor (props) {
     super(props)
 
+    this.startAudio = new window.Audio(startSound)
+    this.stopAudio = new window.Audio(stopSound)
+    this.endgameAudio = new window.Audio(endgameSound)
+    this.endAudio = new window.Audio(endSound)
+
     window.localStorage.setItem('sound-window', true)
 
     window.onbeforeunload = function () {
@@ -32,26 +37,25 @@ export default class Sound extends Component {
     }
 
     onStartEvent(() => {
-      this.testSound(startSound)
+      this.playSound(this.startAudio)
     })
 
     onEndGameEvent(() => {
-      this.testSound(endgameSound)
+      this.playSound(this.endgameAudio)
     })
 
     onEndEvent(() => {
-      this.testSound(endSound)
+      this.playSound(this.endAudio)
     })
 
     onStopEvent(() => {
-      this.testSound(stopSound)
+      this.playSound(this.stopAudio)
     })
 
     this.state = {}
   }
 
-  testSound (sound) {
-    const audio = new window.Audio(sound)
+  playSound (audio) {
     audio.play()
       .catch(err => {
         console.error(err)
@@ -62,16 +66,16 @@ export default class Sound extends Component {
     return [
       <h1>Test sounds</h1>,
       <div className={'ui large buttons'}>
-        <button className='ui button' type='button' onClick={() => this.testSound(startSound)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.startAudio)} >
             Start Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(endSound)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.endAudio)} >
             End Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(stopSound)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.stopAudio)} >
             Stop Sound
         </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(endgameSound)} >
+        <button className='ui button' type='button' onClick={() => this.playSound(this.endgameAudio)} >
             End Game Sound
         </button>
       </div>
