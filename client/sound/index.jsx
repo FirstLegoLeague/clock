@@ -57,10 +57,10 @@ export default class Sound extends Component {
     return <Button.Group className='settings show-on-hover'>
       <Dropdown floating labeled button icon='cogs' text='Test sounds' className='primary icon'>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => this.playSound(startSound)}>Test Start Sound</Dropdown.Item>
-          <Dropdown.Item onClick={() => this.playSound(stopSound)}>Test Stop Sound</Dropdown.Item>
-          <Dropdown.Item onClick={() => this.playSound(endSound)}>Test End Sound</Dropdown.Item>
-          <Dropdown.Item onClick={() => this.playSound(endgameSound)}>Test End Game Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(startSound)}>Start Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(stopSound)}>Stop Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(endSound)}>End Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(endgameSound)}>End Game Sound</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <Button color={this.state.enabled ? 'orange' : ''} onClick={() => this.toggleState(this.state.enabled)}>
