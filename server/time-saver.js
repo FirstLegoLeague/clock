@@ -20,6 +20,8 @@ exports.TimeSaver = class {
         if (time.trim()) {
           return new Date(Number(time))
         }
+
+        return null
       }, err => {
         if (err.code !== 'ENOENT') {
           throw err
@@ -28,6 +30,6 @@ exports.TimeSaver = class {
   }
 
   clearTime () {
-    return writeFile(FILE_PATH, null)
+    return writeFile(FILE_PATH, '')
   }
 }
