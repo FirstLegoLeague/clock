@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Button, Icon } from 'semantic-ui-react'
 
 import './index.css'
 
@@ -54,26 +54,19 @@ export default class Sound extends Component {
   }
 
   render () {
-    return <div className='sound-line'>
-      <div className='settings'>
-        <Dropdown className='huge icon' icon='cogs' button>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => this.toggleState(this.state.enabled)}>
-              {this.state.enabled ? 'Disable sound' : 'Enable sound'}
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item onClick={() => this.playSound(startSound)}>Test Start Sound</Dropdown.Item>
-            <Dropdown.Item onClick={() => this.playSound(stopSound)}>Test Stop Sound</Dropdown.Item>
-            <Dropdown.Item onClick={() => this.playSound(endSound)}>Test End Sound</Dropdown.Item>
-            <Dropdown.Item onClick={() => this.playSound(endgameSound)}>Test End Game Sound</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-      <div className='indicator'>
-        <div className={'ui float right icon'}>
-          <i className={`ui volume ${this.state.enabled ? 'up' : 'off'} orange huge icon`} />
-        </div>
-      </div>
-    </div>
+    return <Button.Group className='settings show-on-hover'>
+      <Dropdown floating labeled button icon='cogs' text='Test sounds' className='primary icon'>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => this.playSound(startSound)}>Test Start Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(stopSound)}>Test Stop Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(endSound)}>Test End Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(endgameSound)}>Test End Game Sound</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Button color={this.state.enabled ? 'orange' : ''} onClick={() => this.toggleState(this.state.enabled)}>
+        <Icon name={`volume ${this.state.enabled ? 'up' : 'off'}`}></Icon>
+        {this.state.enabled ? 'Sound on' : 'Sound off'}
+      </Button>
+    </Button.Group>
   }
 }

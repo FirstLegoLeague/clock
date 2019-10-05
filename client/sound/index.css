@@ -1,24 +1,5 @@
-.sound-line {
-	/*height: 10vh;*/
-	/*position: absolute;*/
-	/*top: 0;*/
-	/*left: 0;*/
-	width: 100% !important;
-}
-
 .settings {
-	/*height: 10vh;*/
-	/*position: absolute;*/
-	/*top: 0;*/
-	/*left: 0;*/
-	z-index: 1;
-}
-
-.indicator {
-	/*height: 10vh;*/
-	/*position: absolute;*/
-	/*top: 0;*/
-	/*left: 0;*/
-	margin-left: auto;
-	z-index: 1;
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
 }
