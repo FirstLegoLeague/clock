@@ -6,7 +6,7 @@
     "start": "concurrently -k \"yarpm start:server\" \"yarpm start:ui\"",
     "start:ui": "webpack-dev-server --mode development --config webpack.dev.js",
     "start:server": "devl -p 8080",
-    "test": "mocha ./test/**/*.test.js",
+    "test": "yarpm run test:server && yarpm run test:ui",
     "test:ci": "yarpm run test:ci:server && yarpm run test:ci:ui && codecov",
     "test:ci:server": "nyc --all -n=server/**/*.js --report-dir ./coverage/server -r lcovonly yarpm run test:server",
     "test:ci:ui": "yarpm run test:ui --reporters mocha,coverage",
@@ -42,7 +42,8 @@
     "@first-lego-league/ms-logger": "^2.0.1",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
-    "mhub": "^1.0.0"
+    "mhub": "^1.0.0",
+    "semantic-ui-react": "^0.88.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
