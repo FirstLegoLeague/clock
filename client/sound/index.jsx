@@ -38,19 +38,19 @@ export default class Sound extends Component {
     }
 
     onStartEvent(() => {
-      this.playSound(this.startAudio)
+      this.playSoundIfEnabled(this.startAudio)
     })
 
     onEndGameEvent(() => {
-      this.playSound(this.endgameAudio)
+      this.playSoundIfEnabled(this.endgameAudio)
     })
 
     onEndEvent(() => {
-      this.playSound(this.endAudio)
+      this.playSoundIfEnabled(this.endAudio)
     })
 
     onStopEvent(() => {
-      this.playSound(this.stopAudio)
+      this.playSoundIfEnabled(this.stopAudio)
     })
 
     this.state = { enabled: true }
