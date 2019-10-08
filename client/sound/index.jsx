@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import { Dropdown, Button, Icon } from 'semantic-ui-react'
 
 import './index.css'
 
@@ -13,6 +14,11 @@ import { onStartEvent, onEndEvent, onStopEvent, onEndGameEvent } from '../mhub-l
 export default class Sound extends Component {
   constructor (props) {
     super(props)
+
+    this.startAudio = new window.Audio(startSound)
+    this.stopAudio = new window.Audio(stopSound)
+    this.endgameAudio = new window.Audio(endgameSound)
+    this.endAudio = new window.Audio(endSound)
 
     window.localStorage.setItem('sound-window', true)
 
@@ -32,49 +38,59 @@ export default class Sound extends Component {
     }
 
     onStartEvent(() => {
-      this.testSound(startSound)
+      this.playSound(this.startAudio)
     })
 
     onEndGameEvent(() => {
-      this.testSound(endgameSound)
+      this.playSound(this.endgameAudio)
     })
 
     onEndEvent(() => {
-      this.testSound(endSound)
+      this.playSound(this.endAudio)
     })
 
     onStopEvent(() => {
-      this.testSound(stopSound)
+      this.playSound(this.stopAudio)
     })
 
-    this.state = {}
+    this.state = { enabled: true }
   }
 
-  testSound (sound) {
-    const audio = new window.Audio(sound)
+  playSound (audio) {
     audio.play()
       .catch(err => {
         console.error(err)
       })
   }
 
+  toggleState (isEnabled) {
+    if (isEnabled) {
+      this.setState({ enabled: false })
+    } else {
+      this.setState({ enabled: true })
+    }
+  }
+
+  playSoundIfEnabled (sound) {
+    if (this.state.enabled) {
+      this.playSound(sound)
+    }
+  }
+
   render () {
-    return [
-      <h1>Test sounds</h1>,
-      <div className={'ui large buttons'}>
-        <button className='ui button' type='button' onClick={() => this.testSound(startSound)} >
-            Start Sound
-        </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(endSound)} >
-            End Sound
-        </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(stopSound)} >
-            Stop Sound
-        </button>
-        <button className='ui button' type='button' onClick={() => this.testSound(endgameSound)} >
-            End Game Sound
-        </button>
-      </div>
-    ]
+    return <Button.Group className='settings show-on-hover'>
+      <Dropdown floating labeled button icon='cogs' text='Test sounds' className='primary icon'>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => this.playSound(this.startAudio)}>Start Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(this.endAudio)}>Stop Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(this.stopAudio)}>End Sound</Dropdown.Item>
+          <Dropdown.Item onClick={() => this.playSound(this.endgameAudio)}>End Game Sound</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Button color={this.state.enabled ? 'orange' : ''} onClick={() => this.toggleState(this.state.enabled)}>
+        <Icon name={`volume ${this.state.enabled ? 'up' : 'off'}`} />
+        {this.state.enabled ? 'Sound on' : 'Sound off'}
+      </Button>
+    </Button.Group>
   }
 }

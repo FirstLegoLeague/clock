@@ -59,71 +59,14 @@ describe('Sounds Window', () => {
     sandbox.restore()
   })
 
-  it('sets sound-window key in local storage when created', () => {
-    mount(<Sound />)
-    expect(window.localStorage).to.have.property('sound-window').which.is.equal('true')
-  })
-
-  it('removes sound-window key from local storage when unloading', () => {
-    mount(<Sound />)
-    sandbox.resetHistory()
-
-    listeners.onUnload()
-
-    expect(window.localStorage).to.not.have.property('sound-window')
-  })
-
-  it('claims focus on the window when "focus" key is created in local storage', () => {
-    mount(<Sound />)
-
-    listeners.onStorage({ key: 'focus', newValue: 'true' })
-
-    expect(window.focus).to.have.been.calledOnce
-  })
-
-  it('remove the "focus" key when "focus" key is created in local storage', () => {
-    mount(<Sound />)
-    window.localStorage.setItem('focus', 'true')
-
-    listeners.onStorage({ key: 'focus', newValue: 'true' })
-
-    expect(window.localStorage).to.not.have.property('focus')
-  })
-
-  it('not doing anything when key is changed in local storage other then "focus"', () => {
-    mount(<Sound />)
-    window.localStorage.setItem('focus', 'true')
-
-    listeners.onStorage({ key: 'other', newValue: 'true' })
-
-    expect(window.focus).to.have.not.been.called
-    expect(window.localStorage).to.have.property('focus')
-  })
-
-  it('not doing anything when key is "focus" key is removed from local storage', () => {
-    mount(<Sound />)
-    window.localStorage.setItem('focus', 'true')
-
-    listeners.onStorage({ key: 'other', newValue: null })
-
-    expect(window.focus).to.have.not.been.called
-    expect(window.localStorage).to.have.property('focus')
-  })
-
-  it('sets closing message', () => {
-    mount(<Sound />)
-
-    expect(listeners.onBeforeUnload()).to.match(/Are you sure/)
-  })
-
   ;['start', 'stop', 'end', 'end-game'].forEach(event => {
     it(`play ${event} sound when ${event} event triggered`, () => {
       const playSpy = sinon.stub().resolves()
-      mount(<Sound />)
-
       window.Audio.returns({
         play: playSpy
       })
+
+      mount(<Sound />)
 
       mhubEventEmitter.emit(event)
 
@@ -133,13 +76,13 @@ describe('Sounds Window', () => {
 
     it(`play ${event} sound when ${event} sound button clicked`, () => {
       const playSpy = sinon.stub().resolves()
-      const wrapper = mount(<Sound />)
-
       window.Audio.returns({
         play: playSpy
       })
 
-      wrapper.find('button')
+      const wrapper = mount(<Sound />)
+
+      wrapper.find('.item')
         .filterWhere(b => b.text().toLowerCase() === `${event.replace('-', ' ')} sound`)
         .simulate('click')
 
@@ -155,12 +98,11 @@ describe('Sounds Window', () => {
         expect(console.error).to.have.been.calledWith(error)
         done()
       })
+
     const wrapper = mount(<Sound />)
 
-    window.Audio.returns({
+    wrapper.instance().playSound({
       play: sinon.stub().rejects(error)
     })
-
-    wrapper.instance().testSound()
   })
 })
