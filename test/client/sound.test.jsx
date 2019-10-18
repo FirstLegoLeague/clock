@@ -49,10 +49,10 @@ describe('Sounds Window', () => {
     Sound.__Rewire__('onEndEvent', EventEmitter.prototype.on.bind(mhubEventEmitter, 'end'))
     Sound.__Rewire__('onEndGameEvent', EventEmitter.prototype.on.bind(mhubEventEmitter, 'end-game'))
 
-    Sound.__Rewire__('startSound', 'start-sound')
-    Sound.__Rewire__('stopSound', 'stop-sound')
-    Sound.__Rewire__('endSound', 'end-sound')
-    Sound.__Rewire__('endgameSound', 'end-game-sound')
+    Sound.__Rewire__('startSound', 'start-match')
+    Sound.__Rewire__('stopSound', 'abort-match')
+    Sound.__Rewire__('endSound', 'end-match')
+    Sound.__Rewire__('endgameSound', '30-sec-warning')
   })
 
   afterEach(() => {
