@@ -14,6 +14,13 @@ chai.use(sinonChai)
 const { mount } = Enzyme
 const { expect } = chai
 
+const BUTTON_TEXTS = {
+  'start': 'Start match',
+  'stop': 'End match',
+  'end': 'Abort match',
+  'end-game': '30-sec warning'
+}
+
 describe('Sounds Window', () => {
   let sandbox, listeners, mhubEventEmitter
 
@@ -49,10 +56,10 @@ describe('Sounds Window', () => {
     Sound.__Rewire__('onEndEvent', EventEmitter.prototype.on.bind(mhubEventEmitter, 'end'))
     Sound.__Rewire__('onEndGameEvent', EventEmitter.prototype.on.bind(mhubEventEmitter, 'end-game'))
 
-    Sound.__Rewire__('startSound', 'start-match')
-    Sound.__Rewire__('stopSound', 'abort-match')
-    Sound.__Rewire__('endSound', 'end-match')
-    Sound.__Rewire__('endgameSound', '30-sec-warning')
+    Sound.__Rewire__('startSound', 'start-sound')
+    Sound.__Rewire__('stopSound', 'stop-sound')
+    Sound.__Rewire__('endSound', 'end-sound')
+    Sound.__Rewire__('endgameSound', 'end-game-sound')
   })
 
   afterEach(() => {
@@ -83,7 +90,7 @@ describe('Sounds Window', () => {
       const wrapper = mount(<Sound />)
 
       wrapper.find('.item')
-        .filterWhere(b => b.text().toLowerCase() === `${event.replace('-', ' ')} sound`)
+        .filterWhere(b => b.text() === BUTTON_TEXTS[event])
         .simulate('click')
 
       expect(window.Audio).to.have.been.calledWith(`${event}-sound`)
