@@ -50,7 +50,7 @@ export default class Controls extends Component {
   }
 
   stopButton () {
-    return this.button('red', this.stopClock, 'stop', 'Stop')
+    return this.button('red', this.stopClock, 'stop', 'Abort')
   }
 
   reloadButton () {
