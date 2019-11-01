@@ -66,7 +66,7 @@ export default class Controls extends Component {
           return this.startButton()
         }
       case 'prerunning':
-        return [this.startButton(), this.stopButton()]
+        return [this.stopButton()]
       case 'running':
         return this.stopButton()
       case 'ended':
