@@ -1,17 +1,20 @@
 .controls-container {
     position: absolute;
     width: 100%;
-    display: flex;
     left: 0;
-    bottom: 0;
-    justify-content: space-evenly;
+    bottom: 1rem;
 }
 
-.controls {
+.controls-container > .buttons {
+	width: 100%;
+}
+
+.controls-container .button {
+    color: black !important;
     height: 7rem;
-    width: 10rem;
-}
+    font-size: 3rem !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 
-.controls .hover.text {
-    margin-top: 0.5rem;
 }
