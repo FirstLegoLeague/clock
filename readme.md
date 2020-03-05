@@ -20,15 +20,19 @@ The clock creates to the following mhub messages (on the protected node)
 | `clock:reload` | Fired when the clock is reset the time         |                                 |
 | `clock:time`   | Fired each second during the countdown         | Seconds to end of the countdown |
 
-## External software
+## Using the Clock API
 
-### MPlayer
+In order to use the API, you first need to get an authenticity token. You can get this by sending an authentication request to the [Identity Provider](https://github.com/FirstLegoLeague/identity-provider) module (AKA IdP). It runs on the server computer, typically listening on port 2030.
 
-This module is using mplayer to play the different sound for the server.
-The original software and it's source can be found on the
-[mplayer site](http://www.mplayerhq.hu). This software is been changed
-such that only the mplayer executable and the licenese is provided as
-part of this module.
+Send a request: `POST idp-endpoint/login?callbackUrl=url with the body { username: admin, password: your-admin-password }`
+
+You will receive a 304 Redirect with set-cookie header that contains the auth token. You can use that.
+Once you have the authenticity token, you send it as a header in each request you make. 
+
+The timer API has four actions:
+-  POST timer-endpoint/action/start - will start the timer, only if it isn't running already. If the timer is running it will return 400 Bad Request.
+-  POST timer-endpoint/action/stop - will stop the timer, only if it's running. If the timer isn't running it will return 400 Bad Request.
+-  POST timer-endpoint/action/reload- will set the timer back to 2:30, only if it's done running. If the timer isn't done running it will return 400 Bad Request.
 
 ## Publishing to NPM
 
